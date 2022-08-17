@@ -68,7 +68,7 @@ class HogoshaController extends Controller
 
         $hogosha->save();
 
-        //
+        
 
         //登録後の再取得
         $items = Hogosha::all();
