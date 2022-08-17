@@ -1,0 +1,6 @@
+<html>
+        <body><p><?php echo $id; ?></p>
+            <pre>{$request}</pre>
+            <pre>{$response}</pre>
+        </body>
+</html>
