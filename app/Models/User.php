@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        // No. h.hashimoto 2022/08/18 ------>
+        'userType',
+        'studentName',
+        // <------  No. h.hashimoto 2022/08/18 
     ];
 
     /**
