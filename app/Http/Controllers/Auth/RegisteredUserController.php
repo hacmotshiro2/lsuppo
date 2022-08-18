@@ -18,10 +18,20 @@ class RegisteredUserController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+    // No. h.hashimoto 2022/08/18 ------>
+    // public function create()
+    // {
+    //     return view('auth.register');
+    // }
+    public function create($userType=0)
     {
-        return view('auth.register');
+        $arg=[
+            'userType'=>$userType,
+        ];
+        return view('auth.register',$arg);
     }
+
+    // <------  No. h.hashimoto 2022/08/18 
 
     /**
      * Handle an incoming registration request.

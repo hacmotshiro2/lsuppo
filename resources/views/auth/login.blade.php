@@ -51,6 +51,13 @@
                     {{ __('Log in') }}
                 </x-button>
             </div>
+    <!-- No. h.hashimoto 2022/08/18 ------> 
+    <div>
+        <a class="text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}/1">
+        保護者の方の登録はこちらから
+        </a>
+    </div>
+    <!-- <------  No. h.hashimoto 2022/08/18  -->
         </form>
     </x-auth-card>
 </x-guest-layout>
