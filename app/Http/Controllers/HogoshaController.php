@@ -5,35 +5,49 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+use App\Models\User;
 use App\Models\Hogosha;
+use App\Models\User2Hogosha;
 use Illuminate\Support\Facades\Auth;
 
-use App\Consts\SessionConst;
 
 
 class HogoshaController extends Controller
 {
     /*保護者用画面*/
-    //セッションの取得
-    public function ses_get(Request $request){
-        $sesdata = $request->session()->get(SessionConst::SESKEY_ID);
-        return view ();#TODO
+  
+    //共通処理
+    //認証情報から保護者情報の取得
+    public static function getHogoshaCd(User $user){
+     
+        //UserとHogoshaの紐づけテーブルからレコードを取得する。
+        $u2h = User2Hogosha::where('user_id',$user->id)->first();
+
+        //取得できないときは、管理者の処理がまだなので、そのようなエラーページに遷移する。
+        if(empty($u2h)){
+        
+            #TODO
+            abort('500',$message='管理者の登録が未済です');
+            // return view('error',['errors'=>['管理者の登録が未済です']]);
+        }
+
+        return $u2h->HogoshaCd;
     }
-    public function ses_set(Request $request){
-        return redirect('');#TODO
+    //認証情報からStudentの情報を取得する
+    public static function getStudentCd(User $user){
+        #TODO
     }
     //マイページ
-    public function mypage(Request $request, Response $response, $id='no name'){
-        
+    public function mypage(Request $request){
         $user = Auth::user();
-        if(!is_null($user)){
-            $id = is_null($user->name)?'':$user->name;
+        if(is_null($user)){
+            //middlewareでチェックしているのでここには入らない想定
+            abort('500',$message='ログイン情報が不正です。ログインし直してください。');
         }
-        
+
         $arg = [
-            'id'=>$id,
-            'msg'=>'',
-            'user'=>$user,
+            'id'=>$this->getHogoshaCd($user),
+            'name'=>$user->name,
         ];
         return view('Hogosha.mypage',$arg);
     }

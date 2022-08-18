@@ -23,35 +23,38 @@
                     */
                 }
         </style>
-
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
-        <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}" ></script>
-        <header>
-            <div class="header border-bottom">
-                <x-header />
-            </div>
-        </header>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="menubar">
-                        <x-menubar id="{{ $id }}"/>
+        <div class="min-h-screen bg-gray-100">
+            <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}" ></script>
+            <header>
+                <div class="header border-bottom">
+                    <x-header />
+                </div>
+            </header>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="menubar">
+                            <x-menubar id="{{ $id }}"/>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="content overflow-auto">
-                    @yield('content')
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="content overflow-auto">
+                        @yield('content')
+                        </div>
                     </div>
+                    </div>
+            </div>
+            <footer>
+                <div class="footer border-top sticky-bottom">
+                    <x-footer />
                 </div>
-                </div>
+            </footer>
         </div>
-        <footer>
-            <div class="footer border-top sticky-bottom">
-                <x-footer />
-            </div>
-        </footer>
     </body>
 </html>

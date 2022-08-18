@@ -8,6 +8,10 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+// No. h.hashimoto 2022/08/18 ------>
+use App\Http\Controllers\SessionController;
+// <------  No. h.hashimoto 2022/08/18 
+
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -22,7 +26,7 @@ class AuthenticatedSessionController extends Controller
 
     /**
      * Handle an incoming authentication request.
-     *
+     * ログイン画面のPOST処理
      * @param  \App\Http\Requests\Auth\LoginRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */

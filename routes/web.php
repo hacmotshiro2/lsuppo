@@ -19,22 +19,36 @@ Route::get('/', function () {
     return view('debug');
     // return view('helloworld');
 });
-Route::get('/mypage/{id?}', 'App\Http\Controllers\HogoshaController@mypage')->middleware('auth');
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
+Route::get('/error',function(){
+    return view('error');
+});
+
+/*保護者が参照するページ*/
+Route::get('/mypage', 'App\Http\Controllers\HogoshaController@mypage')->middleware('auth');
+Route::get('/fb/detail/{fbNo}', 'App\Http\Controllers\FBController@fbDetail')->middleware('auth');
+Route::get('/fb/', 'App\Http\Controllers\FBController@index')->middleware('auth');
+Route::get('/lc/{id?}', 'App\Http\Controllers\LCoinController@index')->middleware('auth');
+
+
+/*サポーターが参照するページ*/
 Route::get('/supporter-page/{id?}','App\Http\Controllers\SupporterController@index');
-
 Route::get('/fb/regist/{id?}', 'App\Http\Controllers\FBController@regist');
 Route::post('/fb/regist/{id?}', 'App\Http\Controllers\FBController@registpost');
-Route::get('/fb/detail/{fbNo}', 'App\Http\Controllers\FBController@fbDetail')->middleware('auth');
-Route::get('/fb/{id?}', 'App\Http\Controllers\FBController@index')->middleware('auth');
-Route::post('/fb/{id?}', 'App\Http\Controllers\FBController@post')->middleware('auth');
 
+
+/*システム管理者が参照するページ*/
 Route::get('/sysad/', 'App\Http\Controllers\SysAdController@index');
 
 Route::get('/hogosha/add/', 'App\Http\Controllers\HogoshaController@add');
 Route::post('/hogosha/add/', 'App\Http\Controllers\HogoshaController@create');
 
-Route::get('/lc/{id?}', 'App\Http\Controllers\LCoinController@index')->middleware('auth');
 
 
 // Route::get('/fb/list/{id?}', 'App\Http\Controllers\FBController@list');
@@ -44,8 +58,3 @@ Route::get('/lc/{id?}', 'App\Http\Controllers\LCoinController@index')->middlewar
 //     return view('helloworld',$arg);
 // });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-require __DIR__.'/auth.php';

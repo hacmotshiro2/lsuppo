@@ -7,16 +7,21 @@ use Illuminate\Http\Response;
 
 use App\Http\Requests\FBRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 use App\Models\FB;
 
+use App\Http\Controllers\HogoshaController;
 
 class FBController extends Controller
 {
     //fb\
-    public function index(Request $request, Response $response, $id='no name'){
+    public function index(Request $request, Response $response){
+        //認証情報を取得し、保護者コードを取得する
+        $user = Auth::user();
+        $hogoshaCd = HogoshaController::getHogoshaCd($user);
 
-        $hogoshaCd = 'HDemo1'; //最終的には、引き継いできた保護者コードをセット
         $param = ['hogoshaCd'=>$hogoshaCd];
         $items = DB::select("
         SELECT 
@@ -54,23 +59,23 @@ class FBController extends Controller
         ,$param);
 
         $arg = [
-            'id'=>$id,
+            'id'=>$user->id,
             'msg'=>'',
             'items' => $items,
         ];
 
         return view('FB.index',$arg);
     }
-    public function post($id='no name',Request $request){
-        $m =$request->msg;
-
-        $arg = [
-            'id'=>$id,
-            // 'msg'=>$request->msg,
-            'msg'=>$m,
+     // /fb/detail/{fbNo}
+     public function fbDetail(Request $request,$fbNo){
+        #TODO 改めて保護者の認証は入れるべき
+        $item=FB::where('FbNo',$fbNo)->first();
+        $arg=[
+            'id'=>Auth::user()->id,
+            'item'=>$item,
         ];
-        return view('FB.index',$arg);
 
+        return view('FB.detail',$arg);
 
     }
     //fb\regist
@@ -132,17 +137,7 @@ class FBController extends Controller
 
     }
     
-    // /fb/detail/{fbNo}
-    public function fbDetail(Request $request,$fbNo){
-        $item=FB::where('FbNo',$fbNo)->first();
-        $arg=[
-            'id'=>'no-name',
-            'item'=>$item,
-        ];
-
-        return view('FB.detail',$arg);
-
-    }
+  
 
 
     /*以下練習コード*/

@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Auth\Middleware\Authenticate as Middleware;//エイリアスで指定している通り、これが継承元
 
 class Authenticate extends Middleware
 {

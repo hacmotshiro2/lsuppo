@@ -15,6 +15,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
+        //event関数にRegisteredクラスがはいったらSendEmailVerificationNotificationクラスに送られる
+        //メール認証は初期ではOFFになっている
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],

@@ -1,14 +1,9 @@
 @extends('layouts.lsuppo-base')
 
 @section('title')
-<p>エルサポ マイページ</p>
+エルサポ 保護者ページ
 @endsection
       
 @section('content')
-@if(isset($user))
-<p>コンテンツです。（子テンプレート）</p>
-@else
-<p>ログインしていません。</p>
-<p>(<a href = "/login">ログイン</a> | <a href = "/register">登録</a>)</p>
-@endif
+<p>{{$name}}さん　こんにちは。メニューを選択して下さい</p>
 @endsection

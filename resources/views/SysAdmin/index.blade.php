@@ -1,5 +1,5 @@
 
-@extends('layouts.sysadmin-base')
+@extends('layouts.lsuppo-base-nomenu')
 
 @section('title')
 システム管理者ページ
