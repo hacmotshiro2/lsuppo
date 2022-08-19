@@ -5,14 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-use App\Http\Requests\FBRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-
 use App\Models\FB;
-
+use App\Http\Requests\FBRequest;
 use App\Http\Controllers\HogoshaController;
+use App\Consts\DBConst;
 
 class FBController extends Controller
 {
@@ -82,6 +81,7 @@ class FBController extends Controller
     //fb\regist
     public function regist(Request $request, Response $response){
         $arg = [
+            #TODO
             'userName'=>'システム管理者',
             'msg'=>'',
         ];
@@ -90,7 +90,7 @@ class FBController extends Controller
     // public function registpost($id='no name',Request $request){
     public function registpost(FBRequest $request){
 
-        $studentcd= "SDemo3";//セッションで引き継いでくるイメージ
+        $studentcd= "SDemo3";//画面上で入力させるが、サポーターが所属するLRに所属する生徒のみにする必要あり
 
 
         // $m =$request->msg;
@@ -127,7 +127,7 @@ class FBController extends Controller
             'ShouninStatus'=>"5",
             'UpdateDatetime'=> date("Y-m-d H:i:s"),
             'UpdateGamen'=>(empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], //:現在のURL
-            'UpdateSystem'=>"lsuppo",
+            'UpdateSystem'=>DBConst::UPDATE_SYSTEM,
         ];
     
         DB::insert("INSERT INTO `r_fe_feedbackmeisai`( `StudentCd`, `FbShurui`, `TaishoukikanFrom`, `TaishoukikanTo`, `LearningRoomCd`, `Title`, `Detail`, `KinyuuSupporterCd`, `KinyuuDate`, `ShouninSupporterCd`, `ShouninDate`, `ShouninStatus`, `UpdateDatetime`, `UpdateGamen`, `UpdateSystem`)   VALUES (:StudentCd, :FbShurui, :TaishoukikanFrom, :TaishoukikanTo,:LearningRoomCd, :Title, :Detail, :KinyuuSupporterCd, :KinyuuDate, :ShouninSupporterCd, :ShouninDate, :ShouninStatus,:UpdateDatetime, :UpdateGamen, :UpdateSystem) "
