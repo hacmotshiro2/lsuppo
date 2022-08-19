@@ -2,7 +2,7 @@
 @extends('layouts.lsuppo-base')
 
 @section('title')
-<p>エルコイン登録ページ</p>
+エルコイン登録ページ
 @endsection
       
 @section('content')

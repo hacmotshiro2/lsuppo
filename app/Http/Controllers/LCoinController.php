@@ -32,14 +32,15 @@ class LCoinController extends Controller
         SELECT 
             lc.id,
             lc.StudentCd,
-            MS.HyouziMei,
+            MS.HyouziMei StudentName,
             MS.HogoshaCd,
             lc.HasseiDate,
             lc.ZiyuuCd,
+            MZ.Ziyuu,
             MZ.amount,
             lc.ZiyuuHosoku,
             lc.TourokuSupporterCd,
-            MSP.HyouziMei,
+            MSP.HyouziMei TourokuSupporterName,
             lc.amount
         FROM r_lc_lcoinmeisai lc
         LEFT OUTER JOIN m_student MS
@@ -50,11 +51,12 @@ class LCoinController extends Controller
         ON MSP.SupporterCd = lc.TourokuSupporterCd
         WHERE MS.HogoshaCd = :hogoshaCd
         ORDER BY lc.StudentCd,lc.HasseiDate DESC
-        ;");
+        ",$param);
         //残高計算
-        #TODO
-        $lczandaka=100;
-
+        $lczandaka=0;
+        foreach($items as $item){
+            $lczandaka+=intVal($item->amount);
+        }
         $arg = [
             'userName'=>$user->name,
             'msg'=>'',
