@@ -34,7 +34,7 @@ Route::get('/error',function(){
 Route::get('/mypage', 'App\Http\Controllers\HogoshaController@mypage')->middleware('auth');
 Route::get('/fb/detail/{fbNo}', 'App\Http\Controllers\FBController@fbDetail')->middleware('auth');
 Route::get('/fb/', 'App\Http\Controllers\FBController@index')->middleware('auth');
-Route::get('/lc/{id?}', 'App\Http\Controllers\LCoinController@index')->middleware('auth');
+Route::get('/lc/', 'App\Http\Controllers\LCoinController@index')->middleware('auth');
 
 
 /*サポーターが参照するページ*/
@@ -43,7 +43,7 @@ Route::get('/fb/regist/', 'App\Http\Controllers\FBController@regist');
 Route::post('/fb/regist/', 'App\Http\Controllers\FBController@registpost');
 
 
-/*システム管理者が参照するページ*/
+/*システム主管者が参照するページ*/
 Route::get('/sysad/', 'App\Http\Controllers\SysAdController@index');
 
 Route::get('/hogosha/add/', 'App\Http\Controllers\HogoshaController@add');
@@ -51,6 +51,10 @@ Route::post('/hogosha/add/', 'App\Http\Controllers\HogoshaController@create');
 
 Route::get('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hadd');
 Route::post('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hcreate');
+
+Route::get('/lc/regist/', 'App\Http\Controllers\LCoinController@regist');
+Route::post('/lc/regist/', 'App\Http\Controllers\LCoinController@registpost');
+
 
 // Route::get('/fb/list/{id?}', 'App\Http\Controllers\FBController@list');
 

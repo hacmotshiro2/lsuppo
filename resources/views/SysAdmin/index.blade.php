@@ -1,5 +1,5 @@
 
-@extends('layouts.lsuppo-base-nomenu')
+@extends('layouts.lsuppo-base')
 
 @section('title')
 システム管理者ページ
@@ -22,4 +22,8 @@
         <ul>
             <li><a href="/fb/regist/">ラーニングルーム登録</a></li>
         </ul>
+        <ul>
+            <li><a href="/lc/regist/">エルコイン登録</a></li>
+        </ul>
+
 @endsection

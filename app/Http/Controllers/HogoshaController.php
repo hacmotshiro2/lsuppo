@@ -11,6 +11,7 @@ use App\Models\Hogosha;
 use App\Models\User2Hogosha;
 use Illuminate\Support\Facades\Auth;
 
+use App\Consts\MessageConst;
 
 
 class HogoshaController extends Controller
@@ -28,7 +29,7 @@ class HogoshaController extends Controller
         if(empty($u2h)){
         
             #TODO
-            abort('500',$message='管理者の登録が未済です');
+            abort('500',$message=MessageConst::U2H_ERROR);
             // return view('error',['errors'=>['管理者の登録が未済です']]);
         }
 
