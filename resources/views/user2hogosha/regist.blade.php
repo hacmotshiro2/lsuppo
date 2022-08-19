@@ -2,7 +2,7 @@
 @extends('layouts.lsuppo-base')
 
 @section('title')
-<p>フィードバック登録ページ</p>
+<p>ユーザーと保護者の紐づけ登録ページ</p>
 @endsection
       
 @section('content')
@@ -18,7 +18,7 @@
             </ul>
         </div>
         @endif
-        <form method="POST" action="/fb/regist/" class="row g-2">
+        <form method="POST" action="/fb/regist/{{$id}}" class="row g-2">
             @csrf
 
             <div class="col-md-12">

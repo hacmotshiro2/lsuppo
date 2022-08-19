@@ -39,8 +39,8 @@ Route::get('/lc/{id?}', 'App\Http\Controllers\LCoinController@index')->middlewar
 
 /*サポーターが参照するページ*/
 Route::get('/supporter-page/{id?}','App\Http\Controllers\SupporterController@index');
-Route::get('/fb/regist/{id?}', 'App\Http\Controllers\FBController@regist');
-Route::post('/fb/regist/{id?}', 'App\Http\Controllers\FBController@registpost');
+Route::get('/fb/regist/', 'App\Http\Controllers\FBController@regist');
+Route::post('/fb/regist/', 'App\Http\Controllers\FBController@registpost');
 
 
 /*システム管理者が参照するページ*/
@@ -49,7 +49,8 @@ Route::get('/sysad/', 'App\Http\Controllers\SysAdController@index');
 Route::get('/hogosha/add/', 'App\Http\Controllers\HogoshaController@add');
 Route::post('/hogosha/add/', 'App\Http\Controllers\HogoshaController@create');
 
-
+Route::get('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hadd');
+Route::post('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hcreate');
 
 // Route::get('/fb/list/{id?}', 'App\Http\Controllers\FBController@list');
 

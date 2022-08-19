@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
 use App\Models\Hogosha;
@@ -47,15 +48,17 @@ class HogoshaController extends Controller
 
         $arg = [
             'id'=>$this->getHogoshaCd($user),
-            'name'=>$user->name,
+            'userName'=>$user->name,
         ];
         return view('Hogosha.mypage',$arg);
     }
 
     /*システム管理者が使用する画面*/
-    //登録画面へ
+    //保護者登録画面へ
     public function add(Request $request, Response $response){
         $items = Hogosha::all();
+
+
         $arg=[
             'items'=>$items,
         ];
@@ -63,7 +66,7 @@ class HogoshaController extends Controller
         return view('hogosha.add',$arg);
 
     }
-    //登録画面のPOST
+    //保護者登録画面のPOST
     public function create(Request $request){
         $this->validate($request, Hogosha::$rules);
         $hogosha = new Hogosha;
@@ -92,6 +95,66 @@ class HogoshaController extends Controller
 
         // return redirect('hogosha-add',$arg);
         return view('hogosha.add',$arg);
+
+    }
+    //user2保護者登録画面へ /user2hogosha/add/
+    public function u2hadd(Request $request, Response $response){
+        
+        $items = $this->getu2hData();
+
+        $itemsHogosha = Hogosha::all();
+
+        $arg=[
+            'items'=>$items,
+            'itemsHogosha' =>$itemsHogosha,
+            'userName'=>'システム管理者',
+        ];
+
+        return view('user2hogosha.add',$arg);
+
+    }
+    //保護者登録画面のPOST
+    public function u2hcreate(Request $request){
+        $this->validate($request, User2Hogosha::$rules);
+        $u2h = new User2Hogosha;
+        $form = $request->all();
+        unset($form['_token']);
+        $u2h->fill($form);
+
+
+        $u2h->save();
+
+        
+
+        //登録後の再取得
+        $items = $this->getu2hData();
+
+        $itemsHogosha = Hogosha::all();
+
+        $arg=[
+            'items'=>$items,
+            'itemsHogosha' =>$itemsHogosha,
+            'userName'=>'システム管理者'
+        ];
+
+        return redirect('user2hogosha.add',302,$arg);
+
+    }
+    private function getu2hData(){
+        return DB::select("
+        select 
+        u.id
+        ,u.name
+        ,u.email
+        ,u.userType
+        ,u.StudentName
+        ,u2h.user_id
+        ,u2h.HogoshaCd
+        from users u
+        left outer join user2hogosha u2h
+        on u2h.user_id = u.id
+        "
+        );
 
     }
 }

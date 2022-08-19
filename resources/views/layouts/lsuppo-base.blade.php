@@ -31,14 +31,14 @@
             <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}" ></script>
             <header>
                 <div class="header border-bottom">
-                    <x-header />
+                    <x-lsuppo-header :userName="$userName"/>
                 </div>
             </header>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">
                         <div class="menubar">
-                            <x-menubar id="{{ $id }}"/>
+                            <x-hogoshamenu />
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
             </div>
             <footer>
                 <div class="footer border-top sticky-bottom">
-                    <x-footer />
+                    <x-lsuppo-footer />
                 </div>
             </footer>
         </div>

@@ -6,7 +6,6 @@
 @endsection
       
 @section('content')
-        <p>ID: {{$id}}</p>
         @if ($msg !='')
         <p> {{$msg}}</p>
         @endif

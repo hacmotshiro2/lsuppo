@@ -5,5 +5,5 @@
 @endsection
       
 @section('content')
-<p>{{$name}}さん　こんにちは。メニューを選択して下さい</p>
+<p>{{$userName}}さん　こんにちは。メニューを選択して下さい</p>
 @endsection

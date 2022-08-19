@@ -59,7 +59,7 @@ class FBController extends Controller
         ,$param);
 
         $arg = [
-            'id'=>$user->id,
+            'userName'=>$user->name,
             'msg'=>'',
             'items' => $items,
         ];
@@ -70,33 +70,34 @@ class FBController extends Controller
      public function fbDetail(Request $request,$fbNo){
         #TODO 改めて保護者の認証は入れるべき
         $item=FB::where('FbNo',$fbNo)->first();
+        $user=Auth::user();
         $arg=[
-            'id'=>Auth::user()->id,
             'item'=>$item,
+            'userName'=>$user->name,
         ];
 
         return view('FB.detail',$arg);
 
     }
     //fb\regist
-    public function regist(Request $request, Response $response, $id='no name'){
+    public function regist(Request $request, Response $response){
         $arg = [
-            'id'=>$id,
+            'userName'=>'システム管理者',
             'msg'=>'',
         ];
         return view('FB.regist',$arg);
     }
     // public function registpost($id='no name',Request $request){
-    public function registpost($id='no name',FBRequest $request){
+    public function registpost(FBRequest $request){
 
-        $studentcd= "SDemo2";//セッションで引き継いでくるイメージ
+        $studentcd= "SDemo3";//セッションで引き継いでくるイメージ
 
 
         // $m =$request->msg;
         $m ="正しく入力されました";
 
         $arg = [
-            'id'=>$id,
+            'userName'=>'システム管理者',
             // 'msg'=>$request->msg,
             'msg'=>$m,
         ];

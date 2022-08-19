@@ -14,6 +14,9 @@
             <li><a href="/hogosha/add/">保護者登録</a></li>
         </ul>
         <ul>
+            <li><a href="/user2hogosha/add/">ユーザーと保護者の紐づけ登録</a></li>
+        </ul>
+        <ul>
             <li><a href="/fb/regist/">サポーター登録</a></li>
         </ul>
         <ul>
