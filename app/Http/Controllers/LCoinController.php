@@ -53,15 +53,59 @@ class LCoinController extends Controller
         ORDER BY lc.StudentCd,lc.HasseiDate DESC
         ",$param);
         //残高計算
-        $lczandaka=0;
-        foreach($items as $item){
-            $lczandaka+=intVal($item->amount);
+        //生徒毎に配列を分ける為の準備
+        $sliceset=[];//オフセット、長さの多次元配列
+        $studentNameset=[];//生徒名、長さ
+        $offset = 0; //切り取りを開始する位置までのオフセット。一つ前の生徒のCount
+        $lentgh=0;
+        for($i=0;$i < count($items);$i++){
+
+            //最後か、当該生徒の最後のレコードの際
+            if($i==count($items)-1 or $items[$i]->StudentCd!==$items[$i+1]->StudentCd)
+            {
+                /*
+                例　2番目までがAさんで3番目から5番目がBさん6番目がCとすると
+                i =0 A  
+                i =1 A  lengthset=1-0+1=2  offsetset= 0  offset=0→1+1=2　
+                i =2 B  
+                i =3 B
+                i =4 B  lengthset=4-2+1=3  offsetset= 2  offset=2→4+1=5　
+                i =5 C
+                */
+                $sliceset[]=[
+                    'length'=>$i-$offset+1,
+                    'offset'=>$offset,
+                ];
+                $studentNameset[]=[
+                    $items[$i],
+                ];
+                $offset=$i+1;
+            }
         }
+        //生徒毎に配列を分ける
+        $itemset=[];//i,items(SELECT明細セット)
+        for($i=0;$i<count($sliceset);$i++){
+            $itemset[]= array_slice($items,$sliceset[$i]['offset'],$sliceset[$i]['length']);
+        }
+        //分けた配列ごとに残高を計算する
+        //生徒毎に計算する
+        $lczandaka=0;
+        $studentName='';
+        $lczandakas=[];//生徒名,額
+        foreach($itemset as $items){
+            $lczandaka=0;
+            foreach($items as $item){
+                $lczandaka+=intVal($item->amount);
+                $studentName = $item->StudentName;
+            }
+            $lczandakas[$studentName]=$lczandaka;
+        }
+
         $arg = [
             'userName'=>$user->name,
             'msg'=>'',
-            'lczandaka'=>$lczandaka,
-            'items' => $items,
+            'lczandakas'=>$lczandakas,
+            'itemset' => $itemset,
         ];
 
         return view('LCoin.index',$arg);
