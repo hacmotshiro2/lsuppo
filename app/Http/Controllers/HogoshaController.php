@@ -36,7 +36,7 @@ class HogoshaController extends Controller
         return $u2h->HogoshaCd;
     }
     //認証情報からStudentの情報を取得する
-    public static function getStudentCd(User $user){
+    public static function getStudentCdByHogoshaCd(User $user){
         #TODO
     }
     //マイページ

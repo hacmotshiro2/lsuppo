@@ -11,4 +11,9 @@ class LR extends Model
     
 
     use HasFactory;
+
+    public function getCdName(){
+        return $this->LearningRoomCd.':'.$this->LearningRoomName;
+    }
+
 }

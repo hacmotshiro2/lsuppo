@@ -49,6 +49,9 @@ Route::get('/sysad/', 'App\Http\Controllers\SysAdController@index');
 Route::get('/hogosha/add/', 'App\Http\Controllers\HogoshaController@add');
 Route::post('/hogosha/add/', 'App\Http\Controllers\HogoshaController@create');
 
+Route::get('/student/add/', 'App\Http\Controllers\StudentController@add');
+Route::post('/student/add/', 'App\Http\Controllers\StudentController@create');
+
 Route::get('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hadd');
 Route::post('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hcreate');
 
