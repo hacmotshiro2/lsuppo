@@ -20,6 +20,7 @@
                 font-family: 'Nunito', sans-serif;
             }
         </style>
+
     </head>
     <body class="antialiased">
         <p>for Debug</p>
@@ -27,7 +28,8 @@
             <li><a href="\mypage\">保護者ページ</a>
             <li><a href="\supporter-page\">サポーターページ</a>
             <li><a href="\sysad\">システム管理者ページ</a>
-            <li><a href="\dashboard\">ホーム</a>
+            <li><a href="\dashboard\">dashboard</a>
+           
         </ul>
     </body>
 </html>
