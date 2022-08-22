@@ -18,19 +18,8 @@
                 <x-lsuppo-header :userName="$userName"/>
             </div>
             <div class="bg-white-100 mt-16 md:mt-2">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="menubar">
-                            <x-hogoshamenu />
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="content overflow-auto">
-                        @yield('content')
-                        </div>
-                    </div>
+                <div class="content overflow-auto">
+                @yield('content')
                 </div>
             </div>
             <div class="footer border-top sticky-bottom">

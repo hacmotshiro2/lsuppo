@@ -90,7 +90,7 @@ class FBController extends Controller
     // public function registpost($id='no name',Request $request){
     public function registpost(FBRequest $request){
 
-        $studentcd= "SDemo3";//画面上で入力させるが、サポーターが所属するLRに所属する生徒のみにする必要あり
+        $studentcd= "SDemo1";//画面上で入力させるが、サポーターが所属するLRに所属する生徒のみにする必要あり
 
 
         // $m =$request->msg;
