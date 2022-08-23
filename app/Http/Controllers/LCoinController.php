@@ -117,11 +117,13 @@ class LCoinController extends Controller
         //ドロップダウンリストのための処理
         $students = Student::all();
         $ziyuus = Ziyuu::all();
+        #TODO userとsupporterを紐づけて、セット
+        $supporterCd = 'FDemo1';
 
         $arg = [
             #TODO
             'userName'=>'システム管理者',
-            'TourokuSupporterCd'=>'FDemo1',
+            'TourokuSupporterCd'=>$supporterCd,
             'msg'=>'',
             'students'=>$students,
             'ziyuus'=>$ziyuus,

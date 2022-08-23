@@ -35,11 +35,12 @@ class FBRequest extends FormRequest
     {
         return [
             //
-            'fbTitle' => 'required',
-            'fbDetail' => 'required',
+            'StudentCd'=>'required',
+            'LearningRoomCd'=>'required',
+            'Title' => 'required',
+            'Detail' => 'required',
             'TaishoukikanFrom' => 'required',
             'TaishoukikanTo' => 'required',
-
         ];
     }
 

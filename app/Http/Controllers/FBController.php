@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\FB;
+use App\Models\Student;
+use App\Models\LR;
+
 use App\Http\Requests\FBRequest;
 use App\Http\Controllers\HogoshaController;
 use App\Consts\DBConst;
@@ -80,25 +83,43 @@ class FBController extends Controller
     }
     //fb\regist
     public function regist(Request $request, Response $response){
+        $user = Auth::user();
+        $students = Student::all();
+        $lrs = LR::all();
+        #TODO userとsupporterを紐づけて、セット
+        $supporterCd = 'FDemo1';
+
         $arg = [
             #TODO
-            'userName'=>'サポーターサンプル',
+            'students'=>$students,
+            'lrs'=>$lrs,
+            'userName'=>$user->name,
+            'KinyuuSupporterCd'=>$supporterCd,
             'msg'=>'',
         ];
         return view('FB.regist',$arg);
     }
-    // public function registpost($id='no name',Request $request){
+    // fb\regist
     public function registpost(FBRequest $request){
 
-        $studentcd= "SDemo1";//画面上で入力させるが、サポーターが所属するLRに所属する生徒のみにする必要あり
+        //画面上で入力させるが、サポーターが所属するLRに所属する生徒のみにする必要あり→バリデーションへ
 
 
         // $m =$request->msg;
         $m ="正しく入力されました";
 
+        $user = Auth::user();
+        $students = Student::all();
+        $lrs = LR::all();
+        #TODO userとsupporterを紐づけて、セット
+        $supporterCd = 'FDemo1';
+
         $arg = [
-            'userName'=>'システム管理者',
-            // 'msg'=>$request->msg,
+            #TODO
+            'students'=>$students,
+            'lrs'=>$lrs,
+            'userName'=>$user->name,
+            'KinyuuSupporterCd'=>$supporterCd,
             'msg'=>$m,
         ];
 
@@ -111,58 +132,53 @@ class FBController extends Controller
         // ];
         // $this->validate($request,$validate_rule);
 
+        $fb = new FB;
+        $form = $request->all();
+        unset($form['_token']);
+        //フォームから値をセット
+        $fb->fill($form);
+        //フォームにはない値をセット
+        $fb->FbShurui=1;
+        $fb->FirstReadDate=null;
+        $fb->LastReadDate=null;
+        $fb->KinyuuDate=date("Y-m-d H:i:s");
+        #TODO承認機能
+        $fb->ShouninDate=date("Y-m-d H:i:s");
+        $fb->ShouninStatus=DBConst::SHOUNIN_STATUS_APPROVED;
+        $fb->ShouninSupporterCd=$request->KinyuuSupporterCd;
 
-        $param=[
-            'StudentCd'=>$studentcd,
-            'FbShurui'=>"1",
-            'TaishoukikanFrom'=>$request->TaishoukikanFrom,
-            'TaishoukikanTo'=>$request->TaishoukikanTo,
-            'LearningRoomCd'=>"100001",
-            'Title'=>$request->fbTitle,
-            'Detail'=>$request->fbDetail,
-            'KinyuuSupporterCd'=>"FDemo1",
-            'KinyuuDate'=> date("Y-m-d H:i:s"),
-            'ShouninSupporterCd'=>"FDemo1",
-            'ShouninDate'=> date("Y-m-d H:i:s"),
-            'ShouninStatus'=>"5",
-            'UpdateDatetime'=> date("Y-m-d H:i:s"),
-            'UpdateGamen'=>(empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], //:現在のURL
-            'UpdateSystem'=>DBConst::UPDATE_SYSTEM,
-        ];
+        $fb->UpdateDatetime=date("Y-m-d H:i:s");
+        $fb->UpdateGamen=(empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; //:現在のURL
+        $fb->UpdateSystem=DBConst::UPDATE_SYSTEM;
+
+
+        //登録処理
+        $fb->save();
+
+        // $param=[
+        //     'StudentCd'=>$studentcd,
+        //     'FbShurui'=>"1",
+        //     'TaishoukikanFrom'=>$request->TaishoukikanFrom,
+        //     'TaishoukikanTo'=>$request->TaishoukikanTo,
+        //     'LearningRoomCd'=>"100001",
+        //     'Title'=>$request->fbTitle,
+        //     'Detail'=>$request->fbDetail,
+        //     'KinyuuSupporterCd'=>"FDemo1",
+        //     'KinyuuDate'=> date("Y-m-d H:i:s"),
+        //     'ShouninSupporterCd'=>"FDemo1",
+        //     'ShouninDate'=> date("Y-m-d H:i:s"),
+        //     'ShouninStatus'=>"5",
+        //     'UpdateDatetime'=> date("Y-m-d H:i:s"),
+        //     'UpdateGamen'=>(empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], //:現在のURL
+        //     'UpdateSystem'=>DBConst::UPDATE_SYSTEM,
+        // ];
     
-        DB::insert("INSERT INTO `r_fe_feedbackmeisai`( `StudentCd`, `FbShurui`, `TaishoukikanFrom`, `TaishoukikanTo`, `LearningRoomCd`, `Title`, `Detail`, `KinyuuSupporterCd`, `KinyuuDate`, `ShouninSupporterCd`, `ShouninDate`, `ShouninStatus`, `UpdateDatetime`, `UpdateGamen`, `UpdateSystem`)   VALUES (:StudentCd, :FbShurui, :TaishoukikanFrom, :TaishoukikanTo,:LearningRoomCd, :Title, :Detail, :KinyuuSupporterCd, :KinyuuDate, :ShouninSupporterCd, :ShouninDate, :ShouninStatus,:UpdateDatetime, :UpdateGamen, :UpdateSystem) "
-        ,$param); //SQL文の骨子を準備
+        // DB::insert("INSERT INTO `r_fe_feedbackmeisai`( `StudentCd`, `FbShurui`, `TaishoukikanFrom`, `TaishoukikanTo`, `LearningRoomCd`, `Title`, `Detail`, `KinyuuSupporterCd`, `KinyuuDate`, `ShouninSupporterCd`, `ShouninDate`, `ShouninStatus`, `UpdateDatetime`, `UpdateGamen`, `UpdateSystem`)   VALUES (:StudentCd, :FbShurui, :TaishoukikanFrom, :TaishoukikanTo,:LearningRoomCd, :Title, :Detail, :KinyuuSupporterCd, :KinyuuDate, :ShouninSupporterCd, :ShouninDate, :ShouninStatus,:UpdateDatetime, :UpdateGamen, :UpdateSystem) "
+        // ,$param); //SQL文の骨子を準備
 
         return view('FB.regist',$arg);
 
 
     }
-    
   
-
-
-    /*以下練習コード*/
-    // public function index(Request $request, Response $response, $id='no name'){
-    //     return  <<<EOF
-    //     <html>
-    //     <body><p>{$id}</p>
-    //         <pre>{$request}</pre>
-    //         <pre>{$response}</pre>
-    //     </body>
-
-    //     </html>
-    //     EOF;
-    // }
-
-    // public function list($id='no name'){
-    //     return  <<<EOF
-    //     <html>
-    //     <body>
-    //     <li>{$id}</li>
-    //     <li>{$id}</li>
-    //     <li>{$id}</li>
-    //     </body>
-    //     </html>
-    //     EOF;
-    // }
 }

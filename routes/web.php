@@ -42,8 +42,8 @@ Route::post('/hogosha/edit/', 'App\Http\Controllers\HogoshaController@edit')->mi
 
 /*サポーターが参照するページ*/
 Route::get('/supporter-page/{id?}','App\Http\Controllers\SupporterController@index');
-Route::get('/fb/regist/', 'App\Http\Controllers\FBController@regist');
-Route::post('/fb/regist/', 'App\Http\Controllers\FBController@registpost');
+Route::get('/fb/regist/', 'App\Http\Controllers\FBController@regist')->middleware('auth');
+Route::post('/fb/regist/', 'App\Http\Controllers\FBController@registpost')->middleware('auth');
 
 /*権限レベルが高いサポーターが参照するページ*/
 Route::get('/sysad/', 'App\Http\Controllers\SysAdController@index');

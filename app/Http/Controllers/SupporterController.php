@@ -11,7 +11,7 @@ class SupporterController extends Controller
     public function index(Request $request, Response $response, $id='no name'){
     
         $arg = [
-            'id'=>$id,
+            'userName'=>'・・・',
             'msg'=>'',
         ];
 
