@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 // app\Http\Controllers\;
+use App\Http\Middleware\ControlSettings;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,10 +32,12 @@ Route::get('/error',function(){
 });
 
 /*保護者が参照するページ*/
-Route::get('/mypage', 'App\Http\Controllers\HogoshaController@mypage')->middleware('auth');
+Route::get('/mypage/', 'App\Http\Controllers\HogoshaController@mypage')->middleware('auth');
 Route::get('/fb/detail/{fbNo}', 'App\Http\Controllers\FBController@fbDetail')->middleware('auth');
 Route::get('/fb/', 'App\Http\Controllers\FBController@index')->middleware('auth');
 Route::get('/lc/', 'App\Http\Controllers\LCoinController@index')->middleware('auth');
+Route::get('/settings/', 'App\Http\Controllers\HogoshaController@settings')->middleware('auth')->middleware(ControlSettings::class);//HogoshaControllerにするのはおかしい
+Route::post('/hogosha/edit/', 'App\Http\Controllers\HogoshaController@edit')->middleware('auth');
 
 
 /*サポーターが参照するページ*/
@@ -42,8 +45,7 @@ Route::get('/supporter-page/{id?}','App\Http\Controllers\SupporterController@ind
 Route::get('/fb/regist/', 'App\Http\Controllers\FBController@regist');
 Route::post('/fb/regist/', 'App\Http\Controllers\FBController@registpost');
 
-
-/*システム主管者が参照するページ*/
+/*権限レベルが高いサポーターが参照するページ*/
 Route::get('/sysad/', 'App\Http\Controllers\SysAdController@index');
 
 Route::get('/hogosha/add/', 'App\Http\Controllers\HogoshaController@add');

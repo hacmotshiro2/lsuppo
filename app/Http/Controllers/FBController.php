@@ -82,7 +82,7 @@ class FBController extends Controller
     public function regist(Request $request, Response $response){
         $arg = [
             #TODO
-            'userName'=>'システム管理者',
+            'userName'=>'サポーターサンプル',
             'msg'=>'',
         ];
         return view('FB.regist',$arg);

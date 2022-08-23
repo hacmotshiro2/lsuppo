@@ -12,11 +12,11 @@ use App\Models\User2Hogosha;
 use Illuminate\Support\Facades\Auth;
 
 use App\Consts\MessageConst;
+use App\Consts\AuthConst;
 
 
 class HogoshaController extends Controller
 {
-    /*保護者用画面*/
   
     //共通処理
     //認証情報から保護者情報の取得
@@ -39,6 +39,9 @@ class HogoshaController extends Controller
     public static function getStudentCdByHogoshaCd(User $user){
         #TODO
     }
+
+    /*保護者用画面*/
+
     //マイページ
     public function mypage(Request $request){
         $user = Auth::user();
@@ -53,7 +56,38 @@ class HogoshaController extends Controller
         ];
         return view('Hogosha.mypage',$arg);
     }
+    //設定ページ
+    public function settings(Request $request){
+        $user = Auth::user();
+        if(is_null($user)){
+            //middlewareでチェックしているのでここには入らない想定
+            abort('500',$message='ログイン情報が不正です。ログインし直してください。');
+        }
+        if($user->userType!=AuthConst::USER_TYPE_HOGOSHA){
+            //middleware実装後はチェックしているのでここには入らない想定
+            abort('500',$message='保護者のみが利用できるページです');
+        }
+        $arg = [
+            // 'id'=>$this->getHogoshaCd($user),
+            'userName'=>$user->name,
+        ];
+        return view('Hogosha.settings',$arg);
+    }
+    //設定のPostページ
+    public function edit(Request $request, Response $response){
+        $user=Auth::user();
+        //入力された名称で上書く
+        $user->name = $request->username;
+        $user->save();
 
+        $arg = [
+            // 'id'=>$this->getHogoshaCd($user),
+            'MSG'=>'変更が完了しました。',
+            'userName'=>$user->name,
+        ];
+        return redirect('settings',302,$arg);
+    
+    }
     /*システム管理者が使用する画面*/
     //保護者登録画面へ
     public function add(Request $request, Response $response){
