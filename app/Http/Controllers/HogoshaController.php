@@ -19,22 +19,6 @@ class HogoshaController extends Controller
 {
   
     //共通処理
-    //認証情報から保護者情報の取得
-    public static function getHogoshaCd(User $user){
-     
-        //UserとHogoshaの紐づけテーブルからレコードを取得する。
-        $u2h = User2Hogosha::where('user_id',$user->id)->first();
-
-        //取得できないときは、管理者の処理がまだなので、そのようなエラーページに遷移する。
-        if(empty($u2h)){
-        
-            #TODO
-            abort('500',$message=MessageConst::U2H_ERROR);
-            // return view('error',['errors'=>['管理者の登録が未済です']]);
-        }
-
-        return $u2h->HogoshaCd;
-    }
     //認証情報からStudentの情報を取得する
     public static function getStudentCdByHogoshaCd(User $user){
         #TODO
@@ -44,26 +28,11 @@ class HogoshaController extends Controller
     //マイページ　get
     public function mypage(Request $request){
         
-        $arg=['alertComp'=>'テスト',];
-        return view('Hogosha.mypage',$arg);
+        return view('Hogosha.mypage');
     }
    
     
-    //設定のPostページ
-    public function edit(Request $request, Response $response){
-        $user=Auth::user();
-        //入力された名称で上書く
-        $user->name = $request->username;
-        $user->save();
-
-        $arg = [
-            // 'id'=>$this->getHogoshaCd($user),
-            'MSG'=>'変更が完了しました。',
-            'alertComp'=>'変更が完了しました',
-        ];
-        return redirect('settings',302,$arg);
     
-    }
     /*システム管理者が使用する画面*/
     //保護者登録画面へ
     public function add(Request $request, Response $response){
