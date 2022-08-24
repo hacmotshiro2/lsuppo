@@ -18,7 +18,7 @@ use App\Consts\DBConst;
 
 class FBController extends Controller
 {
-    //fb\
+    //get fb\
     public function index(Request $request, Response $response){
         //認証情報を取得し、保護者コードを取得する
         $user = Auth::user();

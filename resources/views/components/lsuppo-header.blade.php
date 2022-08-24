@@ -28,23 +28,23 @@
         <div >
             <ul class="md:flex justify-end">
                 <!-- 生徒紐づけて完了している保護者 -->
-                @if($userType==App\Consts\AuthConst::USER_TYPE_HOGOSHA && $isBinded==1 )
+                @can('hogosha-binded')
                 <li class="border-b-2 md:border-none"><a href="/mypage/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">ホーム</a></li>
                 <li class="border-b-2 md:border-none"><a href="/fb/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">フィードバック</a></li>
                 <li class="border-b-2 md:border-none"><a href="/lc/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">エルコイン</a></li>
                 <!-- 生徒紐づけが完了していない保護者 -->
-                @elseif($userType==App\Consts\AuthConst::USER_TYPE_HOGOSHA && $isBinded==0 )
+                @elsecan('hogosha-nobind')
                 <li class="border-b-2 md:border-none"><a href="/mypage/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">ホーム</a></li>
-                <!-- サポーター -->
-                @elseif($userType==App\Consts\AuthConst::USER_TYPE_SUPPORTER && $isBinded==1 )
+                <!-- サポーターマスタとの紐づけが完了しているサポーター -->
+                @elsecan('supporter-binded')
                 <li class="border-b-2 md:border-none"><a href="/supporter-page/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">ホーム</a></li>
                 <li class="border-b-2 md:border-none"><a href="/fb/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">フィードバック</a></li>
-                <!-- サポーター -->
-                @elseif($userType==App\Consts\AuthConst::USER_TYPE_SUPPORTER && $isBinded==0 )
+                <!-- サポーターマスタとの紐づけが完了していないサポーター -->
+                @elsecan('supporter-nobind')
                 <li class="border-b-2 md:border-none"><a href="/supporter-page/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">ホーム</a></li>
                 <!-- その他 -->
                 @else
-                @endif
+                @endcan
                 <li class="border-b-2 md:border-none"><a href="/settings/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">設定</a></li>
                 <li><form method="POST" action="{{ route('logout') }}">
                             @csrf<a href="{{ route('logout') }}" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded" onclick="event.preventDefault();
