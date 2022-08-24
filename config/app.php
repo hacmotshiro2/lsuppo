@@ -221,8 +221,5 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
-    // No. h.hashimoto 2022/08/15 ------>
-    'mediaPATH'=>env('MEDIA_PATH'),
-    // <------  No. h.hashimoto 2022/08/15 
 
 ];

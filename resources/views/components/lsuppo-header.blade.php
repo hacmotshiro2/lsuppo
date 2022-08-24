@@ -28,19 +28,19 @@
         <div >
             <ul class="md:flex justify-end">
                 <!-- 生徒紐づけて完了している保護者 -->
-                @if($userType==1 && $isBinded==1 )
+                @if($userType==App\Consts\AuthConst::USER_TYPE_HOGOSHA && $isBinded==1 )
                 <li class="border-b-2 md:border-none"><a href="/mypage/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">ホーム</a></li>
                 <li class="border-b-2 md:border-none"><a href="/fb/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">フィードバック</a></li>
                 <li class="border-b-2 md:border-none"><a href="/lc/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">エルコイン</a></li>
                 <!-- 生徒紐づけが完了していない保護者 -->
-                @elseif($userType==1 && $isBinded==0 )
+                @elseif($userType==App\Consts\AuthConst::USER_TYPE_HOGOSHA && $isBinded==0 )
                 <li class="border-b-2 md:border-none"><a href="/mypage/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">ホーム</a></li>
                 <!-- サポーター -->
-                @elseif($userType==3 && $isBinded==1 )
+                @elseif($userType==App\Consts\AuthConst::USER_TYPE_SUPPORTER && $isBinded==1 )
                 <li class="border-b-2 md:border-none"><a href="/supporter-page/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">ホーム</a></li>
                 <li class="border-b-2 md:border-none"><a href="/fb/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">フィードバック</a></li>
                 <!-- サポーター -->
-                @elseif($userType==3 && $isBinded==0 )
+                @elseif($userType==App\Consts\AuthConst::USER_TYPE_SUPPORTER && $isBinded==0 )
                 <li class="border-b-2 md:border-none"><a href="/supporter-page/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">ホーム</a></li>
                 <!-- その他 -->
                 @else
