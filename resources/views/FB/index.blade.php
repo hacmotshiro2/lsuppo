@@ -6,12 +6,6 @@
 @endsection
       
 @section('content')
-@if ($msg !='')
-<p> {{$msg}}</p>
-@endif
-
-<!-- <table class="tbFb">        -->
-<!-- <table class="table table-bordered table table-striped table table-hover table table-responsive">        -->
 <section class="text-gray-600 body-font overflow-hidden">
   <div class="container px-5 py-24 mx-auto">
     <div class="-my-8 divide-y-2 divide-gray-100">

@@ -6,9 +6,6 @@
 @endsection
       
 @section('content')
-        @if ($msg !='')
-        <p> {{$msg}}</p>
-        @endif
         @if(count($errors) > 0)
         <div>
             <ul>

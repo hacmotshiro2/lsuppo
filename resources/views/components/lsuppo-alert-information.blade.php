@@ -10,7 +10,7 @@
         </div>
         <div class="ml-3">
           <div class="text-sm text-blue-600">
-            <p>{{$alert}}}}</p>
+            <p>{{$alert}}</p>
           </div>
         </div>
       </div>

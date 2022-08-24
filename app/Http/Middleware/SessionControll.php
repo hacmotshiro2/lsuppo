@@ -53,9 +53,6 @@ class SessionControll
                     //取得できないときは、管理者の処理がまだなので、メニューの制御を変える
                     if(empty($u2h)){
                         $isBinded=0;
-                    #TODO
-                    // abort('500',$message=MessageConst::U2H_ERROR);
-                    // // return view('error',['errors'=>['管理者の登録が未済です']]);
                     }
                     else{
                         $isBinded=1;
@@ -70,9 +67,6 @@ class SessionControll
                     //取得できないときは、管理者の処理がまだなので、メニューの制御を変える
                     if(empty($u2s)){
                         $isBinded=0;
-                    #TODO
-                    // abort('500',$message=MessageConst::U2H_ERROR);
-                    // // return view('error',['errors'=>['管理者の登録が未済です']]);
                     }
                     else{
                         $isBinded=1;

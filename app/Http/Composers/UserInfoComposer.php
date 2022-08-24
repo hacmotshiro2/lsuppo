@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 use App\Consts\AuthConst;
+use App\Consts\MessageConst;
 
 use App\Models\User2Hogosha;
 use App\Models\User2Supporter;
@@ -79,6 +80,10 @@ class UserInfoComposer
         }
 
         $view->with('userName',$userName)->with('userType',$userType)->with('isBinded',$isBinded)->with('sp_authlevel',$sp_authlevel);
+        //紐づけがない場合には、informationを表示
+        if($isBinded==0){
+            $view->with('alertInfo',MessageConst::NOT_BINDED);
+        }
     }
 
 }

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\LCoinMeisai;
 use App\Models\Student;
 use App\Models\Ziyuu;
-use App\Http\Controllers\HogoshaController;
+use App\Models\Hogosha;
 use App\Http\Requests\LCoinRequest;
 use App\Consts\DBConst;
 
@@ -24,7 +24,7 @@ class LCoinController extends Controller
         //認証情報を取得し、ログイン情報を取得する
         $user = Auth::user();
         //ログイン情報から保護者情報を取得
-        $hogoshaCd = HogoshaController::getHogoshaCd($user);
+        $hogoshaCd = Hogosha::getHogoshaCd($user);
 
         $param = ['hogoshaCd'=>$hogoshaCd];
         $items = DB::select("

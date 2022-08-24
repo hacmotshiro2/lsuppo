@@ -33,7 +33,7 @@ Route::get('/error',function(){
 });
 
 /*共通ページ*/
-Route::get('/settings/', 'App\Http\Controllers\MyPageController@settings')->middleware('auth')->middleware(ControlSettings::class);//HogoshaControllerにするのはおかしい
+Route::get('/settings/', 'App\Http\Controllers\SettingsController@settings')->middleware('auth')->middleware(ControlSettings::class);//HogoshaControllerにするのはおかしい
 
 /*保護者が参照するページ*/
 Route::get('/mypage/', 'App\Http\Controllers\HogoshaController@mypage')->middleware('auth')->middleware(SessionControll::class);
