@@ -44,7 +44,8 @@ class HogoshaController extends Controller
     //マイページ　get
     public function mypage(Request $request){
         
-        return view('Hogosha.mypage');
+        $arg=['alertComp'=>'テスト',];
+        return view('Hogosha.mypage',$arg);
     }
    
     
@@ -58,6 +59,7 @@ class HogoshaController extends Controller
         $arg = [
             // 'id'=>$this->getHogoshaCd($user),
             'MSG'=>'変更が完了しました。',
+            'alertComp'=>'変更が完了しました',
         ];
         return redirect('settings',302,$arg);
     

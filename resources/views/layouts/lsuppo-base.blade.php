@@ -18,6 +18,20 @@
                 <x-lsuppo-header :userName="$userName" :userType="$userType" :isBinded="$isBinded" :sp_authlevel="$sp_authlevel"/>
             </div>
             <div class="bg-white-100 mt-16 md:mt-2">
+                <div>
+                    @if(!empty($alertComp))
+                    <x-lsuppo-alert-completed :alert="$alertComp" />
+                    @endif
+                    @if(!empty($alertErr))
+                    <x-lsuppo-alert-error :alert="$alertErr" />
+                    @endif
+                    @if(!empty($alertInfo))
+                    <x-lsuppo-alert-information :alert="$alertInfo" />
+                    @endif
+                    @if(!empty($alertWar))
+                    <x-lsuppo-alert-warning :alert="$alertWar" />
+                    @endif
+                </div>
                 <div class="content overflow-auto">
                 @yield('content')
                 </div>
