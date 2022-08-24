@@ -25,10 +25,10 @@ class RegisteredUserController extends Controller
     // {
     //     return view('auth.register');
     // }
-    public function create($userType=0)
+    public function create($tourokuUserType=0)
     {
         $arg=[
-            'userType'=>$userType,
+            'tourokuUserType'=>$tourokuUserType,
         ];
         return view('auth.register',$arg);
     }
@@ -45,9 +45,9 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $userType = $request->userType;//hidden項目
+        $tourokuUserType = $request->tourokuUserType;//hidden項目
 
-        if($userType==AuthConst::USER_TYPE_HOGOSHA){
+        if($tourokuUserType==AuthConst::USER_TYPE_HOGOSHA){
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -69,7 +69,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             // No. h.hashimoto 2022/08/18 ------>
-            'userType' => intVal($userType),
+            'tourokuUserType' => intVal($tourokuUserType),
             'studentName' => $request->student_name,
             // <------  No. h.hashimoto 2022/08/18         
         ]);

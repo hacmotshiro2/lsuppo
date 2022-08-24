@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 // app\Http\Controllers\;
 use App\Http\Middleware\ControlSettings;
+use App\Http\Middleware\SessionControll;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,19 +32,21 @@ Route::get('/error',function(){
     return view('error');
 });
 
+/*共通ページ*/
+Route::get('/settings/', 'App\Http\Controllers\MyPageController@settings')->middleware('auth')->middleware(ControlSettings::class);//HogoshaControllerにするのはおかしい
+
 /*保護者が参照するページ*/
-Route::get('/mypage/', 'App\Http\Controllers\HogoshaController@mypage')->middleware('auth');
-Route::get('/fb/detail/{fbNo}', 'App\Http\Controllers\FBController@fbDetail')->middleware('auth');
-Route::get('/fb/', 'App\Http\Controllers\FBController@index')->middleware('auth');
-Route::get('/lc/', 'App\Http\Controllers\LCoinController@index')->middleware('auth');
-Route::get('/settings/', 'App\Http\Controllers\HogoshaController@settings')->middleware('auth')->middleware(ControlSettings::class);//HogoshaControllerにするのはおかしい
-Route::post('/hogosha/edit/', 'App\Http\Controllers\HogoshaController@edit')->middleware('auth');
+Route::get('/mypage/', 'App\Http\Controllers\HogoshaController@mypage')->middleware('auth')->middleware(SessionControll::class);
+Route::get('/fb/detail/{fbNo}', 'App\Http\Controllers\FBController@fbDetail')->middleware('auth')->middleware(SessionControll::class);
+Route::get('/fb/', 'App\Http\Controllers\FBController@index')->middleware('auth')->middleware(SessionControll::class);
+Route::get('/lc/', 'App\Http\Controllers\LCoinController@index')->middleware('auth')->middleware(SessionControll::class);
+Route::post('/hogosha/edit/', 'App\Http\Controllers\HogoshaController@edit')->middleware('auth')->middleware(SessionControll::class);
 
 
 /*サポーターが参照するページ*/
-Route::get('/supporter-page/{id?}','App\Http\Controllers\SupporterController@index');
-Route::get('/fb/regist/', 'App\Http\Controllers\FBController@regist')->middleware('auth');
-Route::post('/fb/regist/', 'App\Http\Controllers\FBController@registpost')->middleware('auth');
+Route::get('/supporter-page/','App\Http\Controllers\SupporterController@index')->middleware(SessionControll::class);
+Route::get('/fb/regist/', 'App\Http\Controllers\FBController@regist')->middleware('auth')->middleware(SessionControll::class);
+Route::post('/fb/regist/', 'App\Http\Controllers\FBController@registpost')->middleware('auth')->middleware(SessionControll::class);
 
 /*権限レベルが高いサポーターが参照するページ*/
 Route::get('/sysad/', 'App\Http\Controllers\SysAdController@index');

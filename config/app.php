@@ -200,6 +200,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // No. h.hashimoto 2022/08/24 ------>
+        App\Providers\UserInfoServiceProvider::class,
+        // <------  No. h.hashimoto 2022/08/24 
+
     ],
 
     /*

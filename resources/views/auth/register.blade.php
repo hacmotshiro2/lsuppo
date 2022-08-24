@@ -5,9 +5,9 @@
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a>
         </x-slot>
-        @if($userType == 1)
+        @if($tourokuUserType == 1)
         <H2>保護者様用 登録ページ</H2>
-        @elseif($userType == 3)
+        @elseif($tourokuUserType == 3)
         <H2>サポーター用 登録ページ</H2>
         @else
         <!-- ここには来ない想定 -->
@@ -17,7 +17,7 @@
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
         <form method="POST" action="{{ route('register') }}">
             @csrf
-            <input type="hidden" id="userType" name="userType" value="{{$userType}}" />
+            <input type="hidden" id="tourokuUserType" name="tourokuUserType" value="{{$tourokuUserType}}" />
             <!-- Name -->
             <div class="mt-4">
                 <x-label for="name" :value="__('Name')" />
@@ -26,7 +26,7 @@
             </div>
 
             <!-- StudentName -->
-            @if($userType=1)
+            @if($tourokuUserType==1)
             <div class="mt-4">
                 <x-label for="student_name" value="お子様のお名前" />
                 <x-input id="student_name" class="block mt-1 w-full" type="text" name="student_name" :value="old('student_name')" required autofocus />

@@ -15,7 +15,7 @@
     <body class="containe mx-auto max-w-7xl text-xl" >
         <div id="app" class="text-gray-800">
             <div>
-                <x-lsuppo-header :userName="$userName"/>
+                <x-lsuppo-header :userName="$userName" :userType="$userType" :isBinded="$isBinded" :sp_authlevel="$sp_authlevel"/>
             </div>
             <div class="bg-white-100 mt-16 md:mt-2">
                 <div class="content overflow-auto">

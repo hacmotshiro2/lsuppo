@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Supporter extends Model
 {
-    protected $table = 'm_supporter';
-   
     use HasFactory;
+  
+    protected $table = 'm_supporter';
+    protected $guarded = ['UpdateTimeStamp'];
+   
 }
+    

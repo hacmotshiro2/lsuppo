@@ -14,7 +14,7 @@ Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
     // No. h.hashimoto 2022/08/18 ------>
-    Route::get('register/{userType?}', [RegisteredUserController::class, 'create'])
+    Route::get('register/{tourokuUserType?}', [RegisteredUserController::class, 'create'])
                 ->name('register');
     // <------  No. h.hashimoto 2022/08/18 
     Route::post('register', [RegisteredUserController::class, 'store']);
