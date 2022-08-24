@@ -27,6 +27,13 @@ class RegisteredUserController extends Controller
     // }
     public function create($tourokuUserType=0)
     {
+        // No. h.hashimoto 2022/08/25 ------>
+        //登録想定のユーザータイプ出ない場合は、404エラー
+        if(!in_array($tourokuUserType,[1,3])){
+            abort(404);
+        }
+        // <------  No. h.hashimoto 2022/08/25 
+
         $arg=[
             'tourokuUserType'=>$tourokuUserType,
         ];
@@ -69,7 +76,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             // No. h.hashimoto 2022/08/18 ------>
-            'tourokuUserType' => intVal($tourokuUserType),
+            'userType' => intVal($tourokuUserType),
             'studentName' => $request->student_name,
             // <------  No. h.hashimoto 2022/08/18         
         ]);

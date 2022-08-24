@@ -1,8 +1,5 @@
 <!-- 初期値セット -->
 @props(['userName' => 'ななしさん'])
-@props(['userType' => 0])
-@props(['isBinded' => 0])
-@props(['sp_authlevel' => 0])
 
 <header class="container mx-auto text-white pb-1">
     <div class="flex justify-between bg-gray-300 items-center fixed md:static w-full h-16">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 use App\Models\User;
 use App\Models\Hogosha;
@@ -27,8 +28,16 @@ class HogoshaController extends Controller
     /*保護者用画面*/
     //マイページ　get
     public function mypage(Request $request){
-        
-        return view('Hogosha.mypage');
+        $args=[];
+
+        //保護者かどうかのチェックはミドルウェア
+
+        //m_hogoshaが紐づけがない場合には、informationを表示
+        if(Gate::allows('hogosha-nobind')){
+            $args=['alertInfo'=>MessageConst::NOT_BINDED,];
+        }
+
+        return view('Hogosha.mypage',$args);
     }
    
     
