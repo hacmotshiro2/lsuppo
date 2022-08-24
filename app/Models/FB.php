@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+use App\Consts\DBConst;
 
 class FB extends Model
 {
@@ -42,7 +43,10 @@ class FB extends Model
     }
     //保護者が参照できるFB一覧を取得します。
     public static function getFBListByHogoshaCd(String $hogoshaCd){
-        $param = ['hogoshaCd'=>$hogoshaCd];
+        $param = [
+            'hogoshaCd'=>$hogoshaCd,
+            'shouninStatus'=>DBConst::SHOUNIN_STATUS_APPROVED,
+        ];
         return DB::select("
         SELECT 
         FbNo, 
@@ -73,7 +77,7 @@ class FB extends Model
         LEFT OUTER JOIN m_supporter msp_shounin
         ON msp_shounin.SupporterCd = MAIN.ShouninSupporterCd
         WHERE mst.HogoshaCd = :hogoshaCd
-        AND MAIN.ShouninStatus = '5'
+        AND MAIN.ShouninStatus = :shouninStatus
         ORDER BY MAIN.StudentCd ,MAIN.TaishoukikanFrom DESC, MAIN.TaishoukikanTo DESC, MAIN.FbNo DESC
         "
         ,$param);
