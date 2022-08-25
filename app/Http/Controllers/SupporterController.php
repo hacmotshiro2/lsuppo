@@ -4,17 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
+
 
 
 class SupporterController extends Controller
 {
-    public function index(Request $request, Response $response, $id='no name'){
+    //サポーターページ
+    public function index(Request $request){
     
-        $arg = [
-            'userName'=>'・・・',
-            'msg'=>'',
-        ];
+        Gate::authorize('supporter');
 
-        return view('Supporter.index',$arg);
+        return view('Supporter.mypage');
     }
 }

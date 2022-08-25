@@ -73,6 +73,12 @@ class AuthServiceProvider extends ServiceProvider
             }
             return false;
         });
+        Gate::define('hogosha',function(User $user){
+      
+            if(is_null($user)){return false;}
+            return $user->userType==AuthConst::USER_TYPE_HOGOSHA;
+
+        });
         //m_supporterとの紐づけが済んでいる保護者
         Gate::define('supporter-binded',function(User $user){
       
@@ -99,6 +105,12 @@ class AuthServiceProvider extends ServiceProvider
                   
             }
             return false;
+        });
+        Gate::define('supporter',function(User $user){
+      
+            if(is_null($user)){return false;}
+            return $user->userType==AuthConst::USER_TYPE_SUPPORTER;
+
         });
         // <------  No. h.hashimoto 2022/08/25 
 

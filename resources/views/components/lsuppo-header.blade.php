@@ -35,7 +35,7 @@
                 <!-- サポーターマスタとの紐づけが完了しているサポーター -->
                 @elsecan('supporter-binded')
                 <li class="border-b-2 md:border-none"><a href="/supporter-page/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">ホーム</a></li>
-                <li class="border-b-2 md:border-none"><a href="/fb/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">フィードバック</a></li>
+                <li class="border-b-2 md:border-none"><a href="/fb/index_sp" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">フィードバック</a></li>
                 <!-- サポーターマスタとの紐づけが完了していないサポーター -->
                 @elsecan('supporter-nobind')
                 <li class="border-b-2 md:border-none"><a href="/supporter-page/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">ホーム</a></li>

@@ -26,7 +26,8 @@ class HogoshaController extends Controller
     public function mypage(Request $request){
         $args=[];
 
-        //保護者かどうかのチェックはミドルウェア
+        //保護者かどうかのチェック
+        Gate::authorize('hogosha');
 
         //m_hogoshaが紐づけがない場合には、informationを表示
         if(Gate::allows('hogosha-nobind')){
