@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\FB;
 use App\Models\Hogosha;
 use App\Models\Student;
+use App\Models\Supporter;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -49,6 +50,40 @@ class FBPolicy
         elseif($user->userType==AuthConst::USER_TYPE_SUPPORTER and $user->isBinded==1){
             #TODO 自分のラーニングルームのを見れる　にするか 一旦全量OK
             return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    // public function add_fb(User $user,FB $fb){
+    public function add_fb(User $user){
+     
+        if(is_null($user)){
+            return false;
+        }
+        //この処理をしないと必要なプロパティにセットされない
+        $user->setUserTypeStatus();
+        //サポーターの場合
+        if($user->userType==AuthConst::USER_TYPE_SUPPORTER and $user->isBinded==1){
+            //サポーターであれば新規登録は誰でもできる
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public function edit_fb(User $user,FB $fb){
+        if(is_null($user)){
+            return false;
+        }
+        //この処理をしないと必要なプロパティにセットされない
+        $user->setUserTypeStatus();
+        //サポーターの場合
+        if($user->userType==AuthConst::USER_TYPE_SUPPORTER and $user->isBinded==1){
+            //自分が登録したFBのみ編集できる
+            $supporterCd = Supporter::getSupporterCd($user);
+            return $fb->KinyuuSupporterCd == $supporterCd;
         }
         else{
             return false;

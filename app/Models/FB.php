@@ -78,9 +78,48 @@ class FB extends Model
         ON msp_shounin.SupporterCd = MAIN.ShouninSupporterCd
         WHERE mst.HogoshaCd = :hogoshaCd
         AND MAIN.ShouninStatus = :shouninStatus
+        AND MAIN.deleted_at IS NULL
         ORDER BY MAIN.StudentCd ,MAIN.TaishoukikanFrom DESC, MAIN.TaishoukikanTo DESC, MAIN.FbNo DESC
         "
         ,$param);
+
+    }
+    //承認状態に関わらず取得 削除済みは除く
+    public static function getAllFBList(){
+        return DB::select("
+        SELECT 
+        FbNo, 
+        MAIN.StudentCd, 
+        mst.HyouziMei AS StudentName,
+        `FbShurui`, 
+        `TaishoukikanFrom`, 
+        `TaishoukikanTo`, 
+        MAIN.LearningRoomCd, 
+        mlr.LearningRoomName AS LRName,
+        `Title`, 
+        `Detail`, 
+        `KinyuuSupporterCd`, 
+        msp_kinyuu.HyouziMei AS KinyuuSupporterName , 
+        `KinyuuDate`, 
+        `ShouninSupporterCd`, 
+        msp_shounin.HyouziMei AS ShouninSupporterName , 
+        `ShouninDate`, 
+        `ShouninStatus`
+
+        FROM r_fe_feedbackmeisai MAIN 
+        LEFT OUTER JOIN m_student mst
+        ON mst.StudentCd = MAIN.StudentCd
+        LEFT OUTER JOIN m_learningroom mlr
+        ON mlr.LearningRoomCd = MAIN.LearningRoomCd
+        LEFT OUTER JOIN m_supporter msp_kinyuu
+        ON msp_kinyuu.SupporterCd = MAIN.KinyuuSupporterCd
+        LEFT OUTER JOIN m_supporter msp_shounin
+        ON msp_shounin.SupporterCd = MAIN.ShouninSupporterCd
+        WHERE 1=1
+        AND MAIN.deleted_at IS NULL
+        ORDER BY MAIN.StudentCd ,MAIN.TaishoukikanFrom DESC, MAIN.TaishoukikanTo DESC, MAIN.FbNo DESC
+        "
+        );
 
     }
 }
