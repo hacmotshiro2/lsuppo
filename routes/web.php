@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 // app\Http\Controllers\;
-use App\Http\Middleware\ControlSettings;
 use App\Http\Middleware\SessionControll;
 
 /*
@@ -33,7 +32,7 @@ Route::get('/error',function(){
 });
 
 /*共通ページ*/
-Route::get('/settings/', 'App\Http\Controllers\SettingsController@settings')->middleware('auth')->middleware(ControlSettings::class);//HogoshaControllerにするのはおかしい
+Route::get('/settings/', 'App\Http\Controllers\SettingsController@settings')->middleware('auth');//
 
 /*保護者が参照するページ*/
 Route::get('/mypage/', 'App\Http\Controllers\HogoshaController@mypage')->middleware('auth')->middleware(SessionControll::class);

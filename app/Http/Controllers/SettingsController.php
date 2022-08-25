@@ -18,7 +18,10 @@ use App\Consts\SessionConst;
 
 class SettingsController extends Controller
 {
-    //
+    /*
+        あくまで　usersの設定をする画面として整理
+        m_supporterなどの設定をさせるなら別画面とする
+    */
 
  
     //設定ページ
