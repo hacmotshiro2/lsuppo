@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Models\FB;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class FBPolicy
@@ -17,5 +18,10 @@ class FBPolicy
     public function __construct()
     {
         //
+    }
+
+    public function view_detail(User $user,FB $fb){
+        
+
     }
 }

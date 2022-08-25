@@ -44,42 +44,48 @@ class SessionControll
 
         //セットされていなければ
         if(empty($isBinded) or empty($sp_authlevel)){
-            switch($userType){
-                case AuthConst::USER_TYPE_HOGOSHA:
-                    //usersのuserTypeが保護者の場合は、user2hogoshaの登録が済んでいるかをチェック
-                    //UserとHogoshaの紐づけテーブルからレコードを取得する。
-                    $u2h = User2Hogosha::where('user_id',$user->id)->first();
-                
-                    //取得できないときは、管理者の処理がまだなので、メニューの制御を変える
-                    if(empty($u2h)){
-                        $isBinded=0;
-                    }
-                    else{
-                        $isBinded=1;
-                    }
-                    $sp_authlevel=0;
-                    break;
-                case AuthConst::USER_TYPE_SUPPORTER:
-                    //usersのuserTypeがサポーターの場合は、user2supporterの登録が済んでいるかをチェック
-                    //UserとSupporterの紐づけテーブルからレコードを取得する。
-                    $u2s = User2Supporter::where('user_id',$user->id)->first();
-                
-                    //取得できないときは、管理者の処理がまだなので、メニューの制御を変える
-                    if(empty($u2s)){
-                        $isBinded=0;
-                    }
-                    else{
-                        $isBinded=1;
-                        //authlevelの取得
-                        $supporter = Supporter::where('SupporterCd',$u2s->SupporterCd)->first();
-                        $sp_authlevel = $supporter->authlevel;
-                    }
-                    break;
-                default:
-                    $isBinded=0;
-                    $sp_authlevel=0;
-                    break;
-            }
+            // No. h.hashimoto 2022/08/25 ------>
+            $user->setUserTypeStatus();
+            $isBinded = $user->isBinded;
+            $sp_authlevel = $user->sp_authlevel;
+            // Userモデルに処理移管
+            // switch($userType){
+            //         case AuthConst::USER_TYPE_HOGOSHA:
+            //             //usersのuserTypeが保護者の場合は、user2hogoshaの登録が済んでいるかをチェック
+            //             //UserとHogoshaの紐づけテーブルからレコードを取得する。
+            //             $u2h = User2Hogosha::where('user_id',$user->id)->first();
+                    
+            //             //取得できないときは、管理者の処理がまだなので、メニューの制御を変える
+            //             if(empty($u2h)){
+            //                 $isBinded=0;
+            //             }
+            //             else{
+            //                 $isBinded=1;
+            //             }
+            //             $sp_authlevel=0;
+            //             break;
+            //         case AuthConst::USER_TYPE_SUPPORTER:
+            //             //usersのuserTypeがサポーターの場合は、user2supporterの登録が済んでいるかをチェック
+            //             //UserとSupporterの紐づけテーブルからレコードを取得する。
+            //             $u2s = User2Supporter::where('user_id',$user->id)->first();
+                    
+            //             //取得できないときは、管理者の処理がまだなので、メニューの制御を変える
+            //             if(empty($u2s)){
+            //                 $isBinded=0;
+            //             }
+            //             else{
+            //                 $isBinded=1;
+            //                 //authlevelの取得
+            //                 $supporter = Supporter::where('SupporterCd',$u2s->SupporterCd)->first();
+            //                 $sp_authlevel = $supporter->authlevel;
+            //             }
+            //             break;
+            //         default:
+            //             $isBinded=0;
+            //             $sp_authlevel=0;
+            //             break;
+            //     }
+            // <------  No. h.hashimoto 2022/08/25 
             $request->session()->put(SessionConst::SESKEY_IS_BINDED,$isBinded);
             $request->session()->put(SessionConst::SESKEY_SP_AUTHLEVEL,$sp_authlevel);
         }

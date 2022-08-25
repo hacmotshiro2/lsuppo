@@ -44,14 +44,19 @@ class AuthServiceProvider extends ServiceProvider
 
             if(is_null($user)){return false;}
 
-            if($user->userType==AuthConst::USER_TYPE_HOGOSHA){
-                //usersのuserTypeが保護者の場合は、user2hogoshaの登録が済んでいるかをチェック
-                //UserとHogoshaの紐づけテーブルからレコードを取得する。
-                $u2h = User2Hogosha::where('user_id',$user->id)->first();
+            // if($user->userType==AuthConst::USER_TYPE_HOGOSHA){
+            //     //usersのuserTypeが保護者の場合は、user2hogoshaの登録が済んでいるかをチェック
+            //     //UserとHogoshaの紐づけテーブルからレコードを取得する。
+            //     $u2h = User2Hogosha::where('user_id',$user->id)->first();
             
-                if(!empty($u2h)){
-                    return true;
-                }
+            //     if(!empty($u2h)){
+            //         return true;
+            //     }
+            // }
+            //必要なプロパティに値をセット
+            $user->setUserTypeStatus();
+            if($user->userType==AuthConst::USER_TYPE_HOGOSHA and $user->isBinded==1 ){
+                return true;
             }
             return false;
         });
@@ -60,14 +65,11 @@ class AuthServiceProvider extends ServiceProvider
 
             if(is_null($user)){return false;}
 
-            if($user->userType==AuthConst::USER_TYPE_HOGOSHA){
+            //必要なプロパティに値をセット
+            $user->setUserTypeStatus();
+            if($user->userType==AuthConst::USER_TYPE_HOGOSHA and $user->isBinded==0){
                 //usersのuserTypeが保護者の場合は、user2hogoshaの登録が済んでいるかをチェック
-                //UserとHogoshaの紐づけテーブルからレコードを取得する。
-                $u2h = User2Hogosha::where('user_id',$user->id)->first();
-            
-                if(empty($u2h)){
-                    return true;
-                }
+                return true;
             }
             return false;
         });
@@ -75,18 +77,12 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('supporter-binded',function(User $user){
       
             if(is_null($user)){return false;}
-      
-            if($user->userType==AuthConst::USER_TYPE_SUPPORTER){
+
+            //必要なプロパティに値をセット
+            $user->setUserTypeStatus();
+            if($user->userType==AuthConst::USER_TYPE_SUPPORTER and $user->isBinded==1){
                 //usersのuserTypeがサポーターの場合は、user2supporterの登録が済んでいるかをチェック
-                //UserとSupporterの紐づけテーブルからレコードを取得する。
-                $u2s = User2Supporter::where('user_id',$user->id)->first();
-                
-                //取得できないときは、管理者の処理がまだなので、メニューの制御を変える
-                if(!empty($u2s)){
-                    return true;
-                    //authLevelまで返すかどうか
-                }
-                  
+                return true;
             }
             return false;
         
@@ -95,16 +91,11 @@ class AuthServiceProvider extends ServiceProvider
       
             if(is_null($user)){return false;}
       
-            if($user->userType==AuthConst::USER_TYPE_SUPPORTER){
+            //必要なプロパティに値をセット
+            $user->setUserTypeStatus();
+            if($user->userType==AuthConst::USER_TYPE_SUPPORTER and $user->isBinded==0){
                 //usersのuserTypeがサポーターの場合は、user2supporterの登録が済んでいるかをチェック
-                //UserとSupporterの紐づけテーブルからレコードを取得する。
-                $u2s = User2Supporter::where('user_id',$user->id)->first();
-                
-                //取得できないときは、管理者の処理がまだなので、メニューの制御を変える
-                if(empty($u2s)){
-                    return true;
-                    //authLevelまで返すかどうか
-                }
+                return true;
                   
             }
             return false;
