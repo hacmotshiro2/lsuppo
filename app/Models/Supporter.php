@@ -14,6 +14,15 @@ class Supporter extends Model
     protected $table = 'm_supporter';
     protected $guarded = ['UpdateTimeStamp'];
 
+    //Update系項目のセット
+    public function setUpdateColumn(){
+
+        $this->UpdateDatetime=date("Y-m-d H:i:s");
+        $this->UpdateGamen=$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; //:現在のURL
+        $this->UpdateSystem=DBConst::UPDATE_SYSTEM;
+        
+    }
+
     //認証情報からサポーター情報の取得
     public static function getSupporterCd(User $user){
 

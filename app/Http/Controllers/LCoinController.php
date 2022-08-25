@@ -142,9 +142,8 @@ class LCoinController extends Controller
 
 
             //フォームにない項目をセット
-            $lcmeisai->UpdateDatetime = date("Y-m-d H:i:s");
-            $lcmeisai->UpdateGamen = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-            $lcmeisai->UpdateSystem = DBConst::UPDATE_SYSTEM;
+
+            $lcmeisai->setUpdateColumn();
 
             $lcmeisai->save();
     
@@ -165,44 +164,6 @@ class LCoinController extends Controller
             ];
     
             return view('LCoin.regist',$arg);
-    
-        //     $param=[
-        //         'StudentCd'=>$request->StudentCd,
-        //         'HasseiDate'=>$request->HasseiDate,
-              
-        //         'UpdateDatetime'=> date("Y-m-d H:i:s"),
-        //         'UpdateGamen'=>(empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], //:現在のURL
-        //         'UpdateSystem'=>DBConst::UPDATE_SYSTEM,
-        //     ];
-        
-        //     DB::insert("
-        //     INSERT INTO `r_lc_lcoinmeisai`
-        //     ( 
-        //         StudentCd,
-        //         HasseiDate,
-        //         ZiyuuCd,
-        //         ZiyuuHosoku,
-        //         TourokuSupporterCd,
-        //         UpdateDatetime,
-        //         UpdateGamen,
-        //         UpdateSystem,
-        //         amount
-        //     ) 
-        //    VALUES 
-        //    (
-        //         :StudentCd,
-        //         :HasseiDate,
-        //         :ZiyuuCd,
-        //         :ZiyuuHosoku,
-        //         :TourokuSupporterCd,
-        //         :UpdateDatetime,
-        //         :UpdateGamen,
-        //         :UpdateSystem,
-        //         :amount
-        //    )
-        //    "
-        //     ,$param); //SQL文の骨子を準備
-    
     
         }
 }

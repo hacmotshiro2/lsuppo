@@ -139,10 +139,8 @@ class FBController extends Controller
         $fb->ShouninStatus=DBConst::SHOUNIN_STATUS_APPROVED;
         $fb->ShouninSupporterCd=$request->KinyuuSupporterCd;
 
-        $fb->UpdateDatetime=date("Y-m-d H:i:s");
-        $fb->UpdateGamen=(empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; //:現在のURL
-        $fb->UpdateSystem=DBConst::UPDATE_SYSTEM;
-
+        //Update系のセット
+        $fb->setUpdateColumn();
 
         //登録処理
         $fb->save();
@@ -198,11 +196,10 @@ class FBController extends Controller
         $fb->ShouninStatus=DBConst::SHOUNIN_STATUS_APPROVED;
         $fb->ShouninSupporterCd=$request->KinyuuSupporterCd;
 
-        $fb->UpdateGamen=(empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; //:現在のURL
-        $fb->UpdateSystem=DBConst::UPDATE_SYSTEM;
+        //Update系のセット
+        $fb->setUpdateColumn();
 
-
-                //ドロップダウンリスト用データ取得（#TODOキャッシュにしたい）
+        //ドロップダウンリスト用データ取得（#TODOキャッシュにしたい）
         //生徒の変更は行えないようにする
         $students = Student::where('StudentCd',$fb->StudentCd)->get();
         $lrs = LR::all();

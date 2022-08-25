@@ -14,6 +14,14 @@ class Student extends Model
     public function getCdName(){
         return $this->StudentCd.':'.$this->HyouziMei;
     }
+    //Update系項目のセット
+    public function setUpdateColumn(){
+
+        $this->UpdateDatetime=date("Y-m-d H:i:s");
+        $this->UpdateGamen=$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; //:現在のURL
+        $this->UpdateSystem=DBConst::UPDATE_SYSTEM;
+        
+    }
 
     //認証情報からStudentCdの情報を配列で返す。保護者：Studentは１対N
     public static function getStudentCdsByHogoshaCd(String $hogoshaCd){

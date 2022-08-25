@@ -65,9 +65,8 @@ class HogoshaController extends Controller
         $hogosha->IsNeedPWChange = ISSET($form->IsNeedPWChange)?1:0;
 
         //フォームにない項目をセット
-        $hogosha->UpdateDatetime = date("Y-m-d H:i:s");
-        $hogosha->UpdateGamen = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-        $hogosha->UpdateSystem = "lsuppo";
+
+        $hogosha->setUpdateColumn();
 
         $hogosha->save();
 
@@ -98,7 +97,7 @@ class HogoshaController extends Controller
         return view('user2hogosha.add',$arg);
 
     }
-    //保護者登録画面のPOST
+    //user2保護者登録画面のPOST
     public function u2hcreate(Request $request){
         $this->validate($request, User2Hogosha::$rules);
         $u2h = new User2Hogosha;

@@ -122,4 +122,12 @@ class FB extends Model
         );
 
     }
+    //Update系項目のセット
+    public function setUpdateColumn(){
+
+        // $this->UpdateDatetime=date("Y-m-d H:i:s");テーブル変更によりなくなった
+        $this->UpdateGamen=$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; //:現在のURL
+        $this->UpdateSystem=DBConst::UPDATE_SYSTEM;
+        
+    }
 }
