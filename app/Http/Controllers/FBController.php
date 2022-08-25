@@ -16,6 +16,8 @@ use App\Models\LR;
 use App\Http\Requests\FBRequest;
 use App\Consts\DBConst;
 
+use Illuminate\Support\Facades\Gate;
+
 class FBController extends Controller
 {
     //get fb\
@@ -32,11 +34,14 @@ class FBController extends Controller
 
         return view('FB.index',$arg);
     }
-     // /fb/detail/{fbNo}
+     // /fb/detail/{fbNo} サポーターも参照する
      public function fbDetail(Request $request,$fbNo){
-        #TODO 改めて保護者の認証は入れるべき?サポーターが参照することもある
+
         $item=FB::where('FbNo',$fbNo)->first();
-        $user=Auth::user();
+
+        //権限チェック　だめならexception
+        Gate::authorize('view_fb_detail',$item);
+
         $arg=[
             'item'=>$item,
         ];

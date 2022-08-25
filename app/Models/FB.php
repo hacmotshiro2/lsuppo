@@ -24,7 +24,7 @@ class FB extends Model
     //スコープ：承認済みのみ
     public function scopeApproved($query){
         //5承認済みに絞る
-        return $query->where('ShouninStatus','5');
+        return $query->where('ShouninStatus',DBConst::SHOUNIN_STATUS_APPROVED);
     }
     //対象期間を From ～ Toの文字で返します
     public function getTaishoukikanSTR(){

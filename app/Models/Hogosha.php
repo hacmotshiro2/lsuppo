@@ -22,21 +22,23 @@ class Hogosha extends Model
 
     }
 
+   
     //認証情報から保護者情報の取得
     public static function getHogoshaCd(User $user){
     
         //UserとHogoshaの紐づけテーブルからレコードを取得する。
         $u2h = User2Hogosha::where('user_id',$user->id)->first();
 
-        //取得できないときは、管理者の処理がまだなので、そのようなエラーページに遷移する。
+        //取得できないときは、空で返す。
         if(empty($u2h)){
-        
-            #TODO
-            abort('500',$message=MessageConst::U2H_ERROR);
-            // return view('error',['errors'=>['管理者の登録が未済です']]);
+            return '';
+            // abort('500',$message=MessageConst::U2H_ERROR);
+            // // return view('error',['errors'=>['管理者の登録が未済です']]);
         }
 
         return $u2h->HogoshaCd;
     }
+    
+
 }
 
