@@ -19,11 +19,7 @@ use App\Consts\AuthConst;
 class HogoshaController extends Controller
 {
   
-    //共通処理
-    //認証情報からStudentの情報を取得する
-    public static function getStudentCdByHogoshaCd(User $user){
-        #TODO
-    }
+    
 
     /*保護者用画面*/
     //マイページ　get
