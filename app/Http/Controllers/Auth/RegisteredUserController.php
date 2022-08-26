@@ -28,7 +28,7 @@ class RegisteredUserController extends Controller
     public function create($tourokuUserType=0)
     {
         // No. h.hashimoto 2022/08/25 ------>
-        //登録想定のユーザータイプ出ない場合は、404エラー
+        //登録想定のユーザータイプでない場合は、404エラー
         if(!in_array($tourokuUserType,[1,3])){
             abort(404);
         }
@@ -55,6 +55,7 @@ class RegisteredUserController extends Controller
         $tourokuUserType = $request->tourokuUserType;//hidden項目
 
         if($tourokuUserType==AuthConst::USER_TYPE_HOGOSHA){
+            //保護者の場合
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -65,6 +66,7 @@ class RegisteredUserController extends Controller
             ]);
         }
         else{
+            //サポーターの場合
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],

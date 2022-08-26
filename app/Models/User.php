@@ -114,11 +114,4 @@ class User extends Authenticatable
     
 
 }
-// // No. h.hashimoto 2022/08/25 ------>
-// enum UserTypeStatus:string{
-//     case HogoshaBinded='hogosha-binded';
-//     case HogoshaNoBind='hogosha-nobind';
-//     case SupporterBinded='supporter-binded';
-//     case SupporterNoBind='supporter-nobind'; 
-// }
-// // <------  No. h.hashimoto 2022/08/25 
+

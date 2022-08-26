@@ -3,9 +3,16 @@
   "Password": "パスワード",
   "Email": "メールアドレス",
   "Forgot your password?": "パスワードをお忘れですか？",
+  "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.":"パスワードをお忘れですか？登録のメールアドレスにパスワードリセットのためのリンクをお送りします。",
+  "Email Password Reset Link":"パスワードリセットのメールを送る",
   "Remember me": "パスワードを保存する",
   "Name": "名前",
   "Confirm Password":"パスワードの確認",
   "Already registered?":"登録済ですか？",
-  "Register":"登録"
+  "Register":"登録",
+  "Reset Password Notification":"エルサポ　パスワードリセット用リンクの送信",
+  "You are receiving this email because we received a password reset request for your account.":"パスワードリセットを受け付けました。",
+  "Reset Password":"パスワードリセット",
+  "This password reset link will expire in :count minutes.":"このリンクは:count 分で期限が切れます。ご注意ください。",
+  "If you did not request a password reset, no further action is required.":"このメールにお心当たりがない場合は、ご放念ください。"
 }
