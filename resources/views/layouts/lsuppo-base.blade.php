@@ -25,6 +25,10 @@
                     @if(!empty($alertErr))
                     <x-lsuppo-alert-error :alert="$alertErr" />
                     @endif
+                    @if(count($errors) > 0)
+                    <!-- 配列はそのままでは送れないのでＪＳＯＮに変換 -->
+                    <x-lsuppo-alert-error :errorJson="json_encode($errors->all())" />
+                    @endif
                     @if(!empty($alertInfo))
                     <x-lsuppo-alert-information :alert="$alertInfo" />
                     @endif

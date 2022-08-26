@@ -6,16 +6,7 @@
 @endsection
       
 @section('content')
-        @if(count($errors) > 0)
-        <div>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
-        <div class="bg-white py-6 sm:py-8 lg:py-12">
+<div class="bg-white py-6 sm:py-8 lg:py-12">
   <div class="max-w-screen-2xl px-4 md:px-8 mx-auto">
     <!-- text - start -->
     <div class="mb-10 md:mb-16">
