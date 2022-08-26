@@ -14,8 +14,8 @@
                 <h1 class="text-gray-800 text-2xl sm:text-3xl font-bold text-center mb-4 md:mb-6">{{$item->Title}}</h1>
                 <h3 class="text-gray-600 sm:text-lg mb-2 ">記入者：</h3>
                 <p class="text-gray-500 sm:text-lg mb-6 md:mb-8">{{$item->kinyuusupporter->HyouziMei}}</p>
-                <p class="text-gray-500 sm:text-lg mb-8 md:mb-10">{{$item->Detail}}</p>
-                <h3 class="text-gray-600 sm:text-lg mb-2 ">対象期間：</h3>
+                <p class="text-gray-800 sm:text-lg mb-8 md:mb-10">{{$item->Detail}}</p>
+                <h3 class="text-gray-500 sm:text-lg mb-2 ">対象期間：</h3>
                 <p class="text-gray-500 sm:text-lg mb-6 md:mb-8">{{$item->getTaishoukikanSTR()}}</P>
                 <p class="text-gray-500 sm:text-lg mb-6 md:mb-8">{{$item->getTaishoukikanTo}}</P>
             </div>

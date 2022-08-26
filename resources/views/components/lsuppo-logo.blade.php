@@ -1,0 +1,1 @@
+<img class="h-16" src="/images/logo-lsuppov1.0-bgw-wide.svg">

@@ -14,7 +14,7 @@
     <div class="max-w-screen-2xl px-4 md:px-8 mx-auto">
         <div class="flex flex-col items-center">
         <!-- logo - start -->
-        <a href="/"><img class="h-16" src="/images/logo-lsuppov1.0-bgw-wide.svg"></a>
+        <a href="/"><x-lsuppo-logo /></a>
         <!-- logo - end -->
 
         <p class="text-indigo-500 text-sm md:text-base font-semibold uppercase mb-4">404</p>
