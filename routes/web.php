@@ -16,10 +16,10 @@ use App\Http\Middleware\SessionControll;
 |
 */
 
-Route::get('/', function () {
-    return view('debug');
-    // return view('helloworld');
-});
+// Route::get('/', function () {
+//      return view('debug');
+// });
+Route::get('/','App\Http\Controllers\HomeController@mypage');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -35,14 +35,14 @@ Route::get('/error',function(){
 Route::get('/settings/', 'App\Http\Controllers\SettingsController@settings')->middleware('auth');//
 
 /*保護者が参照するページ*/
-Route::get('/mypage/', 'App\Http\Controllers\HogoshaController@mypage')->middleware('auth')->middleware(SessionControll::class);
+Route::get('/mypage/', 'App\Http\Controllers\HogoshaController@mypage')->middleware('auth')->middleware(SessionControll::class)->name('mypage');
 Route::get('/fb/detail/{fbNo}', 'App\Http\Controllers\FBController@fbDetail')->middleware('auth')->middleware(SessionControll::class);
 Route::get('/fb/', 'App\Http\Controllers\FBController@index')->middleware('auth')->middleware(SessionControll::class);
 Route::get('/lc/', 'App\Http\Controllers\LCoinController@index')->middleware('auth')->middleware(SessionControll::class);
 Route::post('/hogosha/edit/', 'App\Http\Controllers\HogoshaController@edit')->middleware('auth')->middleware(SessionControll::class);
 
 /*サポーターが参照するページ*/
-Route::get('/supporter-page/','App\Http\Controllers\SupporterController@index')->middleware(SessionControll::class);
+Route::get('/supporter-page/','App\Http\Controllers\SupporterController@index')->middleware(SessionControll::class)->name('supporter-page');
 Route::get('/fb/index_sp', 'App\Http\Controllers\FBController@index_sp')->middleware('auth')->middleware(SessionControll::class);
 Route::get('/fb/add/', 'App\Http\Controllers\FBController@add')->middleware('auth')->middleware(SessionControll::class);
 Route::post('/fb/add/', 'App\Http\Controllers\FBController@addpost')->middleware('auth')->middleware(SessionControll::class);

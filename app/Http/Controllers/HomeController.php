@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// No. h.hashimoto 2022/08/26 ------>
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use App\Consts\AuthConst;
+// <------  No. h.hashimoto 2022/08/26 
 
 class HomeController extends Controller
 {
@@ -25,4 +30,27 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    // No. h.hashimoto 2022/08/26 ------>
+    //　'/'にアクセスしたときに、ログイン状況やユーザータイプによりリダイレクト
+    public function mypage(Request $request, Response $response){
+        $user = Auth::user();
+
+        if(is_null($user)){ 
+            return redirect()->route('mypage');
+        }
+        switch($user->userType){ 
+            case AuthConst::USER_TYPE_HOGOSHA:
+                return redirect()->route('mypage');
+                break;
+            case AuthConst::USER_TYPE_SUPPORTER:
+                return redirect()->route('supporter-page');
+                break;
+            default:
+                return abort(500);
+                break;
+        }
+
+    }
+    // <------  No. h.hashimoto 2022/08/26 
 }
