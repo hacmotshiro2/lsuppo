@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('m_lc_ziyuu', function (Blueprint $table) {
-            //
-            $table->integer('amount');
-        });
+        // Schema::table('m_lc_ziyuu', function (Blueprint $table) {
+        //     //
+        //     $table->integer('amount');
+        // });
     }
 
     /**
@@ -26,9 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('m_lc_ziyuu', function (Blueprint $table) {
-            //
-            $table->dropColumn('amount');
-        });
+        // Schema::table('m_lc_ziyuu', function (Blueprint $table) {
+        //     //
+        //     $table->dropColumn('amount');
+        // });
     }
 };

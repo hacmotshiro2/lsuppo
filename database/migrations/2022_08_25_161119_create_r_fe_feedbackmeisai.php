@@ -13,6 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
+        // if (Schema::hasTable('r_fe_feedbackmeisai')) {
+        //     // テーブルが存在していればリターン
+        //     return;
+        // }
         Schema::create('r_fe_feedbackmeisai', function (Blueprint $table) {
 
             $table->collation = 'utf8mb4_general_ci';

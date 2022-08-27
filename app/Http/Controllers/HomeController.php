@@ -37,14 +37,14 @@ class HomeController extends Controller
         $user = Auth::user();
 
         if(is_null($user)){ 
-            return redirect()->route('mypage');
+            return redirect()->route('mypage')->withInput();
         }
         switch($user->userType){ 
             case AuthConst::USER_TYPE_HOGOSHA:
-                return redirect()->route('mypage');
+                return redirect()->route('mypage')->withInput();
                 break;
             case AuthConst::USER_TYPE_SUPPORTER:
-                return redirect()->route('supporter-page');
+                return redirect()->route('supporter-page')->withInput();
                 break;
             default:
                 return abort(500);

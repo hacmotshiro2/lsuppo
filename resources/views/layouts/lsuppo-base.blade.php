@@ -12,8 +12,8 @@
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="containe mx-auto max-w-7xl text-xl" >
-        <div id="app" class="text-gray-800">
+    <body class="containe mx-auto max-w-7xl text-xl text-gray-800" >
+        <div>
             <div>
                 <x-lsuppo-header :userName="$userName"/>
             </div>

@@ -79,7 +79,8 @@ class AuthServiceProvider extends ServiceProvider
             return $user->userType==AuthConst::USER_TYPE_HOGOSHA;
 
         });
-        //m_supporterとの紐づけが済んでいる保護者
+        //m_supporterとの紐づけが済んでいるサポーター
+        //メニュー制御につかわなくとも、画面制御などに使っているので、残す。
         Gate::define('supporter-binded',function(User $user){
       
             if(is_null($user)){return false;}
@@ -113,6 +114,47 @@ class AuthServiceProvider extends ServiceProvider
 
         });
         // <------  No. h.hashimoto 2022/08/25 
+        Gate::define('supporter-auth-1',function(User $user){
+            if(is_null($user)){return false;}
+      
+            //必要なプロパティに値をセット
+            $user->setUserTypeStatus();
+            if($user->userType==AuthConst::USER_TYPE_SUPPORTER and $user->isBinded==1 and $user->sp_authlevel==1){
+                //usersのuserTypeがサポーターの場合は、user2supporterの登録が済んでいるかをチェック
+                //authlevelをチェック
+                return true;
+                  
+            }
+            return false;
 
+        });
+        Gate::define('supporter-auth-5',function(User $user){
+            if(is_null($user)){return false;}
+      
+            //必要なプロパティに値をセット
+            $user->setUserTypeStatus();
+            if($user->userType==AuthConst::USER_TYPE_SUPPORTER and $user->isBinded==1 and $user->sp_authlevel==5){
+                //usersのuserTypeがサポーターの場合は、user2supporterの登録が済んでいるかをチェック
+                //authlevelをチェック
+                return true;
+                  
+            }
+            return false;
+
+        });
+        Gate::define('supporter-auth-9',function(User $user){
+            if(is_null($user)){return false;}
+      
+            //必要なプロパティに値をセット
+            $user->setUserTypeStatus();
+            if($user->userType==AuthConst::USER_TYPE_SUPPORTER and $user->isBinded==1 and $user->sp_authlevel==9){
+                //usersのuserTypeがサポーターの場合は、user2supporterの登録が済んでいるかをチェック
+                //authlevelをチェック
+                return true;
+                  
+            }
+            return false;
+
+        });
     }
 }

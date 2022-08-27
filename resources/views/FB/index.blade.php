@@ -31,7 +31,7 @@
         <div class="ml-4 flex-grow">
           <div class="w-full"><span class="text-xl md:text-2xl font-medium text-gray-900 title-font mb-2">{{$items[$i]->Title}}</span></div>
           <div class="w-full"><span class="leading-relaxed text-gray-700">{{mb_strimwidth($items[$i]->Detail,0,120,"...")}}</span></div>
-          <div class="w-full"><span><a class="text-indigo-500 inline-flex items-center mt-4" href="\fb\detail\{{$items[$i]->FbNo}}">read More
+          <div class="w-full"><span><a class="text-indigo-500 inline-flex items-center mt-4" href="\fb\detail\?fbNo={{$items[$i]->FbNo}}">read More
             <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14"></path>
               <path d="M12 5l7 7-7 7"></path>
@@ -44,13 +44,13 @@
           <div class="table w-full">
             <div class="table-row-group">
               <div class="table-row">
-                <span class="mt-1 md:mt-4 w-full"><a class="text-indigo-500 items-center" href="\fb\edit\{{$items[$i]->FbNo}}">編集</a></span>
+                <span class="mt-1 md:mt-4 w-full"><a class="text-indigo-500 items-center" href="\fb\edit\?fbNo={{$items[$i]->FbNo}}">編集</a></span>
               </div>
               <div class="table-row">
                 <span class="mt-1 md:mt-4  w-full"></span>
               </div>
               <div class="table-row">
-                <span class="mt-1 md:mt-4  w-full"><a class="text-indigo-500 items-center" href="\fb\delete\{{$items[$i]->FbNo}}">削除</a></span>
+                <span class="mt-1 md:mt-4  w-full"><a class="text-indigo-500 items-center" href="\fb\delete\?fbNo={{$items[$i]->FbNo}}">削除</a></span>
               </div>
             </div>
           </div>

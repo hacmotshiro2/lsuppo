@@ -43,6 +43,11 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'lsuppo' =>[
+            \App\Http\Middleware\Authenticate::class,
+            \App\Http\Middleware\GateAuthorization::class,
+            \App\Http\Middleware\SessionControll::class,
+        ],
     ];
 
     /**

@@ -16,6 +16,9 @@ use App\Consts\MessageConst;
 use App\Consts\AuthConst;
 use App\Consts\SessionConst;
 
+use App\Notifications\User2HogoshaRegisteredNotification;
+
+
 class SettingsController extends Controller
 {
     /*
@@ -26,7 +29,11 @@ class SettingsController extends Controller
  
     //設定ページ
     public function settings(Request $request){
-        return view('hogosha.settings');
+        $user=Auth::user();
+        $args=[
+            'mail'=>$user->email,
+        ];
+        return view('hogosha.settings',$args);
     }
 
     //設定のPostページ
@@ -36,11 +43,25 @@ class SettingsController extends Controller
         $user->name = $request->username;
         $user->save();
 
-        $arg = [
+        $args = [
+            'mail'=>$user->email,
             'alertComp'=>'変更が完了しました',
         ];
-        return redirect('hogosha.settings',302)->with($arg);
+        // return redirect()->route('home')->with($args);//上手く引き継げず
+        return view('hogosha.settings',$args);
 
+    }
+    //デバッグ用
+    public function sendmailtest(Request $request){
+        
+        $user = User::find(14);
+
+        if(is_null($user)){
+            abort(500);
+
+        }
+
+        $user->notify(new User2HogoshaRegisteredNotification($user->name));
     }
 
 }

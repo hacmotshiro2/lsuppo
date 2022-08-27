@@ -1,20 +1,11 @@
 
-@extends('layouts.sysadmin-base')
+@extends('layouts.lsuppo-base')
 
 @section('title')
 保護者登録ページ
 @endsection
       
 @section('content')
-        @if(count($errors) > 0)
-        <div>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
         <form method="POST" action="/hogosha/add/" class="row g-2">
             @csrf
 

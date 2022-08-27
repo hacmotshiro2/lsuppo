@@ -12,7 +12,7 @@
           <div class="text-sm text-red-600">
             <p>{{$alert}}</p>
             @if(count(json_decode($errorJson))>0)
-            <ul>
+            <ul class="list-disc">
             @foreach(json_decode($errorJson) as $error)
             <li>{{$error}}</li>
             @endforeach

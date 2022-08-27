@@ -19,7 +19,8 @@ use App\Http\Middleware\SessionControll;
 // Route::get('/', function () {
 //      return view('debug');
 // });
-Route::get('/','App\Http\Controllers\HomeController@mypage');
+//保護者かサポーターによって分岐し、それぞれのTOPページにリダイレクトする。
+Route::get('/','App\Http\Controllers\HomeController@mypage')->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -31,44 +32,88 @@ Route::get('/error',function(){
     return view('error');
 });
 
-/*共通ページ*/
-Route::get('/settings/', 'App\Http\Controllers\SettingsController@settings')->middleware('auth');//
+Route::middleware('lsuppo')->group(function () {
 
-/*保護者が参照するページ*/
-Route::get('/mypage/', 'App\Http\Controllers\HogoshaController@mypage')->middleware('auth')->middleware(SessionControll::class)->name('mypage');
-Route::get('/fb/detail/{fbNo}', 'App\Http\Controllers\FBController@fbDetail')->middleware('auth')->middleware(SessionControll::class);
-Route::get('/fb/', 'App\Http\Controllers\FBController@index')->middleware('auth')->middleware(SessionControll::class);
-Route::get('/lc/', 'App\Http\Controllers\LCoinController@index')->middleware('auth')->middleware(SessionControll::class);
-Route::post('/hogosha/edit/', 'App\Http\Controllers\HogoshaController@edit')->middleware('auth')->middleware(SessionControll::class);
+    /*共通ページ*/
+    Route::get('/settings/', 'App\Http\Controllers\SettingsController@settings');
+    Route::post('/settings/edit/', 'App\Http\Controllers\SettingsController@edit');
 
-/*サポーターが参照するページ*/
-Route::get('/supporter-page/','App\Http\Controllers\SupporterController@index')->middleware(SessionControll::class)->name('supporter-page');
-Route::get('/fb/index_sp', 'App\Http\Controllers\FBController@index_sp')->middleware('auth')->middleware(SessionControll::class);
-Route::get('/fb/add/', 'App\Http\Controllers\FBController@add')->middleware('auth')->middleware(SessionControll::class);
-Route::post('/fb/add/', 'App\Http\Controllers\FBController@addpost')->middleware('auth')->middleware(SessionControll::class);
-Route::get('/fb/edit/{fbNo}', 'App\Http\Controllers\FBController@edit')->middleware('auth')->middleware(SessionControll::class);
-Route::post('/fb/edit/{fbNo}', 'App\Http\Controllers\FBController@editpost')->middleware('auth')->middleware(SessionControll::class);
+    /*保護者が参照するページ*/
+    Route::get('/mypage/', 'App\Http\Controllers\HogoshaController@mypage')->name('mypage');
+    Route::get('/fb/detail/', 'App\Http\Controllers\FBController@fbDetail');
+    Route::get('/fb/', 'App\Http\Controllers\FBController@index');
+    Route::get('/lc/', 'App\Http\Controllers\LCoinController@index');
+    // Route::post('/hogosha/edit/', 'App\Http\Controllers\HogoshaController@edit')->middleware('auth')->middleware(SessionControll::class);
 
-/*権限レベルが高いサポーターが参照するページ*/
-Route::get('/sysad/', 'App\Http\Controllers\SysAdController@index');
+    /*サポーターが参照するページ*/
+    Route::get('/supporter-page/','App\Http\Controllers\SupporterController@index')->name('supporter-page');
+    Route::get('/fb/index_sp', 'App\Http\Controllers\FBController@index_sp');
+    Route::get('/fb/add/', 'App\Http\Controllers\FBController@add');
+    Route::post('/fb/add/', 'App\Http\Controllers\FBController@addpost');
+    Route::get('/fb/edit/', 'App\Http\Controllers\FBController@edit');
+    Route::post('/fb/edit/', 'App\Http\Controllers\FBController@editpost');
 
-Route::get('/hogosha/add/', 'App\Http\Controllers\HogoshaController@add');
-Route::post('/hogosha/add/', 'App\Http\Controllers\HogoshaController@create');
+    /*権限レベルが高いサポーターが参照するページ*/
+    Route::get('/sysad/', 'App\Http\Controllers\SysAdController@index');
 
-Route::get('/student/add/', 'App\Http\Controllers\StudentController@add');
-Route::post('/student/add/', 'App\Http\Controllers\StudentController@create');
+    Route::get('/hogosha/add/', 'App\Http\Controllers\HogoshaController@add');
+    Route::post('/hogosha/add/', 'App\Http\Controllers\HogoshaController@create');
 
-Route::get('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hadd');
-Route::post('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hcreate');
+    Route::get('/student/add/', 'App\Http\Controllers\StudentController@add');
+    Route::post('/student/add/', 'App\Http\Controllers\StudentController@create');
 
-Route::get('/lc/regist/', 'App\Http\Controllers\LCoinController@regist');
-Route::post('/lc/regist/', 'App\Http\Controllers\LCoinController@registpost');
+    Route::get('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hadd');
+    Route::post('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hcreate');
+
+    Route::get('/lc/regist/', 'App\Http\Controllers\LCoinController@regist');
+    Route::post('/lc/regist/', 'App\Http\Controllers\LCoinController@registpost');
 
 
-// Route::get('/fb/list/{id?}', 'App\Http\Controllers\FBController@list');
+    #DEBUG用
+    Route::get('/mail/test/manabiail/','App\Http\Controllers\SettingsController@sendmailtest');
+});
 
-// Route::get('/helloworld/{addTxt}', function ($addTxt) {
-//     $arg = [addTxt ->$addTxt];
-//     return view('helloworld',$arg);
-// });
 
+// /*共通ページ*/
+// Route::get('/settings/', 'App\Http\Controllers\SettingsController@settings')->middleware('auth');//
+// Route::post('/settings/edit/', 'App\Http\Controllers\SettingsController@edit')->middleware('auth');//
+
+// /*保護者が参照するページ*/
+// Route::get('/mypage/', 'App\Http\Controllers\HogoshaController@mypage')->middleware('auth')->middleware(SessionControll::class)->name('mypage');
+// Route::get('/fb/detail/{fbNo}', 'App\Http\Controllers\FBController@fbDetail')->middleware('auth')->middleware(SessionControll::class);
+// Route::get('/fb/', 'App\Http\Controllers\FBController@index')->middleware('auth')->middleware(SessionControll::class);
+// Route::get('/lc/', 'App\Http\Controllers\LCoinController@index')->middleware('auth')->middleware(SessionControll::class);
+// // Route::post('/hogosha/edit/', 'App\Http\Controllers\HogoshaController@edit')->middleware('auth')->middleware(SessionControll::class);
+
+// /*サポーターが参照するページ*/
+// Route::get('/supporter-page/','App\Http\Controllers\SupporterController@index')->middleware(SessionControll::class)->name('supporter-page');
+// Route::get('/fb/index_sp', 'App\Http\Controllers\FBController@index_sp')->middleware('auth')->middleware(SessionControll::class);
+// Route::get('/fb/add/', 'App\Http\Controllers\FBController@add')->middleware('auth')->middleware(SessionControll::class);
+// Route::post('/fb/add/', 'App\Http\Controllers\FBController@addpost')->middleware('auth')->middleware(SessionControll::class);
+// Route::get('/fb/edit/{fbNo}', 'App\Http\Controllers\FBController@edit')->middleware('auth')->middleware(SessionControll::class);
+// Route::post('/fb/edit/{fbNo}', 'App\Http\Controllers\FBController@editpost')->middleware('auth')->middleware(SessionControll::class);
+
+// /*権限レベルが高いサポーターが参照するページ*/
+// Route::get('/sysad/', 'App\Http\Controllers\SysAdController@index');
+
+// Route::get('/hogosha/add/', 'App\Http\Controllers\HogoshaController@add');
+// Route::post('/hogosha/add/', 'App\Http\Controllers\HogoshaController@create');
+
+// Route::get('/student/add/', 'App\Http\Controllers\StudentController@add');
+// Route::post('/student/add/', 'App\Http\Controllers\StudentController@create');
+
+// Route::get('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hadd');
+// Route::post('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hcreate');
+
+// Route::get('/lc/regist/', 'App\Http\Controllers\LCoinController@regist');
+// Route::post('/lc/regist/', 'App\Http\Controllers\LCoinController@registpost');
+
+
+// // Route::get('/fb/list/{id?}', 'App\Http\Controllers\FBController@list');
+
+// // Route::get('/helloworld/{addTxt}', function ($addTxt) {
+// //     $arg = [addTxt ->$addTxt];
+// //     return view('helloworld',$arg);
+// // });
+// #DEBUG用
+// Route::get('/mail/test/manabiail/','App\Http\Controllers\SettingsController@sendmailtest');

@@ -23,7 +23,12 @@
     @else
     <p>ページ遷移が不正です</p>
     @endif
+    @can('hogosha-binded')
     <p><a href='\fb\'>&lt;戻る</a></p>
+    @endcan
+    @can('supporter-binded')
+    <p><a href='\fb\index_sp'>&lt;戻る</a></p>
+    @endcan
     </div>
 </section>
 @endsection

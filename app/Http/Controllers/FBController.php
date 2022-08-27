@@ -54,7 +54,10 @@ class FBController extends Controller
 
     }
     // /fb/detail/{fbNo} サポーターも参照する
-    public function fbDetail(Request $request,$fbNo){
+    // public function fbDetail(Request $request,$fbNo){
+    public function fbDetail(Request $request){
+
+        $fbNo = $request->fbNo;
 
         $item=FB::where('FbNo',$fbNo)->first();
 
@@ -150,7 +153,9 @@ class FBController extends Controller
 
     }
     //get fb\edit
-    public function edit(Request $request,$fbNo){
+    // public function edit(Request $request,$fbNo){
+    public function edit(Request $request){
+        $fbNo = $request->fbNo;
         $fb = FB::find($fbNo);
         
         //権限チェック　だめならexception
@@ -177,7 +182,10 @@ class FBController extends Controller
         return view('FB.regist',$arg);
     }
     // post fb\edit
-    public function editpost(FBRequest $request,$fbNo){
+    // public function editpost(FBRequest $request,$fbNo){
+    public function editpost(FBRequest $request){
+
+        $fbNo = $request->fbNo;
 
         //画面上で入力させるが、サポーターが所属するLRに所属する生徒のみにする必要あり→バリデーションへ
 

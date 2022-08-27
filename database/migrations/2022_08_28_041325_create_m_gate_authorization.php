@@ -13,20 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('m_lc_ziyuu', function (Blueprint $table) {
-
+        Schema::create('m_gateAuthorization', function (Blueprint $table) {
             $table->collation = 'utf8mb4_general_ci';
 
-            $table->string('ZiyuuCd',3);
-            $table->string('Ziyuu',40);
-            $table->integer('amount');
+            $table->string('Path',80);
+            $table->string('AuthorizedGate',800)->nullable();
             $table->string('UpdateGamen',128);
             $table->string('UpdateSystem',128);
 
             $table->timestamps();
 
-            $table->primary('ZiyuuCd');
-
+            $table->primary('Path');
         });
     }
 
@@ -37,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('m_lc_ziyuu');
+        Schema::dropIfExists('m_gateAuthorization');
     }
 };
