@@ -55,6 +55,9 @@ Route::middleware('lsuppo')->group(function () {
     /*権限レベルが高いサポーターが参照するページ*/
     Route::get('/sysad/', 'App\Http\Controllers\SysAdController@index');
 
+    Route::post('/fb/approve/', 'App\Http\Controllers\FBController@approve');
+    Route::post('/fb/decline/', 'App\Http\Controllers\FBController@decline');
+
     Route::get('/hogosha/add/', 'App\Http\Controllers\HogoshaController@add');
     Route::post('/hogosha/add/', 'App\Http\Controllers\HogoshaController@create');
 
@@ -68,9 +71,10 @@ Route::middleware('lsuppo')->group(function () {
     Route::post('/lc/regist/', 'App\Http\Controllers\LCoinController@registpost');
 
 
-    #DEBUG用
-    Route::get('/mail/test/manabiail/','App\Http\Controllers\SettingsController@sendmailtest');
 });
+
+    #DEBUG用
+    Route::get('/mail/test/manabiail/','App\Http\Controllers\SettingsController@sendmailtest')->middleware('auth');
 
 
 // /*共通ページ*/

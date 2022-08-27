@@ -56,23 +56,23 @@ class FBPolicy
         }
     }
 
-    // public function add_fb(User $user,FB $fb){
-    public function add_fb(User $user){
+    // public function add_fb(User $user){
+    //これはポリシーではなく画面遷移制御で
      
-        if(is_null($user)){
-            return false;
-        }
-        //この処理をしないと必要なプロパティにセットされない
-        $user->setUserTypeStatus();
-        //サポーターの場合
-        if($user->userType==AuthConst::USER_TYPE_SUPPORTER and $user->isBinded==1){
-            //サポーターであれば新規登録は誰でもできる
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+    //     if(is_null($user)){
+    //         return false;
+    //     }
+    //     //この処理をしないと必要なプロパティにセットされない
+    //     $user->setUserTypeStatus();
+    //     //サポーターの場合
+    //     if($user->userType==AuthConst::USER_TYPE_SUPPORTER and $user->isBinded==1){
+    //         //サポーターであれば新規登録は誰でもできる
+    //         return true;
+    //     }
+    //     else{
+    //         return false;
+    //     }
+    // }
     public function edit_fb(User $user,FB $fb){
         if(is_null($user)){
             return false;

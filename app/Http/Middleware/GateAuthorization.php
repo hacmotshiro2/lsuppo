@@ -47,9 +47,10 @@ class GateAuthorization
 
             foreach($gates as $gate){
                 #forDEBUG
-                print $gate;
-                print " | ";
-                
+                if(env('APP_DEBUG')){
+                    print $gate;
+                    print " | ";
+                }
                 if(Gate::allows($gate)){
                     //一度でも許可されれば、その時点で通過
                     return $next($request);

@@ -53,7 +53,10 @@ class SettingsController extends Controller
     }
     //デバッグ用
     public function sendmailtest(Request $request){
-        
+        #forDEBUG
+        if(!env('APP_DEBUG')){
+            abort(404);
+        }
         $user = User::find(14);
 
         if(is_null($user)){

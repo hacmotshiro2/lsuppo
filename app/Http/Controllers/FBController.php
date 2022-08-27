@@ -32,7 +32,6 @@ class FBController extends Controller
 
         $arg = [
             'items' => $items,
-            'sp'=>'0', //supporterかどうか
         ];
 
         return view('FB.index',$arg);
@@ -42,12 +41,8 @@ class FBController extends Controller
         #TODO 自LRに絞るかは要検討
         $items = FB::getAllFBList(); //通常のallでとると、indexの場合とプロパティが変わるので。（例StudentName）
 
-        //権限チェック　だめならexception
-        Gate::authorize('supporter-binded',FB::class);
-
         $arg = [
             'items' => $items,
-            'sp'=>'1', //supporterかどうか
         ];
 
         return view('FB.index',$arg);
@@ -73,9 +68,6 @@ class FBController extends Controller
     }
     //fb\add
     public function add(Request $request){
-        
-        //権限チェック　だめならexception ※第二引数は必須
-        Gate::authorize('add_fb',new FB);
 
         $user = Auth::user();
 
@@ -232,4 +224,19 @@ class FBController extends Controller
         return view('FB.regist',$arg);
 
     }
+    //POST
+    public function approve(Request $request){
+        //hiddenからfbNo取得
+        $request->fbNo;
+        #TODO
+
+    }
+    //POST
+    public function decline(Request $request){
+        //hiddenからfbNo取得
+        $request->fbNo;
+        #TODO
+
+    }
+
 }
