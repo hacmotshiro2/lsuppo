@@ -4,6 +4,11 @@ namespace App\Observers;
 
 use App\Models\User;
 
+use App\Notifications\UserObserveNotification;
+
+use Illuminate\Support\Facades\Mail; //追記
+use App\Mail\UserRegisteredMail; //追記
+
 class UserObserver
 {
     /**
@@ -15,8 +20,12 @@ class UserObserver
     public function created(User $user)
     {
         //
-        // $user->setUserTypeStatus();
-        #TODO メールを飛ばす処理を書く
+        //ユーザーに対して、登録が完了した旨と管理者による作業を待ってほしい旨通知する
+        $user->notify(new UserObserveNotification());
+        
+        //ユーザーが登録されたことを管理者に伝える
+        Mail::send(new UserRegisteredMail($user->name));
+
     }
 
     /**
