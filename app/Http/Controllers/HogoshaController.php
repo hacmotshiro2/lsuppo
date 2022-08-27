@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Consts\MessageConst;
 use App\Consts\AuthConst;
 
+use App\Notifications\User2HogoshaRegisteredNotification;
 
 class HogoshaController extends Controller
 {
@@ -108,7 +109,12 @@ class HogoshaController extends Controller
 
         $u2h->save();
 
-        
+        //紐づけが完了したメールを送る
+        //管理者が登録するので、ログインユーザーではなく、いま登録したユーザーに対して送る
+        $user = User::find($u2h->user_id);
+        if(!is_null($user)){
+            $user->notify(new User2HogoshaRegisteredNotification($user->name));
+        }
 
         //登録後の再取得
         $items = $this->getu2hData();

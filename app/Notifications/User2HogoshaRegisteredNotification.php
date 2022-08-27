@@ -7,7 +7,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UserObserveNotification extends Notification
+use App\Models\User;
+
+
+class User2HogoshaRegisteredNotification extends Notification
 {
     use Queueable;
 
@@ -16,9 +19,10 @@ class UserObserveNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+    private string $name;
+    public function __construct($name)
     {
-        //
+        $this->name = $name;
     }
 
     /**
@@ -40,16 +44,18 @@ class UserObserveNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('/');
+        $url= url('/mypage');
 
         return (new MailMessage)
-                    ->subject(env('MAIL_SUBJECT_PRE').'登録頂きありがとうございました。')
-                    ->greeting('こんにちは　プログラミングスクールLです。')
-                    ->line('エルサポでユーザーの登録が完了しました。')
-                    ->line('この後、管理者による確認作業が必要です。お待ちください。')
-                    ->line('')
-                    ->line('')
-                    ->line('いつもありがとうございます。');
+        ->subject(env('MAIL_SUBJECT_PRE').'ご利用いただける準備が整いました。')
+        ->greeting($this->name.'さん こんにちは　プログラミングスクールLです。')
+        ->line('登録いただいた内容の確認を行い、お子様との紐づけ作業が完了しました。')
+        ->line('ご利用いただく準備が全て整いました。')
+        ->line('')
+        ->action('こちらから',$url)
+        ->line('');
+
+
     }
 
     /**
