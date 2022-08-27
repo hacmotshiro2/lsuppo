@@ -13,7 +13,8 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="containe mx-auto max-w-7xl text-xl text-gray-800" >
-        <div>
+        <!-- id=app は下のVuewスクリプトで使われているので消さない -->
+        <div id="app">
             <div>
                 <x-lsuppo-header :userName="$userName"/>
             </div>

@@ -43,7 +43,6 @@ Route::middleware('lsuppo')->group(function () {
     Route::get('/fb/detail/', 'App\Http\Controllers\FBController@fbDetail');
     Route::get('/fb/', 'App\Http\Controllers\FBController@index');
     Route::get('/lc/', 'App\Http\Controllers\LCoinController@index');
-    // Route::post('/hogosha/edit/', 'App\Http\Controllers\HogoshaController@edit')->middleware('auth')->middleware(SessionControll::class);
 
     /*サポーターが参照するページ*/
     Route::get('/supporter-page/','App\Http\Controllers\SupporterController@index')->name('supporter-page');

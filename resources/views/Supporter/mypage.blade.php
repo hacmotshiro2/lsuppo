@@ -16,7 +16,7 @@
         <h1 class="text-black-800 text-4xl sm:text-5xl md:text-6xl font-bold mb-8 md:mb-12">いつもありがとうございます</h1>
         <p class="lg:w-4/5 text-gray-500 xl:text-lg leading-relaxed mb-8 md:mb-12">{{$userName}}さんの日頃からのご尽力に感謝いたします。保護者やお子様は{{$userName}}さんからのフィードバックを楽しみにしています。</p>
         @can('supporter-auth-9')
-      <p><a href="sysad">super menu</a></p>
+      <p><a href="/sysad/">super menu</a></p>
       @endcan
       </div>
       <!-- content - end -->
