@@ -13,6 +13,7 @@ use App\Models\Hogosha;
 use App\Models\Student;
 use App\Models\Supporter;
 use App\Models\LR;
+use App\Models\ApproveHistory;
 
 use App\Http\Requests\FBRequest;
 use App\Consts\DBConst;
@@ -59,11 +60,23 @@ class FBController extends Controller
         //権限チェック　だめならexception
         Gate::authorize('view_fb_detail',$item);
 
-        $arg=[
+        //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
+        $alertComp='';
+        if($request->session()->has('alertComp')){
+            $alertComp = $request->session()->get('alertComp');
+        }
+        $alertErr='';
+        if($request->session()->has('alertErr')){
+            $alertErr = $request->session()->get('alertErr');
+        }
+        //テンプレートに渡す引数
+        $args=[
             'item'=>$item,
+            'alertComp'=>$alertComp,
+            'alertErr'=>$alertErr,
         ];
 
-        return view('FB.detail',$arg);
+        return view('FB.detail',$args);
 
     }
     //fb\add
@@ -78,14 +91,27 @@ class FBController extends Controller
         //userとsupporterを紐づけて、セット
         $supporterCd = Supporter::getSupporterCd($user);
 
-        $arg = [
-            #TODO
+        //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
+        $alertComp='';
+        if($request->session()->has('alertComp')){
+            $alertComp = $request->session()->get('alertComp');
+        }
+        $alertErr='';
+        if($request->session()->has('alertErr')){
+            $alertErr = $request->session()->get('alertErr');
+        }
+
+
+        //テンプレートに渡す変数
+        $args = [
             'mode' =>'add',
             'students'=>$students,
             'lrs'=>$lrs,
             'KinyuuSupporterCd'=>$supporterCd,
+            'alertComp'=>$alertComp,
+            'alertErr'=>$alertErr,
         ];
-        return view('FB.regist',$arg);
+        return view('FB.regist',$args);
     }
     // post fb\add
     public function addpost(FBRequest $request){
@@ -94,30 +120,6 @@ class FBController extends Controller
 
         $user = Auth::user();
 
-        //ドロップダウンリスト用データ取得（#TODOキャッシュにしたい）
-        $students = Student::all();
-        $lrs = LR::all();
-
-        #TODO userとsupporterを紐づけて、セット
-        $supporterCd = $request->KinyuuSupporterCd;
-
-        $arg = [
-            #TODO
-            'alertComp'=>MessageConst::ADD_COMPLETED,
-            'mode' =>'add',
-            'students'=>$students,
-            'lrs'=>$lrs,
-            'KinyuuSupporterCd'=>$supporterCd,
-        ];
-
-        // //Validation →フォームコントローラーに移行
-        // $validate_rule = [
-        //     'fbTitle' => 'required',
-        //     'fbDetail' => 'required',
-        //     'TaishoukikanFrom' => 'required',
-        //     'TaishoukikanTo' => 'required',
-        // ];
-        // $this->validate($request,$validate_rule);
 
         $fb = new FB;
         $form = $request->all();
@@ -130,9 +132,10 @@ class FBController extends Controller
         $fb->LastReadDate=null;
         $fb->KinyuuDate=date("Y-m-d H:i:s");
         #TODO承認機能
-        $fb->ShouninDate=date("Y-m-d H:i:s");
-        $fb->ShouninStatus=DBConst::SHOUNIN_STATUS_APPROVED;
-        $fb->ShouninSupporterCd=$request->KinyuuSupporterCd;
+        // $fb->ShouninDate=date("Y-m-d H:i:s");
+        $fb->ShouninStatus=DBConst::SHOUNIN_STATUS_APPROVING;
+        // $fb->ShouninSupporterCd=$request->KinyuuSupporterCd;
+        $fb->ApprovalToken = uniqid('',true);
 
         //Update系のセット
         $fb->setUpdateColumn();
@@ -140,9 +143,12 @@ class FBController extends Controller
         //登録処理
         $fb->save();
 
-        return view('FB.regist',$arg);
+        //クエリ文字列としてリダイレクト先に渡す
+        $args = [
+          //現状特になし
+        ];
 
-
+        return redirect()->route('fbAdd',$args)->with('alertComp',MessageConst::ADD_COMPLETED);
     }
     //get fb\edit
     // public function edit(Request $request,$fbNo){
@@ -150,8 +156,10 @@ class FBController extends Controller
         $fbNo = $request->fbNo;
         $fb = FB::find($fbNo);
         
-        //権限チェック　だめならexception
-        Gate::authorize('edit_fb',$fb);
+        //ポリシーチェック　だめなら参照ページへリダイレクト
+        if(Gate::denies('edit_fb',$fb)){
+            return redirect()->route('fbDetail',['fbNo'=>$fbNo])->with('alertErr',MessageConst::DENIED_EDIT);
+        }
 
         $user = Auth::user();
 
@@ -165,6 +173,7 @@ class FBController extends Controller
 
         $arg = [
             #TODO
+            'fbNo' =>$fbNo,
             'mode' =>'edit',
             'form' =>$fb,
             'students'=>$students,
@@ -199,42 +208,106 @@ class FBController extends Controller
         //Update系のセット
         $fb->setUpdateColumn();
 
-        //ドロップダウンリスト用データ取得（#TODOキャッシュにしたい）
-        //生徒の変更は行えないようにする
-        $students = Student::where('StudentCd',$fb->StudentCd)->get();
-        $lrs = LR::all();
-
-        //userとsupporterを紐づけて、セット
-        $supporterCd = $request->KinyuuSupporterCd;
-
-        $arg = [
-            #TODO
-            'alertComp'=>MessageConst::EDIT_COMPLETED,
-            'mode' =>'edit',
-            'form' =>$fb,
-            'students'=>$students,
-            'lrs'=>$lrs,
-            'KinyuuSupporterCd'=>$supporterCd,
-        ];
-
-
         //登録処理
         $fb->save();
 
-        return view('FB.regist',$arg);
+
+        //fbNoだけ渡して後は、リダイレクト先のGetコントローラに任せる
+        $args = [
+            'fbNo' => $fbNo,
+        ];
+
+        return redirect()->route('fbEdit',$args)->with('alertComp',MessageConst::EDIT_COMPLETED);//http://127.0.0.1:8000/fb/detail?fbNo=30
 
     }
     //POST
     public function approve(Request $request){
         //hiddenからfbNo取得
-        $request->fbNo;
-        #TODO
+        $fbNo = $request->fbNo;
+        //FBテーブルから取得
+        $fb = FB::where('FbNo',$fbNo)->first();
 
+        //ポリシーチェック　だめならexception
+        Gate::authorize('approve_fb',$fb);
+
+        //ユーザーからサポーターコードを取得
+        $user = Auth::user();
+        $supporterCd = Supporter::getSupporterCd($user);
+
+        //承認機能
+        $fb->ShouninDate = date("Y-m-d H:i:s");
+        $fb->ShouninStatus=DBConst::SHOUNIN_STATUS_APPROVED;
+        $fb->ShouninSupporterCd=$supporterCd;
+
+        //承認履歴
+        $ah = new ApproveHistory;
+        $ah->TargetToken = $fb->ApprovalToken;
+        $ah->HasseiDate = date("Y-m-d H:i:s");
+        $ah->ShouninStatus=DBConst::SHOUNIN_STATUS_APPROVED;
+        #TODO
+        $ah->Comment = "";
+        $ah->TourokuSupporterCd = $supporterCd;
+        $ah->setUpdateColumn();
+
+        //フィードバック明細及び承認履歴に更新
+        DB::transaction(function() use($fb,$ah){
+            $ah->save();//Update
+            $fb->save();//Insert
+
+        });
+
+    
+        //引数だけ渡して、後はリダイレクトした方がいい
+        $args=[
+            'fbNo'=>$fbNo,
+        ];
+
+        return redirect()->route('fbDetail',$args)->with('alertComp',MessageConst::APPLOVED);//http://127.0.0.1:8000/fb/detail?fbNo=30
     }
     //POST
     public function decline(Request $request){
         //hiddenからfbNo取得
-        $request->fbNo;
+        $fbNo = $request->fbNo;
+        //FBテーブルから取得
+        $fb = FB::where('FbNo',$fbNo)->first();
+
+        //ポリシーチェック　だめならexception
+        Gate::authorize('decline_fb',$fb);
+
+        //ユーザーからサポーターコードを取得
+        $user = Auth::user();
+        $supporterCd = Supporter::getSupporterCd($user);
+
+        //承認機能
+        $fb->ShouninDate = date("Y-m-d H:i:s");
+        $fb->ShouninStatus=DBConst::SHOUNIN_STATUS_RETURN;
+        $fb->ShouninSupporterCd=$supporterCd;
+
+        //承認履歴
+        $ah = new ApproveHistory;
+        $ah->TargetToken = $fb->ApprovalToken;
+        $ah->HasseiDate = date("Y-m-d H:i:s");
+        $ah->ShouninStatus=DBConst::SHOUNIN_STATUS_RETURN;
+
+        #TODO
+        $ah->Comment = "";
+        $ah->TourokuSupporterCd = $supporterCd;
+        $ah->setUpdateColumn();
+
+        //フィードバック明細及び承認履歴に更新
+        DB::transaction(function() use($fb,$ah){
+            $ah->save();//Update
+            $fb->save();//Insert
+
+        });
+
+    
+        //引数だけ渡して、後はリダイレクトした方がいい
+        $args=[
+            'fbNo'=>$fbNo,
+        ];
+
+        return redirect()->route('fbDetail',$args)->with('alertComp',MessageConst::DECLINED);//http://127.0.0.1:8000/fb/detail?fbNo=30
         #TODO
 
     }

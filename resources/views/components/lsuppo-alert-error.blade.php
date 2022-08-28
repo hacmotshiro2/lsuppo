@@ -11,7 +11,7 @@
         <div class="ml-3">
           <div class="text-sm text-red-600">
             <p>{{$alert}}</p>
-            @if(count(json_decode($errorJson))>0)
+            @if(is_array(json_decode($errorJson)) and count(json_decode($errorJson))>0)
             <ul class="list-disc">
             @foreach(json_decode($errorJson) as $error)
             <li>{{$error}}</li>

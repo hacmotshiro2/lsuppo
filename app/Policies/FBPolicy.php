@@ -89,4 +89,24 @@ class FBPolicy
             return false;
         }
     }
+    public function approve_fb(User $user,FB $fb){
+        if(is_null($user)){
+            return false;
+        }
+        //この処理をしないと必要なプロパティにセットされない
+        $user->setUserTypeStatus();
+
+        //今のところ制限なし
+        return true;
+    }
+    public function decline_fb(User $user,FB $fb){
+        if(is_null($user)){
+            return false;
+        }
+        //この処理をしないと必要なプロパティにセットされない
+        $user->setUserTypeStatus();
+
+        //今のところ制限なし
+        return true;
+    }
 }

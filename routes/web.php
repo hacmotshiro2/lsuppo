@@ -40,16 +40,16 @@ Route::middleware('lsuppo')->group(function () {
 
     /*保護者が参照するページ*/
     Route::get('/mypage/', 'App\Http\Controllers\HogoshaController@mypage')->name('mypage');
-    Route::get('/fb/detail/', 'App\Http\Controllers\FBController@fbDetail');
+    Route::get('/fb/detail/', 'App\Http\Controllers\FBController@fbDetail')->name('fbDetail');
     Route::get('/fb/', 'App\Http\Controllers\FBController@index');
     Route::get('/lc/', 'App\Http\Controllers\LCoinController@index');
 
     /*サポーターが参照するページ*/
     Route::get('/supporter-page/','App\Http\Controllers\SupporterController@index')->name('supporter-page');
     Route::get('/fb/index_sp', 'App\Http\Controllers\FBController@index_sp');
-    Route::get('/fb/add/', 'App\Http\Controllers\FBController@add');
+    Route::get('/fb/add/', 'App\Http\Controllers\FBController@add')->name('fbAdd');
     Route::post('/fb/add/', 'App\Http\Controllers\FBController@addpost');
-    Route::get('/fb/edit/', 'App\Http\Controllers\FBController@edit');
+    Route::get('/fb/edit/', 'App\Http\Controllers\FBController@edit')->name('fbEdit');
     Route::post('/fb/edit/', 'App\Http\Controllers\FBController@editpost');
 
     /*権限レベルが高いサポーターが参照するページ*/

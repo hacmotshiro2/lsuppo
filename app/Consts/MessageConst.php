@@ -11,4 +11,7 @@ class MessageConst
     const NUMERIC = '%1$sを整数で入力してください';
     const BEFORE = '%1$sには%2$s以前の日付を入力してください';
     const AFTER = '%1$sには%2$s以降の日付を入力してください';
+    const APPLOVED = '承認が完了しました。';
+    const DECLINED = '取り下げしました。';
+    const DENIED_EDIT = '編集権限がありません。';
 }
