@@ -47,7 +47,8 @@
                 <span class="mt-1 md:mt-4 w-full"><a class="text-indigo-500 items-center" href="\fb\edit\?fbNo={{$items[$i]->FbNo}}">編集</a></span>
               </div>
               <div class="table-row">
-                <span class="mt-1 md:mt-4  w-full"><a class="text-indigo-500 items-center" href="\fb\delete\?fbNo={{$items[$i]->FbNo}}">削除</a></span>
+                <!-- TODO -->
+                <span class="mt-1 md:mt-4  w-full">削除</span>
               </div>
               <div class="table-row">
                 <span class="mt-1 md:mt-4  w-full">{{$items[$i]->KinyuuSupporterName}}</span>

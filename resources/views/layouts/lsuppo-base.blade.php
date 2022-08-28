@@ -47,11 +47,22 @@
         </div>
     <script>
        const app= new Vue({
+        //ハンバーガーメニュー用
         el:'#app',
         data:{
             isOpen:false,
         }
        })
     </script> 
+    <script type="text/javascript">
+        // FB登録画面で、文字数をカウントします
+        const textarea = document.querySelector('#txtaDetail');
+        const detail_length = document.querySelector('#detail_length');
+        //イベント登録
+        textarea.addEventListener('keyup', onKeyUp);
+        function onKeyUp(){
+            detail_length.innerText = textarea.value.length;
+        }
+    </script>
     </body>
 </html>
