@@ -6,7 +6,7 @@
         <div id="headerLogo" class="mx-8">
             <a href="/"><img class="bg-gray-300 h-16" src="/images/logo-lsuppov1.0-bgw-wide.svg"></a>
         </div>
-        <div>
+        <div class="mx-4">
             <!-- 768px以上でハンバーガーメニュー非表示に -->
             <button class="md:hidden focus:outline-none" @click="isOpen = !isOpen">
                 <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
