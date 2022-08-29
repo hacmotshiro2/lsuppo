@@ -140,8 +140,23 @@ class FBController extends Controller
         //Update系のセット
         $fb->setUpdateColumn();
 
-        //登録処理
-        $fb->save();
+        //承認履歴
+        $ah = new ApproveHistory;
+        $ah->TargetToken = $fb->ApprovalToken;
+        $ah->HasseiDate = date("Y-m-d H:i:s");
+        $ah->ShouninStatus=DBConst::SHOUNIN_STATUS_APPROVING;
+        #TODO
+        $ah->Comment = "";
+        $ah->TourokuSupporterCd = $request->KinyuuSupporterCd;
+        $ah->setUpdateColumn();
+
+        //フィードバック明細及び承認履歴に更新
+        DB::transaction(function() use($fb,$ah){
+            $ah->save();//Insert
+            $fb->save();//Insert
+
+        });
+        
 
         //クエリ文字列としてリダイレクト先に渡す
         $args = [
@@ -157,8 +172,10 @@ class FBController extends Controller
         $fb = FB::find($fbNo);
         
         //ポリシーチェック　だめなら参照ページへリダイレクト
-        if(Gate::denies('edit_fb',$fb)){
-            return redirect()->route('fbDetail',['fbNo'=>$fbNo])->with('alertErr',MessageConst::DENIED_EDIT);
+        $policyResponse = Gate::inspect('edit_fb',$fb);
+        if($policyResponse->denied()){
+            //メッセージはポリシーチェックの中身で区分け
+            return redirect()->route('fbDetail',['fbNo'=>$fbNo])->with('alertErr',$policyResponse->message());
         }
 
         $user = Auth::user();
@@ -201,23 +218,37 @@ class FBController extends Controller
         //フォームにはない値をセット
         $fb->KinyuuDate=date("Y-m-d H:i:s");
         #TODO承認機能
-        $fb->ShouninDate=date("Y-m-d H:i:s");
-        $fb->ShouninStatus=DBConst::SHOUNIN_STATUS_APPROVED;
-        $fb->ShouninSupporterCd=$request->KinyuuSupporterCd;
+        // $fb->ShouninDate=date("Y-m-d H:i:s");
+        $fb->ShouninStatus=DBConst::SHOUNIN_STATUS_APPROVING;
+        // $fb->ShouninSupporterCd=$request->KinyuuSupporterCd;
 
         //Update系のセット
         $fb->setUpdateColumn();
 
-        //登録処理
-        $fb->save();
+        //承認履歴
+        $ah = new ApproveHistory;
+        $ah->TargetToken = $fb->ApprovalToken;
+        $ah->HasseiDate = date("Y-m-d H:i:s");
+        $ah->ShouninStatus=DBConst::SHOUNIN_STATUS_APPROVING;
+        #TODO
+        $ah->Comment = "";
+        $ah->TourokuSupporterCd = $request->KinyuuSupporterCd;
+        $ah->setUpdateColumn();
 
+        //フィードバック明細及び承認履歴に更新
+        DB::transaction(function() use($fb,$ah){
+            $ah->save();//Insert
+            $fb->save();//Update
+
+        });
+        
 
         //fbNoだけ渡して後は、リダイレクト先のGetコントローラに任せる
         $args = [
             'fbNo' => $fbNo,
         ];
 
-        return redirect()->route('fbEdit',$args)->with('alertComp',MessageConst::EDIT_COMPLETED);//http://127.0.0.1:8000/fb/detail?fbNo=30
+        return redirect()->route('fbDetail',$args)->with('alertComp',MessageConst::EDIT_COMPLETED);//http://127.0.0.1:8000/fb/detail?fbNo=30
 
     }
     //POST

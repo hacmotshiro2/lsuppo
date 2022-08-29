@@ -9,8 +9,11 @@ use App\Models\Student;
 use App\Models\Supporter;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 use App\Consts\AuthConst;
+use App\Consts\DBConst;
+use App\Consts\MessageConst;
 
 class FBPolicy
 {
@@ -74,19 +77,41 @@ class FBPolicy
     //     }
     // }
     public function edit_fb(User $user,FB $fb){
-        if(is_null($user)){
-            return false;
+        //チェック内容によってメッセージを変えて、返す
+        //途中でエラーになったらその時点でfalseを返す。
+
+        //check1.承認状態チェック　承認中、取り下げの場合はTRUE。そうでなければFALSE
+        if(!in_array($fb->ShouninStatus,[DBConst::SHOUNIN_STATUS_APPROVING,DBConst::SHOUNIN_STATUS_RETURN])){
+            //承認中、取り下げじゃなければ
+            return Response::deny(MessageConst::SHOUNIN_STATUS_ERROR);
         }
+
         //この処理をしないと必要なプロパティにセットされない
         $user->setUserTypeStatus();
-        //サポーターの場合
-        if($user->userType==AuthConst::USER_TYPE_SUPPORTER and $user->isBinded==1){
-            //自分が登録したFBのみ編集できる
-            $supporterCd = Supporter::getSupporterCd($user);
-            return $fb->KinyuuSupporterCd == $supporterCd;
+
+        //check2.サポーターの権限が9なら、記入者に関係なく編集可能
+        if($user->sp_authlevel==9){
+            return Response::allow();
+        }
+
+        //check3.サポーターかどうかのチェック
+        if(!($user->userType==AuthConst::USER_TYPE_SUPPORTER and $user->isBinded==1)){
+            //サポーターじゃない
+            return Response::deny(MessageConst::DENIED_EDIT);
         }
         else{
-            return false;
+            //自分が登録したFBのみ編集できる
+            $supporterCd = Supporter::getSupporterCd($user);
+
+            //check4.記入者と同じサポーターかどうか
+            if($fb->KinyuuSupporterCd != $supporterCd){
+                //異なる
+                return Response::deny(MessageConst::DENIED_EDIT);
+            }
+            else{
+                //承認状態がOKで、サポーターで、自分が起票したFBであれば、
+                return Response::allow();
+            }
         }
     }
     public function approve_fb(User $user,FB $fb){

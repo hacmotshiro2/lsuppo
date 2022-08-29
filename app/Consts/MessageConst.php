@@ -12,6 +12,7 @@ class MessageConst
     const BEFORE = '%1$sには%2$s以前の日付を入力してください';
     const AFTER = '%1$sには%2$s以降の日付を入力してください';
     const APPLOVED = '承認が完了しました。';
-    const DECLINED = '取り下げしました。';
+    const DECLINED = '差し戻しました。';
     const DENIED_EDIT = '編集権限がありません。';
+    const SHOUNIN_STATUS_ERROR = '承認ステータスエラー　編集可能な状態ではありません。';
 }
