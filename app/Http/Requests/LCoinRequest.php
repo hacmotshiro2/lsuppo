@@ -30,7 +30,7 @@ class LCoinRequest extends FormRequest
             'StudentCd'=>'required',
             'HasseiDate'=>'required',
             'ZiyuuCd'=>'required',
-            'amount' =>'required',
+            'Amount' =>['numeric','required','between:-999,999'],
         ];
     }
     public function messages(){

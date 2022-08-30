@@ -13,6 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
+        if(Schema::hasTable('r_approvehistory')){
+            return;
+        }
         Schema::create('r_approvehistory', function (Blueprint $table) {
             $table->collation = 'utf8mb4_general_ci';
 

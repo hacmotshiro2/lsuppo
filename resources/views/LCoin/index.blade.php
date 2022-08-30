@@ -55,7 +55,7 @@
             <!-- <tr class="hover:bg-gray-400"> -->
             <tr class="">
                 <td class="px-2 py-2">{{$item->HasseiDate}}</td>
-                <td class="px-2 py-2">{{$item->amount}}</td>
+                <td class="px-2 py-2">{{$item->Amount}}</td>
                 <td class="px-2 py-2">{{$item->Ziyuu}}</td>
                 <td class="px-2 py-2">{{$item->ZiyuuHosoku}}</td>
             </tr>

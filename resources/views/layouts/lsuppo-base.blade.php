@@ -4,13 +4,28 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>@yield('title')</title>
-
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <style>
+            @tailwind base;
+            @tailwind components;
+            @tailwind utilities;
+
+            @layer base{
+                label {
+                    @apply inline-block text-gray-800 text-sm sm:text-base ;
+                }
+                input{
+                    @apply bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 ;
+                }
+
+            }
+
+        </style>
     </head>
     <body class="containe mx-auto max-w-7xl text-xl text-gray-800" >
         <!-- id=app は下のVuewスクリプトで使われているので消さない -->
@@ -63,6 +78,19 @@
         function onKeyUp(){
             detail_length.innerText = textarea.value.length;
         }
+        //LC削除時の確認処理
+        function onDelete(){
+            if(window.confirm('削除します。よろしいですか？')){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        // const formLCDelete = document.querySelector('#formLCDelete');
+        // formLCDelete.addEventListener('onsubmit',(event)=>{
+        //     return window.confirm();
+        // });
     </script>
     </body>
 </html>

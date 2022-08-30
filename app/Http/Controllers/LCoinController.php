@@ -12,12 +12,34 @@ use App\Models\LCoinMeisai;
 use App\Models\Student;
 use App\Models\Ziyuu;
 use App\Models\Hogosha;
+use App\Models\Supporter;
 use App\Http\Requests\LCoinRequest;
 use App\Consts\DBConst;
+use App\Consts\MessageConst;
 
 
 class LCoinController extends Controller
 {
+    /*
+    // \lc\
+    public function index(Request $request){
+
+                //認証情報を取得し、ログイン情報を取得する
+                $user = Auth::user();
+                //ログイン情報から保護者情報を取得
+                $hogoshaCd = Hogosha::getHogoshaCd($user);
+        
+                //保護者コードから、該当する生徒の一覧を取得　生徒コードASCで配列に
+
+                //生徒毎のエルコイン残高を取得　生徒コードASCで配列に
+
+                //生徒毎の、該当のLCoinMeisaiを取得　生徒コードASCで配列に
+                $items = LCoinMeisai::getLCmeisaiByHogosha($hogoshaCd);
+
+                //
+
+    }
+    */
     // \lc\
     public function index(Request $request){
 
@@ -26,32 +48,9 @@ class LCoinController extends Controller
         //ログイン情報から保護者情報を取得
         $hogoshaCd = Hogosha::getHogoshaCd($user);
 
-        $param = ['hogoshaCd'=>$hogoshaCd];
-        $items = DB::select("
-
-        SELECT 
-            lc.id,
-            lc.StudentCd,
-            MS.HyouziMei StudentName,
-            MS.HogoshaCd,
-            lc.HasseiDate,
-            lc.ZiyuuCd,
-            MZ.Ziyuu,
-            MZ.amount,
-            lc.ZiyuuHosoku,
-            lc.TourokuSupporterCd,
-            MSP.HyouziMei TourokuSupporterName,
-            lc.amount
-        FROM r_lc_lcoinmeisai lc
-        LEFT OUTER JOIN m_student MS
-        ON MS.StudentCd = lc.StudentCd
-        LEFT OUTER JOIN m_lc_ziyuu MZ
-        ON MZ.ZiyuuCd = lc.ZiyuuCd
-        LEFT OUTER JOIN m_supporter MSP
-        ON MSP.SupporterCd = lc.TourokuSupporterCd
-        WHERE MS.HogoshaCd = :hogoshaCd
-        ORDER BY lc.StudentCd,lc.HasseiDate DESC
-        ",$param);
+        //保護者コードから、該当のLCoinMeisaiを取得
+        $items = LCoinMeisai::getLCmeisaiByHogoshaCd($hogoshaCd);
+     
         //残高計算
         //生徒毎に配列を分ける為の準備
         $sliceset=[];//オフセット、長さの多次元配列
@@ -95,36 +94,76 @@ class LCoinController extends Controller
         foreach($itemset as $items){
             $lczandaka=0;
             foreach($items as $item){
-                $lczandaka+=intVal($item->amount);
+                $lczandaka+=intVal($item->Amount);
                 $studentName = $item->StudentName;
             }
             $lczandakas[$studentName]=$lczandaka;
         }
 
-        $arg = [
-            'userName'=>$user->name,
-            'msg'=>'',
+        $args = [
             'lczandakas'=>$lczandakas,
             'itemset' => $itemset,
         ];
 
-        return view('LCoin.index',$arg);
+        return view('LCoin.index',$args);
 
     }
-    // \lc\regist
-    public function regist(Request $request){
+    //get 管理者用の一覧確認ページ
+    public function list(Request $request){
 
-        //ドロップダウンリストのための処理
+        $items=LCoinMeisai::All();
+
+        //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
+        $alertComp='';
+        if($request->session()->has('alertComp')){
+            $alertComp = $request->session()->get('alertComp');
+        }
+        $alertErr='';
+        if($request->session()->has('alertErr')){
+            $alertErr = $request->session()->get('alertErr');
+        }
+        
+        
+        $args = [
+            'items'=>$items,
+            'alertComp' =>$alertComp,
+            'alertErr' =>$alertErr,
+
+        ];
+
+        return view('LCoin.list', $args);
+
+    }
+
+    // \lc\add
+    public function add(Request $request){
+
+        $user = Auth::user();
+
+        //ドロップダウンリスト用データ取得（#TODOキャッシュにしたい）
         $students = Student::all();
         $ziyuus = Ziyuu::all();
-        #TODO userとsupporterを紐づけて、セット
-        $supporterCd = 'FDemo1';
+
+        //userとsupporterを紐づけて、セット
+        $supporterCd = Supporter::getSupporterCd($user);
+
+        //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
+        $alertComp='';
+        if($request->session()->has('alertComp')){
+            $alertComp = $request->session()->get('alertComp');
+        }
+        $alertErr='';
+        if($request->session()->has('alertErr')){
+            $alertErr = $request->session()->get('alertErr');
+        }
+        
 
         $arg = [
             #TODO
-            'userName'=>'システム管理者',
+            'mode'=>'add',
+            'alertComp' =>$alertComp,
+            'alertErr' =>$alertErr,
             'TourokuSupporterCd'=>$supporterCd,
-            'msg'=>'',
             'students'=>$students,
             'ziyuus'=>$ziyuus,
         ];
@@ -132,7 +171,7 @@ class LCoinController extends Controller
 
     }
     // \lc\regist post
-    public function registpost(LCoinRequest $request){
+    public function addpost(LCoinRequest $request){
 
     
             $lcmeisai = new LCoinMeisai;
@@ -140,30 +179,31 @@ class LCoinController extends Controller
             unset($form['_token']);
             $lcmeisai->fill($form);
 
-
             //フォームにない項目をセット
-
             $lcmeisai->setUpdateColumn();
-
+            //INSERT処理
             $lcmeisai->save();
     
-            // $m =$request->msg;
-            $m ="正しく入力されました";
-
-            //ドロップダウンリストのための処理
-            $students = Student::all();
-            $ziyuus = Ziyuu::all();
-    
-            $arg = [
-                'userName'=>'システム管理者',
-                'TourokuSupporterCd'=>'FDemo1',
-                'msg'=>$m,
-                'students'=>$students,
-                'ziyuus'=>$ziyuus,
-    
+            //リダイレクト時にクエリ文字列として渡す
+            $args = [
             ];
     
-            return view('LCoin.regist',$arg);
-    
-        }
+            return redirect()->route('lcList',$args)->with('alertComp',MessageConst::ADD_COMPLETED);
+    }
+
+    // \lc\delete post
+    public function deletepost(Request $request){
+
+        $id = $request->id;
+        $lcmeisai = LCoinMeisai::find($id);
+       
+        //DELETE処理
+        $lcmeisai->delete();
+
+        //リダイレクト時にクエリ文字列として渡す
+        $args = [
+        ];
+
+        return redirect()->route('lcList',$args)->with('alertComp',MessageConst::DELETE_COMPLETED);
+    }
 }

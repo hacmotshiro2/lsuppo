@@ -34,6 +34,12 @@ Route::get('/error',function(){
 
 Route::middleware('lsuppo')->group(function () {
 
+    /*
+    * middleware lsuppo では、m_gateauthorizationテーブルを参照して
+    * 権限チェックを行っています。
+    * こちらに追加した場合には、当該テーブルへの更新が必要です。
+    */
+
     /*共通ページ*/
     Route::get('/settings/', 'App\Http\Controllers\SettingsController@settings');
     Route::post('/settings/edit/', 'App\Http\Controllers\SettingsController@edit');
@@ -67,8 +73,10 @@ Route::middleware('lsuppo')->group(function () {
     Route::get('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hadd');
     Route::post('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hcreate');
 
-    Route::get('/lc/regist/', 'App\Http\Controllers\LCoinController@regist');
-    Route::post('/lc/regist/', 'App\Http\Controllers\LCoinController@registpost');
+    Route::get('/lc/add/', 'App\Http\Controllers\LCoinController@add')->name('lcAdd');
+    Route::get('/lc/list/', 'App\Http\Controllers\LCoinController@list')->name('lcList');
+    Route::post('/lc/add/', 'App\Http\Controllers\LCoinController@addpost');
+    Route::post('/lc/delete/', 'App\Http\Controllers\LCoinController@deletepost');
 
 
 });

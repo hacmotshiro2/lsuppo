@@ -13,7 +13,7 @@
             <li><a href="/user2hogosha/add/">ユーザーと保護者の紐づけ登録</a></li>
             <li><a href="/fb/regist/">サポーター登録</a></li>
             <li><a href="/fb/regist/">ラーニングルーム登録</a></li>
-            <li><a href="/lc/regist/">エルコイン登録</a></li>
+            <li><a href="/lc/list/">エルコイン登録</a></li>
         </ul>
 
 @endsection

@@ -7,6 +7,7 @@ class MessageConst
     const NOT_BINDED = '登録後、管理者による確認作業が済むまでフィードバック等の機能をご覧いただくことができません。';
     const ADD_COMPLETED = '正しく追加登録されました。';
     const EDIT_COMPLETED = '正しく更新登録されました。';
+    const DELETE_COMPLETED = '正しく削除されました。';
     const REQUIRED = '%1$sは必ず入力してください';
     const NUMERIC = '%1$sを整数で入力してください';
     const BEFORE = '%1$sには%2$s以前の日付を入力してください';

@@ -76,8 +76,8 @@
             value=@if($mode=='add')"{{old('TaishoukikanTo')}}" @elseif($mode='edit')"{{$form->TaishoukikanTo}}" @endif></input>
         </div>
         <div class="sm:col-span-2 flex justify-between items-center">
-                <label for="KinyuuSupporterCd" class="inline-block text-gray-800 text-sm sm:text-base mb-2">記入サポーターコード</label>
-                <input type="text" name="KinyuuSupporterCd" value="{{$KinyuuSupporterCd}}" class="w-full bg-gray-100 text-gray-800 border rounded outline-none px-3 py-2" readonly></input>
+            <label for="KinyuuSupporterCd" class="inline-block text-gray-800 text-sm sm:text-base mb-2">記入サポーターコード</label>
+            <input type="text" name="KinyuuSupporterCd" value="{{$KinyuuSupporterCd}}" class="w-full bg-gray-100 text-gray-800 border rounded outline-none px-3 py-2" readonly></input>
         </div>
       <div class="sm:col-span-2 flex justify-between items-center">
         <button class="inline-block bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">
