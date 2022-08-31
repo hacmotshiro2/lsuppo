@@ -23,38 +23,44 @@
                 <p class="text-gray-500 sm:text-lg mb-6 md:mb-8">{{$item->getShouninStatusName()}}</P>
                 @endcan
             </div>
-        </div>
-        <!-- 承認ボタンエリア -->
-        @canany(['supporter-auth-5','supporter-auth-9'])
-        <form method="POST" action="/fb/approve/" class="w-full">
-            @csrf
-            <input type="hidden" name="fbNo" value="{{$item->FbNo}}">
-            <div class="w-full md:w-1/2 px-5 py-2 mx-auto mb-10">
-                @if($item->ShouninStatus == App\Consts\DBConst::SHOUNIN_STATUS_APPROVING)
-                <!-- 承認中の時だけ有効 -->
-                <div class="flex justify-center gap-2.5">
-                    <button formaction="/fb/approve/" class="w-full md:w-1/2 block bg-indigo-400 hover:bg-indigo-600 active:bg-indigo-600 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">承認</button>
-                    <button formaction="/fb/decline/" class="w-full md:w-1/2 block bg-red-400 hover:bg-red-600 active:bg-red-600 focus-visible:ring ring-red-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">取り下げ</button>
+            <!-- 承認ボタンエリア -->
+            @canany(['supporter-auth-5','supporter-auth-9'])
+            <form method="POST" action="/fb/approve/" class="w-full">
+                @csrf
+                <input type="hidden" name="fbNo" value="{{$item->FbNo}}">
+                <div class="w-full px-5 py-2 mx-auto mb-8">
+                    @if($item->ShouninStatus == App\Consts\DBConst::SHOUNIN_STATUS_APPROVING)
+                    <!-- 承認中の時だけ有効 -->
+                    <div class="flex justify-center gap-2.5">
+                        <button formaction="/fb/approve/" class="w-full block bg-indigo-400 hover:bg-indigo-600 active:bg-indigo-600 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">承認</button>
+                        <button formaction="/fb/decline/" class="w-full block bg-red-400 hover:bg-red-600 active:bg-red-600 focus-visible:ring ring-red-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">取り下げ</button>
+                    </div>
+                    @else
+                    <div class="flex justify-center gap-2.5">
+                        <button disabled class="w-full block bg-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">承認</button>
+                        <button disabled class="w-full block bg-red-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">取り下げ</button>
+                    </div>
+                    @endif
                 </div>
-                @else
-                <div class="flex justify-center gap-2.5">
-                    <button disabled class="w-full md:w-1/2 block bg-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">承認</button>
-                    <button disabled class="w-full md:w-1/2 block bg-red-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">取り下げ</button>
+                <div class="w-full px-5 py-2 mx-auto mb-10">
+                    <textarea name="Comment" rows="3" class="w-full bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2" >{{old('Comment')}} </textarea>
                 </div>
-                @endif
+            </form>
+            @endcanany
+            @can('hogosha-binded')
+            <p><a class="text-indigo-500" href='\fb\'>&lt;戻る</a></p>
+            @endcan
+            @can('supporter-binded')
+            <p><a class="text-indigo-500" href='\fb\index_sp'>&lt;戻る</a></p>
+            <div class="w-full px-5 py-2 mx-auto mb-8">
+                @include('components.approve-history')
             </div>
-        </form>
-        @endcanany
+            @endcan
+        </div>
 
         @else
         <p>ページ遷移が不正です</p>
         @endif
-        @can('hogosha-binded')
-        <p><a href='\fb\'>&lt;戻る</a></p>
-        @endcan
-        @can('supporter-binded')
-        <p><a href='\fb\index_sp'>&lt;戻る</a></p>
-        @endcan
     </div>
 </section>
 @endsection

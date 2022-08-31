@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Consts\DBConst;
 
+use App\Models\ApproveHistory;
+
 class FB extends Model
 {
     use HasFactory;
@@ -130,26 +132,8 @@ class FB extends Model
         $this->UpdateSystem=DBConst::UPDATE_SYSTEM;
         
     }
+    //承認ステータス名を取得
     public function getShouninStatusName(){
-        switch($this->ShouninStatus){
-        case DBConst:: SHOUNIN_STATUS_DRAFT :
-            return '下書き中';
-            break;
-        case DBConst:: SHOUNIN_STATUS_DELETED :
-            return '削除済み';
-            break;
-        case DBConst:: SHOUNIN_STATUS_APPROVING :
-            return '承認中';
-            break;
-        case DBConst:: SHOUNIN_STATUS_RETURN :
-            return '差し戻し';
-            break;
-        case DBConst:: SHOUNIN_STATUS_APPROVED :
-            return '承認済み';
-            break;
-        default:
-            return '';
-            break;
-        }
+        return ApproveHistory::stGetShouninStatusName($this->ShouninStatus);
     }
 }

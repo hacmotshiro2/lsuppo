@@ -88,6 +88,15 @@
             @endif</button>
         <span class="text-gray-500 text-sm">*Required</span>
       </div>
+      <div class="sm:col-span-2 mt-8 ">
+          <label class="inline-block text-gray-800 text-sm sm:text-base mb-2">承認者へのコメント（任意）</label>
+          <textarea name="Comment" rows="3" class="w-full bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2" >{{old('Comment')}} </textarea>
+          @if($mode=='edit')
+          <div class="mt-2">
+                @include('components.approve-history')
+          </div>
+          @endif
+      </div>
 
     </form>
     <!-- form - end -->

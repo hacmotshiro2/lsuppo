@@ -31,5 +31,30 @@ class ApproveHistory extends Model
         $this->UpdateSystem=DBConst::UPDATE_SYSTEM;
         
     }
+    public function getShouninStatusName(){
+        return self::stGetShouninStatusName($this->ShouninStatus);
+    }
+    public static function stGetShouninStatusName(string $shouninStatus){
+        switch($shouninStatus){
+        case DBConst:: SHOUNIN_STATUS_DRAFT :
+            return '下書き中';
+            break;
+        case DBConst:: SHOUNIN_STATUS_DELETED :
+            return '削除済み';
+            break;
+        case DBConst:: SHOUNIN_STATUS_APPROVING :
+            return '承認中';
+            break;
+        case DBConst:: SHOUNIN_STATUS_RETURN :
+            return '差し戻し';
+            break;
+        case DBConst:: SHOUNIN_STATUS_APPROVED :
+            return '承認済み';
+            break;
+        default:
+            return '';
+            break;
+        }
+    }
     
 }

@@ -78,6 +78,18 @@ class LcoinMeisai extends Model
 
         return $items;
     }
+    //生徒コードから、エルコイン残高を取得
+    public static function getLCoinZandakaByStudentCd(string $studentCd){
+        $zandaka=0;
+
+        //データベースから該当の明細を取得
+        $items = LCoinMeisai::where('studentCd',$studentCd);
+        foreach($items as $item){
+            $zandaka+=$item->Amount;
+        }
+
+        return $zandaka;
+    }
 
     public function getStudentCdName(){
         return $this->StudentCd.":".$this->studnet->HyouziMei;

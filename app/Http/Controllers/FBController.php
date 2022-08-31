@@ -69,11 +69,16 @@ class FBController extends Controller
         if($request->session()->has('alertErr')){
             $alertErr = $request->session()->get('alertErr');
         }
+
+        //承認履歴
+        $lah = ApproveHistory::where('TargetToken',$item->ApprovalToken)->orderBy('HasseiDate','desc')->get();
+       
         //テンプレートに渡す引数
         $args=[
             'item'=>$item,
             'alertComp'=>$alertComp,
             'alertErr'=>$alertErr,
+            'lah'=>$lah,
         ];
 
         return view('FB.detail',$args);
@@ -188,6 +193,9 @@ class FBController extends Controller
         //userとsupporterを紐づけて、セット
         $supporterCd = Supporter::getSupporterCd($user);
 
+        //承認履歴
+        $lah = ApproveHistory::where('TargetToken',$fb->ApprovalToken)->orderBy('HasseiDate','desc')->get();
+
         $arg = [
             #TODO
             'fbNo' =>$fbNo,
@@ -196,6 +204,7 @@ class FBController extends Controller
             'students'=>$students,
             'lrs'=>$lrs,
             'KinyuuSupporterCd'=>$supporterCd,
+            'lah'=>$lah,
         ];
         return view('FB.regist',$arg);
     }
@@ -275,8 +284,7 @@ class FBController extends Controller
         $ah->TargetToken = $fb->ApprovalToken;
         $ah->HasseiDate = date("Y-m-d H:i:s");
         $ah->ShouninStatus=DBConst::SHOUNIN_STATUS_APPROVED;
-        #TODO
-        $ah->Comment = "";
+        $ah->Comment = $request->Comment;
         $ah->TourokuSupporterCd = $supporterCd;
         $ah->setUpdateColumn();
 
@@ -319,9 +327,8 @@ class FBController extends Controller
         $ah->TargetToken = $fb->ApprovalToken;
         $ah->HasseiDate = date("Y-m-d H:i:s");
         $ah->ShouninStatus=DBConst::SHOUNIN_STATUS_RETURN;
-
-        #TODO
         $ah->Comment = "";
+        $ah->Comment = $request->Comment;
         $ah->TourokuSupporterCd = $supporterCd;
         $ah->setUpdateColumn();
 
