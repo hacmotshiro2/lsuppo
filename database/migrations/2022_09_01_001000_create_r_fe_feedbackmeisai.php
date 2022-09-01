@@ -17,6 +17,7 @@ return new class extends Migration
         //     // テーブルが存在していればリターン
         //     return;
         // }
+
         Schema::create('r_fe_feedbackmeisai', function (Blueprint $table) {
 
             $table->collation = 'utf8mb4_general_ci';
@@ -36,17 +37,23 @@ return new class extends Migration
             $table->string('ShouninSupporterCd',8)->nullable();
             $table->datetime('ShouninDate')->nullable();
             $table->string('ShouninStatus',3);
-            $table->string('UpdateGamen');
-            $table->string('UpdateSystem');
+            $table->string('ApprovalToken',100)->collation('utf8mb4_general_ci');
+            $table->string('UpdateGamen',128);
+            $table->string('UpdateSystem',128);
+
 
             $table->timestamps();
             $table->softDeletes();
 
             //外部キーの設定
-            $table->foreign('StudentCd')->references('StudentCd')->on('m_student')->onDeletes('cascade');
-            $table->foreign('LearningRoomCd')->references('LearningRoomCd')->on('m_learningroom')->onDeletes('cascade');
-            $table->foreign('KinyuuSupporterCd')->references('SupporterCd')->on('m_supporter')->onDeletes('cascade');
-            $table->foreign('ShouninSupporterCd')->references('SupporterCd')->on('m_supporter')->onDeletes('cascade');
+            $table->foreign('StudentCd')->references('StudentCd')->on('m_student')->onDeletes('no action');
+            $table->foreign('LearningRoomCd')->references('LearningRoomCd')->on('m_learningroom')->onDeletes('no action');
+            $table->foreign('KinyuuSupporterCd')->references('SupporterCd')->on('m_supporter')->onDeletes('no action');
+            $table->foreign('ShouninSupporterCd')->references('SupporterCd')->on('m_supporter')->onDeletes('no action');
+
+            //キー
+            // $table->primary('FbNo');これをしなくてもPKになってた
+            $table->unique('ApprovalToken');
             
 
         });

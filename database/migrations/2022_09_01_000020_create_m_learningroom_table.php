@@ -13,19 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user2supporter', function (Blueprint $table) {
+        Schema::create('m_learningroom', function (Blueprint $table) {
             $table->collation = 'utf8mb4_general_ci';
-
-            $table->id();
-            $table->biginteger('user_id')->unsigned();
-            $table->string('SupporterCd',8);
+          
+            $table->string('LearningRoomCd',6);
+            $table->string('LearningRoomName',40);
+            $table->string('UpdateGamen',128);
+            $table->string('UpdateSystem',128);
 
             $table->timestamps();
             $table->softDeletes();
+
+            //主キーの設定
+            $table->primary('LearningRoomCd');
             
             //外部キーの設定
-            $table->foreign('user_id')->references('id')->on('users')->onDeletes('cascade');
-            $table->foreign('SupporterCd')->references('SupporterCd')->on('m_supporter')->onDeletes('cascade');
         });
     }
 
@@ -36,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user2supporter');
+        Schema::dropIfExists('m_learningroom');
     }
 };

@@ -20,21 +20,20 @@ return new class extends Migration
             $table->collation = 'utf8mb4_general_ci';
 
             $table->bigincrements('id');
-            $table->string('TargetToken',40)->collation('utf8mb4_general_ci');
+            $table->string('TargetToken',100)->collation('utf8mb4_general_ci');
             $table->datetime('HasseiDate');
             $table->string('ShouninStatus',3);
             $table->string('Comment',800)->nullable();
             $table->string('TourokuSupporterCd',8);
-            $table->string('UpdateGamen');
-            $table->string('UpdateSystem');
+            $table->string('UpdateGamen',128);
+            $table->string('UpdateSystem',128);
 
             $table->timestamps();
             $table->softDeletes();
 
-            // $table->primary('id');//書かなくていい
             
-            // $table->foreign('TargetToken')->references('ApprovalToken')->on('r_fe_feedbackmeisai')->onDeletes('cascade');//不要と判断
-            $table->foreign('TourokuSupporterCd')->references('SupporterCd')->on('m_supporter')->onDeletes('cascade');
+            // $table->foreign('TargetToken')->references('ApprovalToken')->on('r_fe_feedbackmeisai')->onDeletes('no action');//不要と判断
+            $table->foreign('TourokuSupporterCd')->references('SupporterCd')->on('m_supporter')->onDeletes('no action');
 
         });
     }

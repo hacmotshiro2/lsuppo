@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->string('ZiyuuCd',3);
             $table->string('Ziyuu',40);
-            $table->integer('amount');
+            $table->integer('DefaultAmount');
             $table->string('UpdateGamen',128);
             $table->string('UpdateSystem',128);
 

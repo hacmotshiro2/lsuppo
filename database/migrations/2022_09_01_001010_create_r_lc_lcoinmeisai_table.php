@@ -32,9 +32,9 @@ return new class extends Migration
 
 
             //外部キーの設定
-            $table->foreign('StudentCd')->references('StudentCd')->on('m_student')->onDeletes('cascade');
-            $table->foreign('ZiyuuCd')->references('ZiyuuCd')->on('m_lc_ziyuu')->onDeletes('cascade');
-            $table->foreign('TourokuSupporterCd')->references('SupporterCd')->on('m_supporter')->onDeletes('cascade');
+            $table->foreign('StudentCd')->references('StudentCd')->on('m_student')->onDeletes('no action');
+            $table->foreign('ZiyuuCd')->references('ZiyuuCd')->on('m_lc_ziyuu')->onDeletes('no action');
+            $table->foreign('TourokuSupporterCd')->references('SupporterCd')->on('m_supporter')->onDeletes('no action');
             
         });
     }
