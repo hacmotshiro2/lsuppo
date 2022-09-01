@@ -9,8 +9,7 @@ class MGateAuthorization extends Model
 {
     use HasFactory;
 
-    protected $table = 'm_gateauthorization'; 
+    protected $table = 'm_gateAuthorization'; 
     protected $primaryKey = 'Path';
-
     
 }
