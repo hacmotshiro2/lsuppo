@@ -10,7 +10,7 @@ use App\Consts\DBConst;
 
 
 
-class LcoinMeisai extends Model
+class LCoinMeisai extends Model
 {
     use HasFactory;
 

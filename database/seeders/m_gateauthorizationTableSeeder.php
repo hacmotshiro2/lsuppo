@@ -17,27 +17,27 @@ class m_gateauthorizationTableSeeder extends Seeder
      */
     public function run()
     {
-        //
-        $params[] =[            
-            'Path' => 'mypage',
-            //カンマ区切りで登録する
-            'AuthorizedGate' => 'hogosha-nobind,hogosha-binded,',
-        ];
-        $params[] =[            
-            'Path' => 'settings',
-            //カンマ区切りで登録する
-            'AuthorizedGate' => 'hogosha-nobind,hogosha-binded,supporter-nobind,supporter-auth-1,supporter-auth-5,supporter-auth-9,',
-        ];
+        // //
+        // $params[] =[            
+        //     'Path' => 'mypage',
+        //     //カンマ区切りで登録する
+        //     'AuthorizedGate' => 'hogosha-nobind,hogosha-binded,',
+        // ];
+        // $params[] =[            
+        //     'Path' => 'settings',
+        //     //カンマ区切りで登録する
+        //     'AuthorizedGate' => 'hogosha-nobind,hogosha-binded,supporter-nobind,supporter-auth-1,supporter-auth-5,supporter-auth-9,',
+        // ];
 
 
-        foreach($params as $param){
+        // foreach($params as $param){
 
 
-            $param = $param + array('UpdateGamen'=>'seeder');
-            $param = $param + array('UpdateSystem'=>DBConst::UPDATE_SYSTEM);
+        //     $param = $param + array('UpdateGamen'=>'seeder');
+        //     $param = $param + array('UpdateSystem'=>DBConst::UPDATE_SYSTEM);
 
-            DB::table('m_gateAuthorization')->insert($param);
-        }
+        //     DB::table('m_gateAuthorization')->insert($param);
+        // }
 
     }
 }

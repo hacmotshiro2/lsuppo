@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(m_lc_ziyuuTableSeeder::class);
         $this->call(m_gateauthorizationTableSeeder::class);
+        $this->call(LRTableSeeder::class);
     }
 }

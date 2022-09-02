@@ -20,7 +20,7 @@ class m_lc_ziyuuTableSeeder extends Seeder
         $param =[
             'ZiyuuCd' => '10',
             'Ziyuu' => '事前通知欠席',
-            'Amount'=>'20',
+            'DefaultAmount'=>'20',
             'UpdateGamen' => 'seeder',
             'UpdateSystem' => 'lsuppo',
         ];
@@ -31,7 +31,7 @@ class m_lc_ziyuuTableSeeder extends Seeder
         $param =[
             'ZiyuuCd' => '20',
             'Ziyuu' => '直前欠席',
-            'Amount'=>'10',
+            'DefaultAmount'=>'10',
             'UpdateGamen' => 'seeder',
             'UpdateSystem' => 'lsuppo',
         ];
