@@ -51,7 +51,7 @@ class SupporterController extends Controller
             'alertErr'=>$alertErr,
         ];
 
-        return view('supporter.add',$arg);
+        return view('Supporter.add',$arg);
 
     }
     //サポーター登録画面のPOST

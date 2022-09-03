@@ -39,7 +39,7 @@ class StudentController extends Controller
             'alertErr'=>$alertErr,
         ];
 
-        return view('student.add',$args);
+        return view('Student.add',$args);
 
     }
 
