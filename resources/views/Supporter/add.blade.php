@@ -2,16 +2,16 @@
 @extends('layouts.lsuppo-base')
 
 @section('title')
-保護者登録ページ
+サポーター登録ページ
 @endsection
       
 @section('content')
-        <form method="POST" action="/hogosha/add/" class="row g-2">
+        <form method="POST" action="/supporter/add/" class="">
             @csrf
 
             <div class="col-md-6">
-                <label for="valhogoshaCd" class="form-label">保護者コード</label>
-                <input type="text" id="valhogoshaCd" name="HogoshaCd" value="{{old('HogoshaCd')}}" class="form-control" required maxlength="8"></input>
+                <label for="valSupporterCd" class="form-label">サポーターコード</label>
+                <input type="text" id="valSupporterCd" name="SupporterCd" value="{{old('SupporterCd')}}" class="form-control" required maxlength="8"></input>
             </div>
             <div class="col-md-4">
                 <label for="valSei" class="form-label">姓</label>
@@ -34,6 +34,10 @@
                 <input type="text" id="valLearningRoomCd" name="LearningRoomCd" value="{{old('LearningRoomCd')}}" class="form-control" required maxlength="6"></input>
             </div>
             <div class="col-md-6">
+                <label class="form-label">権限レベル</label>
+                <input type="text"  name="authlevel" value="{{old('authlevel')}}" class="form-control" required maxlength="1"></input>
+            </div>
+            <div class="col-md-6">
                 <label for="valRiyouFrom" class="form-label">利用期間</label>
                 <div class="input-group">
                     <input type="date" id="valRiyouFrom" name="RiyouKaisiDate" class="form-control"></input>
@@ -51,37 +55,37 @@
                 <label for="valIsNeedPWChange" class="form-label">パスワード変更が必要</label>
             </div>
             <div class="col-12">
-                <input type="submit" name="create" value="登録" class="btn btn-primary" >
+                <input type="submit" name="create" value="登録" class="bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700" >
             </div>
         </form>
         <div id='list'>
-        <table class="table table-striped table table-hover table table-responsive">       
+        <table class="table-auto border-collapse border border-slate-500">       
         <tr>
-            <th>HogoshaCd</th>
-            <th>Sei</th>
-            <th>Mei</th>
-            <th>Hurigana</th>
-            <th>HyouziMei</th>
-            <th>PW</th>
-            <th>RiyouKaisiDate</th>
-            <th>RiyouShuuryouDate</th>
-            <th>LearningRoomCd</th>
-            <th>IsLocked</th>
-            <th>IsNeedPWChange</th>
+            <th class="border border-slate-600">SupporterCd</th>
+            <th class="border border-slate-600">Sei</th>
+            <th class="border border-slate-600">Mei</th>
+            <th class="border border-slate-600">Hurigana</th>
+            <th class="border border-slate-600">HyouziMei</th>
+            <th class="border border-slate-600">RiyouKaisiDate</th>
+            <th class="border border-slate-600">RiyouShuuryouDate</th>
+            <th class="border border-slate-600">LearningRoomCd</th>
+            <th class="border border-slate-600">authlevel</th>
+            <th class="border border-slate-600">IsLocked</th>
+            <th class="border border-slate-600">IsNeedPWChange</th>
         </tr>
         @foreach($items as $item)
         <tr>
-            <td>{{$item->HogoshaCd}}</td>
-            <td>{{$item->Sei}}</td>
-            <td>{{$item->Mei}}</td>
-            <td>{{$item->Hurigana}}</td>
-            <td>{{$item->HyouziMei}}</td>
-            <td>{{$item->PW}}</td>
-            <td>{{$item->RiyouKaisiDate}}</td>
-            <td>{{$item->RiyouShuuryouDate}}</td>
-            <td>{{$item->LearningRoomCd}}</td>
-            <td>{{$item->IsLocked}}</td>
-            <td>{{$item->IsNeedPWChange}}</td>
+            <td class="border border-slate-700">{{$item->SupporterCd}}</td>
+            <td class="border border-slate-700">{{$item->Sei}}</td>
+            <td class="border border-slate-700">{{$item->Mei}}</td>
+            <td class="border border-slate-700">{{$item->Hurigana}}</td>
+            <td class="border border-slate-700">{{$item->HyouziMei}}</td>
+            <td class="border border-slate-700">{{$item->RiyouKaisiDate}}</td>
+            <td class="border border-slate-700">{{$item->RiyouShuuryouDate}}</td>
+            <td class="border border-slate-700">{{$item->LearningRoomCd}}</td>
+            <td class="border border-slate-700">{{$item->authlevel}}</td>
+            <td class="border border-slate-700">{{$item->IsLocked}}</td>
+            <td class="border border-slate-700">{{$item->IsNeedPWChange}}</td>
         </tr>
         @endforeach
         </table>

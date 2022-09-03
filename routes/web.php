@@ -64,14 +64,20 @@ Route::middleware('lsuppo')->group(function () {
     Route::post('/fb/approve/', 'App\Http\Controllers\FBController@approve');
     Route::post('/fb/decline/', 'App\Http\Controllers\FBController@decline');
 
-    Route::get('/hogosha/add/', 'App\Http\Controllers\HogoshaController@add');
+    Route::get('/hogosha/add/', 'App\Http\Controllers\HogoshaController@add')->name('hogosha-add');
     Route::post('/hogosha/add/', 'App\Http\Controllers\HogoshaController@create');
 
-    Route::get('/student/add/', 'App\Http\Controllers\StudentController@add');
+    Route::get('/student/add/', 'App\Http\Controllers\StudentController@add')->name('student-add');
     Route::post('/student/add/', 'App\Http\Controllers\StudentController@create');
 
-    Route::get('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hadd');
+    Route::get('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hadd')->name('u2h-add');
     Route::post('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hcreate');
+
+    Route::get('/supporter/add/', 'App\Http\Controllers\SupporterController@add')->name('supporter-add');
+    Route::post('/supporter/add/', 'App\Http\Controllers\SupporterController@create');
+
+    Route::get('/user2suppo/add/', 'App\Http\Controllers\SupporterController@u2sadd')->name('u2s-add');
+    Route::post('/user2suppo/add/', 'App\Http\Controllers\SupporterController@u2screate');
 
     Route::get('/lc/add/', 'App\Http\Controllers\LCoinController@add')->name('lcAdd');
     Route::get('/lc/list/', 'App\Http\Controllers\LCoinController@list')->name('lcList');

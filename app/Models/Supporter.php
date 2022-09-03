@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Consts\DBConst;
 use App\Models\User2Supporter;
 
 class Supporter extends Model
@@ -12,12 +13,29 @@ class Supporter extends Model
     use HasFactory;
   
     protected $table = 'm_supporter';
-    protected $guarded = ['UpdateTimeStamp'];
+    protected $guarded = [];
+
+    //validationルール
+    public static $rules = [
+            //SupporterCd
+            'SupporterCd'=>'required',
+            //Sei
+            'Sei'=>'required',
+            //Mei
+            'Mei'=>'required',
+            //Hurigana
+            'Hurigana'=>'required',
+            //HyouziMei
+            'HyouziMei'=>'required',
+            //LearningRoomCd
+            'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
+            //authlevel 1字以内
+            'authlevel' => ['required','size:1'],
+    ];
 
     //Update系項目のセット
     public function setUpdateColumn(){
 
-        $this->UpdateDatetime=date("Y-m-d H:i:s");
         $this->UpdateGamen=$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; //:現在のURL
         $this->UpdateSystem=DBConst::UPDATE_SYSTEM;
         

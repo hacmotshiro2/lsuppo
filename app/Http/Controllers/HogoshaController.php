@@ -45,9 +45,20 @@ class HogoshaController extends Controller
     public function add(Request $request, Response $response){
         $items = Hogosha::all();
 
-
+        //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
+        $alertComp='';
+        if($request->session()->has('alertComp')){
+            $alertComp = $request->session()->get('alertComp');
+        }
+        $alertErr='';
+        if($request->session()->has('alertErr')){
+            $alertErr = $request->session()->get('alertErr');
+        }
+        
         $arg=[
             'items'=>$items,
+            'alertComp'=>$alertComp,
+            'alertErr'=>$alertErr,
         ];
 
         return view('hogosha.add',$arg);
@@ -74,28 +85,37 @@ class HogoshaController extends Controller
         
 
         //登録後の再取得
-        $items = Hogosha::all();
-        $arg=[
-            'items'=>$items,
+        $args=[
         ];
 
-        // return redirect('hogosha-add',$arg);
-        return view('hogosha.add',$arg);
+        return redirect()->route('hogosha-add',$args)->with('alertComp',MessageConst::ADD_COMPLETED);
+
 
     }
     //user2保護者登録画面へ /user2hogosha/add/
     public function u2hadd(Request $request, Response $response){
         
-        $items = $this->getu2hData();
+        $items = User2Hogosha::getu2hData();
 
         $itemsHogosha = Hogosha::all();
-
-        $arg=[
+        //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
+        $alertComp='';
+        if($request->session()->has('alertComp')){
+            $alertComp = $request->session()->get('alertComp');
+        }
+        $alertErr='';
+        if($request->session()->has('alertErr')){
+            $alertErr = $request->session()->get('alertErr');
+        }
+        
+        $args=[
             'items'=>$items,
             'itemsHogosha' =>$itemsHogosha,
+            'alertComp'=>$alertComp,
+            'alertErr'=>$alertErr,
         ];
 
-        return view('user2hogosha.add',$arg);
+        return view('user2hogosha.add',$args);
 
     }
     //user2保護者登録画面のPOST
@@ -116,34 +136,11 @@ class HogoshaController extends Controller
             $user->notify(new User2HogoshaRegisteredNotification($user->name));
         }
 
-        //登録後の再取得
-        $items = $this->getu2hData();
-
-        $itemsHogosha = Hogosha::all();
-
-        $arg=[
-            'items'=>$items,
-            'itemsHogosha' =>$itemsHogosha,
+        $args=[
         ];
 
-        return redirect('user2hogosha.add',302,$arg);
+        return redirect()->route('u2h-add',$args)->with('alertComp',MessageConst::ADD_COMPLETED);
 
     }
-    private function getu2hData(){
-        return DB::select("
-        select 
-        u.id
-        ,u.name
-        ,u.email
-        ,u.userType
-        ,u.StudentName
-        ,u2h.user_id
-        ,u2h.HogoshaCd
-        from users u
-        left outer join user2hogosha u2h
-        on u2h.user_id = u.id
-        "
-        );
 
-    }
 }

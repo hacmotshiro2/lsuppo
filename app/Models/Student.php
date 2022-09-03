@@ -5,19 +5,41 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Consts\DBConst;
+
 class Student extends Model
 {
     protected $table = 'm_student';
 
     use HasFactory;
 
+    public static $rules = [
+        'StudentCd' => 'required'
+    ];
+    protected $fillable = [
+        'StudentCd',
+        'Sei',
+        'Mei',
+        'Hurigana',
+        'HyouziMei',
+        'HogoshaCd',
+        'ScratchID',
+        'ScratchURL',
+        'RiyouKaisiDate',
+        'RiyouShuuryouDate',
+        'LearningRoomCd',
+        'IsLocked',
+        'IsNeedPWChange',
+        'UpdateGamen',
+        'UpdateSystem',
+
+    ];
     public function getCdName(){
         return $this->StudentCd.':'.$this->HyouziMei;
     }
     //Update系項目のセット
     public function setUpdateColumn(){
 
-        $this->UpdateDatetime=date("Y-m-d H:i:s");
         $this->UpdateGamen=$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; //:現在のURL
         $this->UpdateSystem=DBConst::UPDATE_SYSTEM;
         

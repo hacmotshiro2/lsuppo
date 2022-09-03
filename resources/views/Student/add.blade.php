@@ -15,26 +15,16 @@
             </ul>
         </div>
         @endif
-        <form method="POST" action="/hogosha/add/" class="row g-2">
+        <form method="POST" action="/student/add/" class="row g-2">
             @csrf
 
             <div class="col-md-6">
                 <label for="StudentCd" class="form-label">生徒コード</label>
                 <input type="text" id="StudentCd" name="StudentCd" value="{{old('StudentCd')}}" class="form-control" required maxlength="8"></input>
-                <div class="valid-feedback">
-                good!
-                </div>
             </div>
             <div class="col-md-6">
                 <label for="valhogoshaCd" class="form-label">保護者コード</label>
                 <input type="text" id="valhogoshaCd" name="HogoshaCd" value="{{old('HogoshaCd')}}" class="form-control" required maxlength="8"></input>
-                <div class="valid-feedback">
-                good!
-                </div>
-            </div>
-            <div class="col-md-6">
-                <label for="valPW" class="form-label">パスワード</label>
-                <input type="password" id="valPW" name="PW" value="{{old('PW')}}" class="form-control" required></input>
             </div>
             <div class="col-md-4">
                 <label for="valSei" class="form-label">姓</label>
@@ -54,17 +44,11 @@
             </div>
             <div class="col-md-6">
                 <label for="ScratchID" class="form-label">ScratchID</label>
-                <input type="text" id="ScratchID" name="ScratchID" value="{{old('ScratchID')}}" class="form-control" required maxlength="20"></input>
-                <div class="valid-feedback">
-                good!
-                </div>
+                <input type="text" id="ScratchID" name="ScratchID" value="{{old('ScratchID')}}" class="form-control" maxlength="20"></input>
             </div>
             <div class="col-md-12">
                 <label for="ScratchURL" class="form-label">ScratchURL</label>
-                <input type="text" id="ScratchURL" name="ScratchURL" value="{{old('ScratchURL')}}" class="form-control" required maxlength="255"></input>
-                <div class="valid-feedback">
-                good!
-                </div>
+                <input type="text" id="ScratchURL" name="ScratchURL" value="{{old('ScratchURL')}}" class="form-control" maxlength="255"></input>
             </div>
             <div class="col-md-6">
                 <label for="LearningRoomCd" class="form-label">LRコード</label>
