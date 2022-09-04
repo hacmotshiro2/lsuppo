@@ -6,7 +6,7 @@
 @endsection
       
 @section('content')
-        <form method="POST" action="/supporter/add/" class="">
+        <form method="POST" action="/supporter/add" class="">
             @csrf
 
             <div class="col-md-6">

@@ -17,9 +17,9 @@
 
     <!-- form - start -->
     @if($mode=='add')
-    <form  method="POST" action="/fb/add/" class="max-w-screen-md grid sm:grid-cols-2 gap-4 mx-auto">
+    <form  method="POST" action="/fb/add" class="max-w-screen-md grid sm:grid-cols-2 gap-4 mx-auto">
     @elseif($mode=='edit')
-    <form  method="POST" action="/fb/edit/" class="max-w-screen-md grid sm:grid-cols-2 gap-4 mx-auto">
+    <form  method="POST" action="/fb/edit" class="max-w-screen-md grid sm:grid-cols-2 gap-4 mx-auto">
     @else
     @endif
         @csrf

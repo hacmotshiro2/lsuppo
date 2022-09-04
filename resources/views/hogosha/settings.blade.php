@@ -13,7 +13,7 @@
     <!-- m_hogosha関連 -->
     <!-- 今のところ更新対象無し -->
     <!-- Auth関連 -->
-    <form method="POST" action="/settings/edit/" class="border rounded-lg mx-auto">
+    <form method="POST" action="/settings/edit" class="border rounded-lg mx-auto">
     @csrf
       <div class="flex flex-col gap-4 p-4 md:p-8 mx-2">
         <div class="mb-4">

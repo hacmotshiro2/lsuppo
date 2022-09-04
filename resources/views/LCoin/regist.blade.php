@@ -6,7 +6,7 @@
 @endsection
       
 @section('content')
-<form method="POST" action="/lc/add/" class="row g-2">
+<form method="POST" action="/lc/add" class="row g-2">
 @csrf
     <div class="flex-col mx-4 md:mx-12">
         <div class="my-2">

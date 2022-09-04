@@ -5,7 +5,7 @@
 @endsection
       
 @section('content')
-        <form method="POST" action="/user2suppo/add/" class="row g-2">
+        <form method="POST" action="/user2suppo/add" class="row g-2">
             @csrf
 
             <div class="col-md-6">

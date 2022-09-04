@@ -25,7 +25,7 @@
             </div>
             <!-- 承認ボタンエリア -->
             @canany(['supporter-auth-5','supporter-auth-9'])
-            <form method="POST" action="/fb/approve/" class="w-full">
+            <form method="POST" action="/fb/approve" class="w-full">
                 @csrf
                 <input type="hidden" name="fbNo" value="{{$item->FbNo}}">
                 <div class="w-full px-5 py-2 mx-auto mb-8">
