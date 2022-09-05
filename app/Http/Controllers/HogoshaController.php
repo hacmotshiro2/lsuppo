@@ -61,7 +61,7 @@ class HogoshaController extends Controller
             'alertErr'=>$alertErr,
         ];
 
-        return view('hogosha.add',$arg);
+        return view('Hogosha.add',$arg);
 
     }
     //保護者登録画面のPOST

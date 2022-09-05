@@ -33,7 +33,7 @@ class SettingsController extends Controller
         $args=[
             'mail'=>$user->email,
         ];
-        return view('hogosha.settings',$args);
+        return view('Settings.settings',$args);
     }
 
     //設定のPostページ
@@ -48,7 +48,7 @@ class SettingsController extends Controller
             'alertComp'=>'変更が完了しました',
         ];
         // return redirect()->route('home')->with($args);//上手く引き継げず
-        return view('hogosha.settings',$args);
+        return view('Settings.settings',$args);
 
     }
     //デバッグ用
