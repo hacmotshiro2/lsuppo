@@ -30,8 +30,21 @@ class SettingsController extends Controller
     //設定ページ
     public function settings(Request $request){
         $user=Auth::user();
+
+        //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
+        $alertComp='';
+        if($request->session()->has('alertComp')){
+            $alertComp = $request->session()->get('alertComp');
+        }
+        $alertErr='';
+        if($request->session()->has('alertErr')){
+            $alertErr = $request->session()->get('alertErr');
+        }
+        
         $args=[
             'mail'=>$user->email,
+            'alertComp'=>$alertComp,
+            'alertErr'=>$alertErr,
         ];
         return view('Settings.settings',$args);
     }
@@ -44,12 +57,8 @@ class SettingsController extends Controller
         $user->save();
 
         $args = [
-            'mail'=>$user->email,
-            'alertComp'=>'変更が完了しました',
         ];
-        // return redirect()->route('home')->with($args);//上手く引き継げず
-        return view('Settings.settings',$args);
-
+        return redirect()->route('settings',$args)->with('alertComp',MessageConst::EDIT_COMPLETED);
     }
     //デバッグ用
     public function sendmailtest(Request $request){

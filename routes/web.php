@@ -41,7 +41,7 @@ Route::middleware('lsuppo')->group(function () {
     */
 
     /*共通ページ*/
-    Route::get('/settings/', 'App\Http\Controllers\SettingsController@settings');
+    Route::get('/settings/', 'App\Http\Controllers\SettingsController@settings')->name('settings');
     Route::post('/settings/edit/', 'App\Http\Controllers\SettingsController@edit');
 
     /*保護者が参照するページ*/
