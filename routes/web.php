@@ -47,16 +47,17 @@ Route::middleware('lsuppo')->group(function () {
     /*保護者が参照するページ*/
     Route::get('/mypage/', 'App\Http\Controllers\HogoshaController@mypage')->name('mypage');
     Route::get('/fb/detail/', 'App\Http\Controllers\FBController@fbDetail')->name('fbDetail');
-    Route::get('/fb/', 'App\Http\Controllers\FBController@index');
+    Route::get('/fb/', 'App\Http\Controllers\FBController@index')->name('fbIndex');
     Route::get('/lc/', 'App\Http\Controllers\LCoinController@index');
 
     /*サポーターが参照するページ*/
     Route::get('/supporter-page/','App\Http\Controllers\SupporterController@index')->name('supporter-page');
-    Route::get('/fb/index_sp', 'App\Http\Controllers\FBController@index_sp');
+    Route::get('/fb/index_sp', 'App\Http\Controllers\FBController@index_sp')->name('fbIndex_sp');
     Route::get('/fb/add/', 'App\Http\Controllers\FBController@add')->name('fbAdd');
     Route::post('/fb/add/', 'App\Http\Controllers\FBController@addpost');
     Route::get('/fb/edit/', 'App\Http\Controllers\FBController@edit')->name('fbEdit');
     Route::post('/fb/edit/', 'App\Http\Controllers\FBController@editpost');
+    Route::post('/fb/delete/', 'App\Http\Controllers\FBController@deletepost');
 
     /*権限レベルが高いサポーターが参照するページ*/
     Route::get('/sysad/', 'App\Http\Controllers\SysAdController@index');
@@ -89,6 +90,10 @@ Route::middleware('lsuppo')->group(function () {
 
     #DEBUG用
     Route::get('/mail/test/manabiail/','App\Http\Controllers\SettingsController@sendmailtest')->middleware('auth');
+
+    Route::get('/conv/upload/', 'App\Http\Controllers\ConvController@upload')->name('conv-upload');
+    Route::post('/conv/confirm/', 'App\Http\Controllers\ConvController@confirm');
+    Route::post('/conv/upload/', 'App\Http\Controllers\ConvController@uploadpost');
 
 
 // /*共通ページ*/

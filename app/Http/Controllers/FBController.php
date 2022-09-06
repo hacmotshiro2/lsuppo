@@ -42,7 +42,19 @@ class FBController extends Controller
         #TODO 自LRに絞るかは要検討
         $items = FB::getAllFBList(); //通常のallでとると、indexの場合とプロパティが変わるので。（例StudentName）
 
+        //Deleteからのリダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
+        $alertComp='';
+        if($request->session()->has('alertComp')){
+            $alertComp = $request->session()->get('alertComp');
+        }
+        $alertErr='';
+        if($request->session()->has('alertErr')){
+            $alertErr = $request->session()->get('alertErr');
+        }
+   
         $arg = [
+            'alertComp'=>$alertComp,
+            'alertErr'=>$alertErr,
             'items' => $items,
         ];
 
@@ -112,7 +124,7 @@ class FBController extends Controller
             'mode' =>'add',
             'students'=>$students,
             'lrs'=>$lrs,
-            'KinyuuSupporterCd'=>$supporterCd,
+            'ShoriSupporterCd'=>$supporterCd,
             'alertComp'=>$alertComp,
             'alertErr'=>$alertErr,
         ];
@@ -152,7 +164,7 @@ class FBController extends Controller
         $ah->ShouninStatus=DBConst::SHOUNIN_STATUS_APPROVING;
         #TODO
         $ah->Comment = "";
-        $ah->TourokuSupporterCd = $request->KinyuuSupporterCd;
+        $ah->TourokuSupporterCd = $request->ShoriSupporterCd;
         $ah->setUpdateColumn();
 
         //フィードバック明細及び承認履歴に更新
@@ -203,7 +215,7 @@ class FBController extends Controller
             'form' =>$fb,
             'students'=>$students,
             'lrs'=>$lrs,
-            'KinyuuSupporterCd'=>$supporterCd,
+            'ShoriSupporterCd'=>$supporterCd,
             'lah'=>$lah,
         ];
         return view('FB.regist',$arg);
@@ -240,8 +252,8 @@ class FBController extends Controller
         $ah->HasseiDate = date("Y-m-d H:i:s");
         $ah->ShouninStatus=DBConst::SHOUNIN_STATUS_APPROVING;
         #TODO
-        $ah->Comment = "";
-        $ah->TourokuSupporterCd = $request->KinyuuSupporterCd;
+        $ah->Comment = $request->Comment;
+        $ah->TourokuSupporterCd = $request->ShoriSupporterCd;
         $ah->setUpdateColumn();
 
         //フィードバック明細及び承認履歴に更新
@@ -258,6 +270,41 @@ class FBController extends Controller
         ];
 
         return redirect()->route('fbDetail',$args)->with('alertComp',MessageConst::EDIT_COMPLETED);//http://127.0.0.1:8000/fb/detail?fbNo=30
+
+    }
+    // post fb\delete
+    public function deletepost(FBRequest $request){
+
+        $fbNo = $request->fbNo;
+
+        $user = Auth::user();
+        
+        $fb = FB::where('FbNo',$fbNo)->first();
+     
+
+        //承認履歴
+        $ah = new ApproveHistory;
+        $ah->TargetToken = $fb->ApprovalToken;
+        $ah->HasseiDate = date("Y-m-d H:i:s");
+        $ah->ShouninStatus=DBConst::SHOUNIN_STATUS_DELETED;
+        #TODO
+        $ah->Comment = $request->Comment;
+        $ah->TourokuSupporterCd = $request->ShoriSupporterCd;
+        $ah->setUpdateColumn();
+
+        //フィードバック明細及び承認履歴に更新
+        DB::transaction(function() use($fb,$ah){
+            $ah->save();//Insert
+            $fb->delete();//Delete
+
+        });
+        
+
+        //fbNoだけ渡して後は、リダイレクト先のGetコントローラに任せる
+        $args = [
+        ];
+
+        return redirect()->route('fbIndex_sp',$args)->with('alertComp',MessageConst::DELETE_COMPLETED);//http://127.0.0.1:8000/fb/detail?fbNo=30
 
     }
     //POST
