@@ -45,8 +45,8 @@
                 @if($item->ShouninStatus == App\Consts\DBConst::SHOUNIN_STATUS_APPROVING)
                 <!-- 承認中の時だけ有効 -->
                 <div class="flex justify-center gap-2.5">
-                    <button formaction="/fb/approve/" class="w-full block bg-indigo-400 hover:bg-indigo-600 active:bg-indigo-600 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">承認</button>
-                    <button formaction="/fb/decline/" class="w-full block bg-red-400 hover:bg-red-600 active:bg-red-600 focus-visible:ring ring-red-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">取り下げ</button>
+                    <button formaction="/fb/approve" class="w-full block bg-indigo-400 hover:bg-indigo-600 active:bg-indigo-600 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">承認</button>
+                    <button formaction="/fb/decline" class="w-full block bg-red-400 hover:bg-red-600 active:bg-red-600 focus-visible:ring ring-red-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">取り下げ</button>
                 </div>
                 @else
                 <div class="flex justify-center gap-2.5">
