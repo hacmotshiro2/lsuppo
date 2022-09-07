@@ -1,8 +1,8 @@
 <!-- 初期値セット -->
 @props(['userName' => 'ななしさん'])
 
-<header class="container mx-auto text-white pb-1">
-    <div class="flex justify-between bg-gray-300 items-center fixed md:static w-full h-16">
+<header class="container mx-auto text-white pb-1 z-50">
+    <div class="container flex justify-between bg-gray-300 items-center fixed w-full h-16">
         <div id="headerLogo" class="mx-8">
             <a href="/"><img class="bg-gray-300 h-16" src="/images/logo-lsuppov1.0-bgw-wide.svg"></a>
         </div>

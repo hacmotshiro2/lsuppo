@@ -27,7 +27,7 @@
 
         </style>
     </head>
-    <body class="containe mx-auto max-w-7xl text-xl text-gray-800" >
+    <body class="container mx-auto max-w-7xl text-xl text-gray-800" >
         <!-- id=app は下のVuewスクリプトで使われているので消さない -->
         <div id="app">
             <div>
@@ -56,7 +56,7 @@
                 @yield('content')
                 </div>
             </div>
-            <div class="footer border-top sticky-bottom">
+            <div class="w-full fixed bottom-1 z-50">
                 <x-lsuppo-footer />
             </div>
         </div>

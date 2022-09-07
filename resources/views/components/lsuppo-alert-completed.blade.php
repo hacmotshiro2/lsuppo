@@ -1,7 +1,7 @@
 @props(['alert'=>''])
 
 <section class="">
-  <div class="relative items-center w-full px-5 py-12 mx-auto md:px-12 lg:px-24 max-w-7xl">
+  <div class="items-center w-full py-2 px-5 mx-auto md:px-12 lg:px-24 max-w-7xl">
     <div class="p-6 border-l-4 border-green-500 -6 rounded-r-xl bg-green-50">
       <div class="flex">
         <div class="flex-shrink-0">

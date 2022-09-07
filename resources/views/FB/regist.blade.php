@@ -80,7 +80,7 @@
                 <label for="KinyuuSupporterCd" class="inline-block text-gray-800 text-sm sm:text-base mb-2">記入サポーターコード</label>
                 <input type="text" name="KinyuuSupporterCd" value=@if($mode=='add')"{{$ShoriSupporterCd}}" @elseif($mode='edit')"{{$form->KinyuuSupporterCd}}" @endif class="w-full bg-gray-100 text-gray-800 border rounded outline-none px-3 py-2" readonly></input>
             </div>
-            <div>
+            <div class="ml-4">
                 <label for="ShoriSupporterCd" class="inline-block text-gray-800 text-sm sm:text-base mb-2">処理サポーターコード</label>
                 <input type="text" name="ShoriSupporterCd" value="{{$ShoriSupporterCd}}" class="w-full bg-gray-100 text-gray-800 border rounded outline-none px-3 py-2" readonly></input>
             </div>
