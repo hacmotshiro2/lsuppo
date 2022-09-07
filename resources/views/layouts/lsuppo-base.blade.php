@@ -33,7 +33,7 @@
             <div>
                 <x-lsuppo-header :userName="$userName"/>
             </div>
-            <div class="bg-white-100 mt-16 md:mt-2">
+            <div class="bg-white-100 mt-16 md:mt-44">
                 <div>
                     @if(!empty($alertComp))
                     <x-lsuppo-alert-completed :alert="$alertComp" />
