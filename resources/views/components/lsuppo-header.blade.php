@@ -16,7 +16,7 @@
             </button>
         </div>
     </div>
-    <div :class="isOpen ? 'block' : 'hidden'" class="fixed md:static w-full mt-16 md:mt-0 bg-gray-300 md:block">
+    <div :class="isOpen ? 'block' : 'hidden'" class="container fixed md:absolute w-full mt-16 md:mt-16 bg-gray-300 md:block">
         <div align="right" class="mx-8">
             @unless(@empty($userName))
             <p>{{$userName}}さん</p>
@@ -26,25 +26,25 @@
             <ul class="md:flex justify-end">
                 <!-- 生徒紐づけて完了している保護者 -->
                 @can('hogosha-binded')
-                <li class="border-b-2 md:border-none"><a href="/mypage/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">ホーム</a></li>
-                <li class="border-b-2 md:border-none"><a href="/fb/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">フィードバック</a></li>
-                <li class="border-b-2 md:border-none"><a href="/lc/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">エルコイン</a></li>
+                <li class="border-b-2 md:border-none"><a href="/mypage/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">ホーム</a></li>
+                <li class="border-b-2 md:border-none"><a href="/fb/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">フィードバック</a></li>
+                <li class="border-b-2 md:border-none"><a href="/lc/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">エルコイン</a></li>
                 <!-- 生徒紐づけが完了していない保護者 -->
                 @elsecan('hogosha-nobind')
-                <li class="border-b-2 md:border-none"><a href="/mypage/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">ホーム</a></li>
+                <li class="border-b-2 md:border-none"><a href="/mypage/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">ホーム</a></li>
                 <!-- サポーターマスタとの紐づけが完了しているサポーター -->
                 @elsecan('supporter-binded')
-                <li class="border-b-2 md:border-none"><a href="/supporter-page/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">ホーム</a></li>
-                <li class="border-b-2 md:border-none"><a href="/fb/index_sp" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">フィードバック</a></li>
+                <li class="border-b-2 md:border-none"><a href="/supporter-page/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">ホーム</a></li>
+                <li class="border-b-2 md:border-none"><a href="/fb/index_sp" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">フィードバック</a></li>
                 <!-- サポーターマスタとの紐づけが完了していないサポーター -->
                 @elsecan('supporter-nobind')
-                <li class="border-b-2 md:border-none"><a href="/supporter-page/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">ホーム</a></li>
+                <li class="border-b-2 md:border-none"><a href="/supporter-page/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">ホーム</a></li>
                 <!-- その他 -->
                 @else
                 @endcan
-                <li class="border-b-2 md:border-none"><a href="/settings/" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded">設定</a></li>
+                <li class="border-b-2 md:border-none"><a href="/settings/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">設定</a></li>
                 <li><form method="POST" action="{{ route('logout') }}">
-                            @csrf<a href="{{ route('logout') }}" class="block px-8 py-2 my-4 hover:bg-gray-600  rounded" onclick="event.preventDefault();
+                            @csrf<a href="{{ route('logout') }}" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded" onclick="event.preventDefault();
                                                 this.closest('form').submit();">ログアウト</a>
                         </form>
                 </li>
