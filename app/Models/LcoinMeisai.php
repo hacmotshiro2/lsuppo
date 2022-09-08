@@ -60,7 +60,7 @@ class LCoinMeisai extends Model
             lc.HasseiDate,
             lc.ZiyuuCd,
             MZ.Ziyuu,
-            MZ.amount m_amount,
+            MZ.DefaultAmount m_amount,
             lc.ZiyuuHosoku,
             lc.TourokuSupporterCd,
             MSP.HyouziMei TourokuSupporterName,
@@ -78,12 +78,44 @@ class LCoinMeisai extends Model
 
         return $items;
     }
+    //保護者コードを基にLCoinmeisaiを取得します。
+    public static function getLCmeisaiByStudentCd(string $studentCd){
+
+        $param = ['studentCd'=>$studentCd];
+        $items = DB::select("
+
+        SELECT 
+            lc.id,
+            lc.StudentCd,
+            MS.HyouziMei StudentName,
+            MS.HogoshaCd,
+            lc.HasseiDate,
+            lc.ZiyuuCd,
+            MZ.Ziyuu,
+            MZ.DefaultAmount m_amount,
+            lc.ZiyuuHosoku,
+            lc.TourokuSupporterCd,
+            MSP.HyouziMei TourokuSupporterName,
+            lc.Amount 
+        FROM r_lc_lcoinmeisai lc
+        LEFT OUTER JOIN m_student MS
+        ON MS.StudentCd = lc.StudentCd
+        LEFT OUTER JOIN m_lc_ziyuu MZ
+        ON MZ.ZiyuuCd = lc.ZiyuuCd
+        LEFT OUTER JOIN m_supporter MSP
+        ON MSP.SupporterCd = lc.TourokuSupporterCd
+        WHERE lc.StudentCd = :studentCd
+        ORDER BY lc.StudentCd,lc.HasseiDate DESC
+        ",$param);
+
+        return $items;
+    }
     //生徒コードから、エルコイン残高を取得
     public static function getLCoinZandakaByStudentCd(string $studentCd){
         $zandaka=0;
 
         //データベースから該当の明細を取得
-        $items = LCoinMeisai::where('studentCd',$studentCd);
+        $items = self::where('StudentCd',$studentCd)->get();
         foreach($items as $item){
             $zandaka+=$item->Amount;
         }

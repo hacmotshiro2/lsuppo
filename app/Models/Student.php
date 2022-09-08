@@ -45,14 +45,14 @@ class Student extends Model
         
     }
 
-    //認証情報からStudentCdの情報を配列で返す。保護者：Studentは１対N
+    //保護者コードからStudentCdの情報を配列で返す。StudentCdの昇順。保護者：Studentは１対N
     public static function getStudentCdsByHogoshaCd(String $hogoshaCd){
     
-        $students = self::where('hogoshaCd',$hogoshaCd)->get();
+        $students = self::where('hogoshaCd',$hogoshaCd)->orderBy('StudentCd','asc')->get();
 
         //取得できないときは、空で返す。
         if(empty($students)){
-            return [];
+            return [''];
         }
 
         return array_column($students->toArray(),'StudentCd');

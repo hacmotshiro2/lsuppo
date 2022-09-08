@@ -11,8 +11,8 @@
 
   <div class="max-w-screen-lg px-4 md:px-8 mx-auto">
     <!-- 生徒単位のFOR分 1人の保護者に対して複数の生徒がいることを想定-->
-    @for($i=0;$i<count($itemset);$i++)
-
+    
+    @foreach($students as $student)
     <div class="grid md:grid-cols-2 gap-8 mb-8">
       <!-- images - start -->
       <div class="space-y-1">
@@ -29,14 +29,14 @@
         <!-- name - start -->
         <div class="mb-2 md:mb-3">
           <span class="inline-block text-gray-600 mb-0.5">エルコイン残高</span>
-          <h2 class="text-gray-800 text-2xl lg:text-3xl font-bold">{{$itemset[$i][0]->StudentName}}さん</h2>
+          <h2 class="text-gray-800 text-2xl lg:text-3xl font-bold">{{$student->HyouziMei}}さん</h2>
         </div>
         <!-- name - end -->
 
         <!-- price - start -->
         <div class="mb-4">
           <div class="flex items-end gap-2">
-            <span class="text-gray-800 text-xl md:text-4xl font-bold">{{$lczandakas[$itemset[$i][0]->StudentName]}}コインです</span>
+            <span class="text-gray-800 text-xl md:text-4xl font-bold">{{$lczandakas[$student->StudentCd]}}コインです</span>
           </div>
         </div>
         <!-- price - end -->
@@ -51,7 +51,7 @@
                 <th class="w-2/9 bg-gray-300 text-slate-50 px-2 py-2">事由</th>
                 <th class="w-1/3 bg-gray-300 text-slate-50 px-2 py-2">事由補足</th>
             </tr>
-            @foreach($itemset[$i] as $item)
+            @foreach($itemset[$student->StudentCd] as $item)
             <!-- <tr class="hover:bg-gray-400"> -->
             <tr class="">
                 <td class="px-2 py-2">{{$item->HasseiDate}}</td>
@@ -67,7 +67,7 @@
       <!-- content - end -->
 
     </div>
-    @endfor
+    @endforeach
 
   </div>
 </div>
