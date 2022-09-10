@@ -21,7 +21,7 @@
     @for($i=0;$i<count($items);$i++)
       <!-- Studentが切り替わるタイミングのみStudentNameを表示 -->
       @if($i===0 or $items[$i]->StudentName!==$items[$i-1]->StudentName )
-        <span class="font-semibold title-font text-gray-700 mt-10 md:mt-24">{{$items[$i]->StudentName}}さんへのFEEDBACK</span>
+        <span class="font-semibold title-font text-gray-700 mt-10 md:mt-24">{{$items[$i]->StudentName}}さんへのフィードバック</span>
       @endif
       <div class="py-8 flex flex-nowrap">
         <div class="w-20 md:w-44 md:mb-0 mb-6 flex-none grid-rows-3">
@@ -59,6 +59,9 @@
       </div>
     @endfor
     </div>
+    @if(count($items)==0)
+    <span class="font-semibold title-font text-gray-700 mt-10 md:mt-24">まだフィードバックが登録されていません</span>
+    @endif
   </div>
 </section>
 
