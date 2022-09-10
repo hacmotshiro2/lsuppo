@@ -50,7 +50,7 @@
                 <span class="mt-1 md:mt-4  w-full">{{$items[$i]->KinyuuSupporterName}}</span>
               </div>
               <div class="table-row">
-                <span class="mt-1 md:mt-4  w-full">@if($items[$i]->ShouninStatus==App\Consts\DBConst::SHOUNIN_STATUS_APPROVED)✔ 承認済@endif</span>
+                <span class="mt-1 md:mt-4  w-full">{{$items[$i]->ShouninStatusName}}</span>
               </div>
             </div>
           </div>

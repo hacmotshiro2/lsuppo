@@ -67,7 +67,8 @@ class FB extends Model
         `ShouninSupporterCd`, 
         msp_shounin.HyouziMei AS ShouninSupporterName , 
         `ShouninDate`, 
-        `ShouninStatus`
+        `ShouninStatus`,
+        mk.Value AS ShouninStatusName
 
         FROM r_fe_feedbackmeisai MAIN 
         LEFT OUTER JOIN m_student mst
@@ -78,6 +79,9 @@ class FB extends Model
         ON msp_kinyuu.SupporterCd = MAIN.KinyuuSupporterCd
         LEFT OUTER JOIN m_supporter msp_shounin
         ON msp_shounin.SupporterCd = MAIN.ShouninSupporterCd
+        LEFT OUTER JOIN m_koumoku mk
+        ON mk.Shubetu = 100
+        AND mk.Code = MAIN.ShouninStatus
         WHERE mst.HogoshaCd = :hogoshaCd
         AND MAIN.ShouninStatus = :shouninStatus
         AND MAIN.deleted_at IS NULL
@@ -106,7 +110,8 @@ class FB extends Model
         `ShouninSupporterCd`, 
         msp_shounin.HyouziMei AS ShouninSupporterName , 
         `ShouninDate`, 
-        `ShouninStatus`
+        `ShouninStatus`,
+        mk.Value AS ShouninStatusName
 
         FROM r_fe_feedbackmeisai MAIN 
         LEFT OUTER JOIN m_student mst
@@ -117,6 +122,9 @@ class FB extends Model
         ON msp_kinyuu.SupporterCd = MAIN.KinyuuSupporterCd
         LEFT OUTER JOIN m_supporter msp_shounin
         ON msp_shounin.SupporterCd = MAIN.ShouninSupporterCd
+        LEFT OUTER JOIN m_koumoku mk
+        ON mk.Shubetu = 100
+        AND mk.Code = MAIN.ShouninStatus
         WHERE 1=1
         AND MAIN.deleted_at IS NULL
         ORDER BY MAIN.StudentCd ,MAIN.TaishoukikanFrom DESC, MAIN.TaishoukikanTo DESC, MAIN.FbNo DESC
