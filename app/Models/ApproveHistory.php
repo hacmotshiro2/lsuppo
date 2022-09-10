@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Consts\DBConst;
 
+use App\Models\Supporter;
+
 
 class ApproveHistory extends Model
 {
@@ -31,8 +33,20 @@ class ApproveHistory extends Model
         $this->UpdateSystem=DBConst::UPDATE_SYSTEM;
         
     }
-    public function getShouninStatusName(){
-        return self::stGetShouninStatusName($this->ShouninStatus);
+    //サポーターのコードと名前をコロン区切りで返します。
+    public function getSupporterCdName(){
+        $cd = $this->TourokuSupporterCd;
+        //サポーターマスタから表示名を取得
+        $supporter = Supporter::where('SupporterCd',$cd)->first();
+        if(is_null($supporter)){
+            return $cd;
+        }
+        return $cd.":".$supporter->HyouziMei;
+    }
+    //承認ステータス名を画面に表示するために
+    public function getShouninStatusCdName(){
+
+        return $this->ShouninStatus.":".self::stGetShouninStatusName($this->ShouninStatus);
     }
     public static function stGetShouninStatusName(string $shouninStatus){
         switch($shouninStatus){
