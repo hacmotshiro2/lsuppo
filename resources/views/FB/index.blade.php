@@ -23,13 +23,13 @@
       @if($i===0 or $items[$i]->StudentName!==$items[$i-1]->StudentName )
         <span class="font-semibold title-font text-gray-700 mt-10 md:mt-24">{{$items[$i]->StudentName}}さんへのフィードバック</span>
       @endif
-      <div class="py-8 flex flex-nowrap">
+      <div class="py-8 flex flex-nowrap" @if(is_null($items[$i]->FirstReadDate)) style="background-color:#def2f4;"@endif>
         <div class="w-20 md:w-44 md:mb-0 mb-6 flex-none grid-rows-3">
           <span class="mt-1 text-gray-700 md:title-font font-semibold row-span-2">{{$items[$i]->TaishoukikanFrom}}～</span>
           <span class="mt-1 text-gray-500 text-sm">{{$items[$i]->TaishoukikanTo}}</span>
         </div>
         <div class="ml-4 flex-grow">
-          <div class="w-full"><span class="text-xl md:text-2xl font-medium text-gray-900 title-font mb-2">{{$items[$i]->Title}}</span></div>
+          <div class="w-full"><span class="text-xl md:text-2xl @if(is_null($items[$i]->FirstReadDate))font-semibold @endif text-gray-900 title-font mb-2">{{$items[$i]->Title}}</span></div>
           <div class="w-full"><span class="leading-relaxed text-gray-700">{{mb_strimwidth($items[$i]->Detail,0,120,"...")}}</span></div>
           <div class="w-full"><span><a class="text-indigo-500 inline-flex items-center mt-4" href="\fb\detail\?fbNo={{$items[$i]->FbNo}}">もっと読む
             <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">

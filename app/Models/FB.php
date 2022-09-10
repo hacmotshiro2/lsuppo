@@ -69,6 +69,8 @@ class FB extends Model
         `ShouninDate`, 
         `ShouninStatus`,
         mk.Value AS ShouninStatusName
+        ,FirstReadDate
+        ,LastReadDate
 
         FROM r_fe_feedbackmeisai MAIN 
         LEFT OUTER JOIN m_student mst
@@ -112,6 +114,8 @@ class FB extends Model
         `ShouninDate`, 
         `ShouninStatus`,
         mk.Value AS ShouninStatusName
+        ,FirstReadDate
+        ,LastReadDate
 
         FROM r_fe_feedbackmeisai MAIN 
         LEFT OUTER JOIN m_student mst

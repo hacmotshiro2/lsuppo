@@ -16,6 +16,7 @@ use App\Models\LR;
 use App\Models\ApproveHistory;
 
 use App\Http\Requests\FBRequest;
+use App\Consts\AuthConst;
 use App\Consts\DBConst;
 use App\Consts\MessageConst;
 
@@ -82,6 +83,21 @@ class FBController extends Controller
             $alertErr = $request->session()->get('alertErr');
         }
 
+        //閲覧日の更新
+        //保護者の時だけ
+        $user = Auth::user();
+        if($user->userType==AuthConst::USER_TYPE_HOGOSHA){
+            //初回閲覧日がnullの場合
+            if(is_null($item->FirstReadDate)){
+                $item->FirstReadDate = date("Y-m-d H:i:s");
+            }
+            //最終閲覧日
+            $item->LastReadDate =  date("Y-m-d H:i:s");
+
+            //更新
+            $item->setUpdateColumn();
+            $item->save();
+        }
         //承認履歴
         $lah = ApproveHistory::where('TargetToken',$item->ApprovalToken)->orderBy('HasseiDate','desc')->get();
        
