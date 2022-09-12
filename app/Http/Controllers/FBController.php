@@ -9,11 +9,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\FB;
+use App\Models\User;
 use App\Models\Hogosha;
 use App\Models\Student;
 use App\Models\Supporter;
 use App\Models\LR;
 use App\Models\ApproveHistory;
+use App\Models\User2Hogosha;
 
 use App\Http\Requests\FBRequest;
 use App\Consts\AuthConst;
@@ -21,6 +23,9 @@ use App\Consts\DBConst;
 use App\Consts\MessageConst;
 
 use Illuminate\Support\Facades\Gate;
+
+use App\Notifications\FBApprovedNotification;
+
 
 class FBController extends Controller
 {
@@ -358,7 +363,18 @@ class FBController extends Controller
 
         });
 
-    
+
+        //承認が完了したメールを送る
+        //サポーターが登録するので、ログインユーザーではなく、フィードバックの保護者に送る
+        $student = Student::where('StudentCd',$fb->StudentCd)->first();
+        $u2hs = User2Hogosha::where('HogoshaCd',$student->HogoshaCd)->get();
+        //一人の生徒に対して複数の保護者を登録できるので
+        foreach($u2hs as $u2h){
+            $user = User::find($u2h->user_id);
+            if(!is_null($user)){
+                $user->notify(new FBApprovedNotification($user->name));
+            }
+        }
         //引数だけ渡して、後はリダイレクトした方がいい
         $args=[
             'fbNo'=>$fbNo,
