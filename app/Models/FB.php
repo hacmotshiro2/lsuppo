@@ -22,6 +22,9 @@ class FB extends Model
     public function kinyuusupporter(){
         return $this->belongsTo('App\Models\Supporter','KinyuuSupporterCd','SupporterCd');
     }
+    public function student(){
+        return $this->belongsTo('App\Models\Student','StudentCd','StudentCd');
+    }
 
     //スコープ：承認済みのみ
     public function scopeApproved($query){
