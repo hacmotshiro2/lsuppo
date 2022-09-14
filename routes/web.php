@@ -65,8 +65,10 @@ Route::middleware('lsuppo')->group(function () {
     Route::post('/fb/approve/', 'App\Http\Controllers\FBController@approve');
     Route::post('/fb/decline/', 'App\Http\Controllers\FBController@decline');
 
-    Route::get('/hogosha/add/', 'App\Http\Controllers\HogoshaController@add')->name('hogosha-add');
+    Route::get('/hogosha/add/{HogoshaCd?}', 'App\Http\Controllers\HogoshaController@add')->name('hogosha-add');
     Route::post('/hogosha/add/', 'App\Http\Controllers\HogoshaController@create');
+    Route::post('/hogosha/edit/', 'App\Http\Controllers\HogoshaController@edit');
+    Route::post('/hogosha/delete/', 'App\Http\Controllers\HogoshaController@delete');
 
     Route::get('/student/add/', 'App\Http\Controllers\StudentController@add')->name('student-add');
     Route::post('/student/add/', 'App\Http\Controllers\StudentController@create');
@@ -91,9 +93,13 @@ Route::middleware('lsuppo')->group(function () {
     #DEBUG用
     Route::get('/mail/test/manabiail/','App\Http\Controllers\SettingsController@sendmailtest')->middleware('auth');
 
+    Route::get('/conv/', 'App\Http\Controllers\ConvController@index')->name('conv-index');
+    Route::get('/conv/detail/', 'App\Http\Controllers\ConvController@detail')->name('convDetail');
+    Route::post('/conv/replace/', 'App\Http\Controllers\ConvController@replace');
     Route::get('/conv/upload/', 'App\Http\Controllers\ConvController@upload')->name('conv-upload');
     Route::post('/conv/confirm/', 'App\Http\Controllers\ConvController@confirm');
     Route::post('/conv/upload/', 'App\Http\Controllers\ConvController@uploadpost');
+    Route::post('/conv/detail/{orgSpeaker?}', 'App\Http\Controllers\ConvController@detail');
 
 
 // /*共通ページ*/

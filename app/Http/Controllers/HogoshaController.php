@@ -42,9 +42,19 @@ class HogoshaController extends Controller
     
     /*システム管理者が使用する画面*/
     //保護者登録画面へ
-    public function add(Request $request, Response $response){
+    public function add(Request $request){
+        $mode = 'add';
+        $item = new Hogosha;
+
+        //クエリ文字列にHogoshaCdがついている場合は、編集モードで開く
+        if(isset($request->HogoshaCd)){
+            $item = Hogosha::where('HogoshaCd',$request->HogoshaCd)->first();
+            $mode = 'edit';
+        }
+        //全件を取得
         $items = Hogosha::all();
 
+        print $items[1]->HogoshaCd;
         //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
         $alertComp='';
         if($request->session()->has('alertComp')){
@@ -56,6 +66,8 @@ class HogoshaController extends Controller
         }
         
         $arg=[
+            'mode'=>$mode,
+            'item'=>$item,
             'items'=>$items,
             'alertComp'=>$alertComp,
             'alertErr'=>$alertErr,
@@ -73,24 +85,57 @@ class HogoshaController extends Controller
         $hogosha->fill($form);
 
         //checkboxはそのままだと登録できないので
-        $hogosha->IsLocked = ISSET($form->IsLocked)?1:0;
-        $hogosha->IsNeedPWChange = ISSET($form->IsNeedPWChange)?1:0;
+        // $hogosha->IsLocked = ISSET($form->IsLocked)?1:0;
+        // $hogosha->IsNeedPWChange = ISSET($form->IsNeedPWChange)?1:0;
+        //この項目はつかっていない
+        $hogosha->IsLocked = 0;
+        $hogosha->IsNeedPWChange = 0;
 
         //フォームにない項目をセット
-
         $hogosha->setUpdateColumn();
 
         $hogosha->save();
-
-        
 
         //登録後の再取得
         $args=[
         ];
 
         return redirect()->route('hogosha-add',$args)->with('alertComp',MessageConst::ADD_COMPLETED);
+    }
+    //保護者登録画面のPOST
+    public function edit(Request $request){
+        $this->validate($request, Hogosha::$rules);
+        $hogosha = Hogosha::where('HogoshaCd',$request->HogoshaCd)->first();
+        $form = $request->all();
+        unset($form['_token']);
+        $hogosha->fill($form);
 
+        //フォームにない項目をセット
+        //この項目はつかっていない
+        $hogosha->IsLocked = 0;
+        $hogosha->IsNeedPWChange = 0;
+        $hogosha->setUpdateColumn();
 
+        $hogosha->save();
+
+        //登録後の再取得
+        $args=[
+        ];
+
+        return redirect()->route('hogosha-add',$args)->with('alertComp',MessageConst::EDIT_COMPLETED);
+    }
+    //保護者登録画面のPOST
+    public function delete(Request $request){
+
+        $hogosha = Hogosha::where('HogoshaCd',$request->HogoshaCd)->first();
+
+        $hogosha->delete();
+
+        //登録後の再取得
+        $args=[
+        ];
+
+        return redirect()->route('hogosha-add',$args)->with('alertComp',MessageConst::DELETE_COMPLETED);
     }
     //user2保護者登録画面へ /user2hogosha/add/
     public function u2hadd(Request $request, Response $response){

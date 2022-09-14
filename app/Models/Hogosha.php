@@ -12,9 +12,13 @@ class Hogosha extends Model
     use HasFactory;
 
     protected $table = 'm_hogosha';
-    // protected $primaryKey = 'HogoshaCd';//これ使うと表示が0になった
-    protected $guarded = ['UpdateTimeStamp'];
-
+    protected $primaryKey = 'HogoshaCd';//これ使うと表示が0になった
+    protected $keyType = 'string';
+    public $incrementing = false;
+    protected $fillable = [
+        'HogoshaCd','Sei','Mei','Hurigana','RiyouKaisiDate','RiyouShuuryouDate','LearningRoomCd','IsLocked','IsNeedPWChange',
+        'UpdateGamen','UpdateSystem'
+    ];
     public static $rules = [
         'HogoshaCd' => 'required'
     ];
