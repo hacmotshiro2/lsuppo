@@ -27,9 +27,9 @@
 
         </style>
     </head>
-    <body class="container mx-auto max-w-7xl text-xl text-gray-800" >
+    <body class="container mx-auto text-xl text-gray-800" >
         <!-- id=app は下のVuewスクリプトで使われているので消さない -->
-        <div id="app">
+        <div id="app" class="container">
             <div>
                 <x-lsuppo-header :userName="$userName"/>
             </div>
@@ -56,6 +56,8 @@
                 @yield('content')
                 </div>
             </div>
+            <!-- フッターと重なるので空白を入れる -->
+            <div class="h-12"></div>
             <div class="w-full fixed bottom-1 z-50">
                 <x-lsuppo-footer />
             </div>
@@ -92,5 +94,8 @@
         //     return window.confirm();
         // });
     </script>
+    <!-- <script src="../path/to/flowbite/dist/flowbite.js"></script> -->
+    <!-- Flowbite追加 -->
+    <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
     </body>
 </html>

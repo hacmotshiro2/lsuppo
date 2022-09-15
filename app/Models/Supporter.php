@@ -32,7 +32,9 @@ class Supporter extends Model
             //authlevel 1字以内
             'authlevel' => ['required','size:1'],
     ];
-
+    public function getCdName(){
+        return $this->SupporterCd.':'.$this->HyouziMei;
+    }
     //Update系項目のセット
     public function setUpdateColumn(){
 

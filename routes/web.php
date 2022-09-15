@@ -60,7 +60,7 @@ Route::middleware('lsuppo')->group(function () {
     Route::post('/fb/delete/', 'App\Http\Controllers\FBController@deletepost');
 
     /*権限レベルが高いサポーターが参照するページ*/
-    Route::get('/sysad/', 'App\Http\Controllers\SysAdController@index');
+    Route::get('/sysad/', function(){return view('SysAdmin.index');});
 
     Route::post('/fb/approve/', 'App\Http\Controllers\FBController@approve');
     Route::post('/fb/decline/', 'App\Http\Controllers\FBController@decline');
@@ -95,11 +95,13 @@ Route::middleware('lsuppo')->group(function () {
 
     Route::get('/conv/', 'App\Http\Controllers\ConvController@index')->name('conv-index');
     Route::get('/conv/detail/', 'App\Http\Controllers\ConvController@detail')->name('convDetail');
+    Route::post('/conv/detail/', 'App\Http\Controllers\ConvController@filter');
+    Route::get('/conv/editMeisai/', 'App\Http\Controllers\ConvController@editMeisai')->name('editMeisai');
+    Route::post('/conv/updateMeisai/', 'App\Http\Controllers\ConvController@updateMeisai');
     Route::post('/conv/replace/', 'App\Http\Controllers\ConvController@replace');
     Route::get('/conv/upload/', 'App\Http\Controllers\ConvController@upload')->name('conv-upload');
     Route::post('/conv/confirm/', 'App\Http\Controllers\ConvController@confirm');
     Route::post('/conv/upload/', 'App\Http\Controllers\ConvController@uploadpost');
-    Route::post('/conv/detail/{orgSpeaker?}', 'App\Http\Controllers\ConvController@detail');
 
 
 // /*共通ページ*/
