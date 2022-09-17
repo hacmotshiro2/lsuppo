@@ -10,6 +10,9 @@ use App\Consts\DBConst;
 class Student extends Model
 {
     protected $table = 'm_student';
+    protected $primaryKey = 'StudentCd';
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     use HasFactory;
 
