@@ -30,11 +30,14 @@ class User2Supporter extends Model
         ,u.email
         ,u.userType
         ,u.StudentName
+        ,u2s.id as u2s_id
         ,u2s.user_id
         ,u2s.SupporterCd
         from users u
         left outer join user2supporter u2s
         on u2s.user_id = u.id
+        and u2s.deleted_at IS NULL 
+        ORDER BY u.userType desc, u.id
         "
         );
 

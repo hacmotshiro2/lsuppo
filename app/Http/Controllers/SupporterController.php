@@ -133,4 +133,16 @@ class SupporterController extends Controller
         return redirect()->route('u2s-add',$args)->with('alertComp',MessageConst::ADD_COMPLETED);
 
     }
+    //
+    public function u2sdelete(Request $request){
+        $u2s_id = $request->u2s_id;
+
+        $u2s = User2Supporter::find($u2s_id);
+        $u2s->delete();
+
+        $args=[
+        ];
+        return redirect()->route('u2s-add',$args)->with('alertComp',MessageConst::DELETE_COMPLETED);
+    }
+    
 }

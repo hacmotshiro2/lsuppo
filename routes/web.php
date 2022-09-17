@@ -75,24 +75,21 @@ Route::middleware('lsuppo')->group(function () {
 
     Route::get('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hadd')->name('u2h-add');
     Route::post('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hcreate');
+    Route::get('/user2hogosha/delete/', 'App\Http\Controllers\HogoshaController@u2hdelete');
 
     Route::get('/supporter/add/', 'App\Http\Controllers\SupporterController@add')->name('supporter-add');
     Route::post('/supporter/add/', 'App\Http\Controllers\SupporterController@create');
 
     Route::get('/user2suppo/add/', 'App\Http\Controllers\SupporterController@u2sadd')->name('u2s-add');
     Route::post('/user2suppo/add/', 'App\Http\Controllers\SupporterController@u2screate');
+    Route::get('/user2suppo/delete/', 'App\Http\Controllers\SupporterController@u2sdelete');
 
     Route::get('/lc/add/', 'App\Http\Controllers\LCoinController@add')->name('lcAdd');
     Route::get('/lc/list/', 'App\Http\Controllers\LCoinController@list')->name('lcList');
     Route::post('/lc/add/', 'App\Http\Controllers\LCoinController@addpost');
     Route::post('/lc/delete/', 'App\Http\Controllers\LCoinController@deletepost');
 
-
-});
-
-    #DEBUG用
-    Route::get('/mail/test/manabiail/','App\Http\Controllers\SettingsController@sendmailtest')->middleware('auth');
-
+    /* CLOVA */
     Route::get('/conv/', 'App\Http\Controllers\ConvController@index')->name('conv-index');
     Route::get('/conv/detail/', 'App\Http\Controllers\ConvController@detail')->name('convDetail');
     Route::post('/conv/detail/', 'App\Http\Controllers\ConvController@filter');
@@ -102,6 +99,13 @@ Route::middleware('lsuppo')->group(function () {
     Route::get('/conv/upload/', 'App\Http\Controllers\ConvController@upload')->name('conv-upload');
     Route::post('/conv/confirm/', 'App\Http\Controllers\ConvController@confirm');
     Route::post('/conv/upload/', 'App\Http\Controllers\ConvController@uploadpost');
+
+});
+
+    #DEBUG用
+    Route::get('/mail/test/manabiail/','App\Http\Controllers\SettingsController@sendmailtest')->middleware('auth');
+
+
 
 
 // /*共通ページ*/

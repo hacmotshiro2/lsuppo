@@ -54,7 +54,6 @@ class HogoshaController extends Controller
         //全件を取得
         $items = Hogosha::all();
 
-        print $items[1]->HogoshaCd;
         //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
         $alertComp='';
         if($request->session()->has('alertComp')){
@@ -186,6 +185,17 @@ class HogoshaController extends Controller
 
         return redirect()->route('u2h-add',$args)->with('alertComp',MessageConst::ADD_COMPLETED);
 
+    }
+    //
+    public function u2hdelete(Request $request){
+        $u2h_id = $request->u2h_id;
+
+        $u2h = User2Hogosha::find($u2h_id);
+        $u2h->delete();
+
+        $args=[
+        ];
+        return redirect()->route('u2h-add',$args)->with('alertComp',MessageConst::DELETE_COMPLETED);
     }
 
 }

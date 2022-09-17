@@ -34,11 +34,14 @@ class User2Hogosha extends Model
         ,u.email
         ,u.userType
         ,u.StudentName
+        ,u2h.id as u2h_id
         ,u2h.user_id
         ,u2h.HogoshaCd
         from users u
         left outer join user2hogosha u2h
         on u2h.user_id = u.id
+        and u2h.deleted_at IS NULL 
+        ORDER BY u.userType,u.id
         "
         );
 
