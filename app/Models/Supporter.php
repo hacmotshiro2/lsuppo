@@ -13,6 +13,9 @@ class Supporter extends Model
     use HasFactory;
   
     protected $table = 'm_supporter';
+    protected $primaryKey = 'SupporterCd';
+    protected $keyType = 'string';
+    public $incrementing = false;
     protected $guarded = [];
 
     //validationルール

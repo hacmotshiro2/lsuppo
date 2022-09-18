@@ -72,6 +72,8 @@ Route::middleware('lsuppo')->group(function () {
 
     Route::get('/student/add/', 'App\Http\Controllers\StudentController@add')->name('student-add');
     Route::post('/student/add/', 'App\Http\Controllers\StudentController@create');
+    Route::post('/student/edit/', 'App\Http\Controllers\StudentController@edit');
+    Route::post('/student/delete/', 'App\Http\Controllers\StudentController@delete');
 
     Route::get('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hadd')->name('u2h-add');
     Route::post('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hcreate');
@@ -79,6 +81,8 @@ Route::middleware('lsuppo')->group(function () {
 
     Route::get('/supporter/add/', 'App\Http\Controllers\SupporterController@add')->name('supporter-add');
     Route::post('/supporter/add/', 'App\Http\Controllers\SupporterController@create');
+    Route::post('/supporter/edit/', 'App\Http\Controllers\SupporterController@edit');
+    Route::post('/supporter/delete/', 'App\Http\Controllers\SupporterController@delete');
 
     Route::get('/user2suppo/add/', 'App\Http\Controllers\SupporterController@u2sadd')->name('u2s-add');
     Route::post('/user2suppo/add/', 'App\Http\Controllers\SupporterController@u2screate');

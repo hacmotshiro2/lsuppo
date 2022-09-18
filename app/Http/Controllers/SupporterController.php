@@ -11,6 +11,7 @@ use App\Consts\MessageConst;
 use App\Models\User;
 use App\Models\Supporter;
 use App\Models\User2Supporter;
+use App\Models\LR;
 
 use App\Notifications\User2SupporterRegisteredNotification;
 
@@ -33,7 +34,17 @@ class SupporterController extends Controller
     /*システム管理者が使用する画面*/
     //サポーター登録画面へ
     public function add(Request $request){
+        $mode = 'add';
+        $item = new Supporter;
+
+        //クエリ文字列にSupporterCdがついている場合は、編集モードで開く
+        if(isset($request->SupporterCd)){
+            $item = Supporter::where('SupporterCd',$request->SupporterCd)->first();
+            $mode = 'edit';
+        }
+
         $items = Supporter::all();
+        $lrs = LR::all();
 
         //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
         $alertComp='';
@@ -46,7 +57,10 @@ class SupporterController extends Controller
         }
         
         $arg=[
+            'mode'=>$mode,
+            'item'=>$item,
             'items'=>$items,
+            'lrs' =>$lrs,
             'alertComp'=>$alertComp,
             'alertErr'=>$alertErr,
         ];
@@ -63,17 +77,17 @@ class SupporterController extends Controller
         unset($form['create']);
         $supporter->fill($form);
 
-        //checkboxはそのままだと登録できないので
-        $supporter->IsLocked = ISSET($form->IsLocked)?1:0;
-        $supporter->IsNeedPWChange = ISSET($form->IsNeedPWChange)?1:0;
+        // //checkboxはそのままだと登録できないので
+        // $supporter->IsLocked = ISSET($form->IsLocked)?1:0;
+        // $supporter->IsNeedPWChange = ISSET($form->IsNeedPWChange)?1:0;
+        // この項目は使っていない
+        $supporter->IsLocked = 0;
+        $supporter->IsNeedPWChange = 0;
 
         //フォームにない項目をセット
-
         $supporter->setUpdateColumn();
 
         $supporter->save();
-
-        
 
         //登録後の再取得
         $args=[
@@ -81,6 +95,35 @@ class SupporterController extends Controller
 
         return redirect()->route('supporter-add',$args)->with('alertComp',MessageConst::ADD_COMPLETED);
 
+    }
+    public function edit(Request $request){
+        $this->validate($request, Supporter::$rules);
+        $supporter = Supporter::where('SupporterCd',$request->SupporterCd)->first();
+        $form = $request->all();
+        unset($form['_token']);
+        unset($form['create']);
+        $supporter->fill($form);
+
+        // //checkboxはそのままだと登録できないので
+        // $supporter->IsLocked = ISSET($form->IsLocked)?1:0;
+        // $supporter->IsNeedPWChange = ISSET($form->IsNeedPWChange)?1:0;
+        // この項目は使っていない
+        $supporter->IsLocked = 0;
+        $supporter->IsNeedPWChange = 0;
+
+        //フォームにない項目をセット
+        $supporter->setUpdateColumn();
+
+        $supporter->save();
+
+        //登録後の再取得
+        $args=[
+        ];
+
+        return redirect()->route('supporter-add',$args)->with('alertComp',MessageConst::EDIT_COMPLETED);
+
+    }
+    public function delete(Request $request){
 
     }
     //user2サポーター登録画面へ /user2suppo/add/
