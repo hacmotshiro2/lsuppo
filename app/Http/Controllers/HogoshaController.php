@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use App\Models\Hogosha;
 use App\Models\User2Hogosha;
+use App\Models\LR;
 use Illuminate\Support\Facades\Auth;
 
 use App\Consts\MessageConst;
@@ -53,6 +54,7 @@ class HogoshaController extends Controller
         }
         //全件を取得
         $items = Hogosha::all();
+        $lrs = LR::all();
 
         //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
         $alertComp='';
@@ -68,6 +70,7 @@ class HogoshaController extends Controller
             'mode'=>$mode,
             'item'=>$item,
             'items'=>$items,
+            'lrs' =>$lrs,
             'alertComp'=>$alertComp,
             'alertErr'=>$alertErr,
         ];

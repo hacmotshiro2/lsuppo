@@ -53,7 +53,7 @@
                     <x-lsuppo-input type="text" id="valHurigana" name="Hurigana" value="{{old('Hurigana')}}" class="form-control" required />
                 @endif
             </div>
-            <div class="col-md-6">
+            <div class="mb-2">
                 <label for="valHyouziMei" class="form-label">表示名</label>
                 @if($mode=='edit')
                     <x-lsuppo-input type="text" id="valHyouziMei" name="HyouziMei" value="{{$item->HyouziMei}}" class="form-control" required />
@@ -61,7 +61,7 @@
                     <x-lsuppo-input type="text" id="valHyouziMei" name="HyouziMei" value="{{old('HyouziMei')}}" class="form-control" required />
                 @endif
             </div>
-            <div class="col-md-6">
+            <div class="mb-2">
                 <label for="ScratchID" class="form-label">ScratchID</label>
                 @if($mode=='edit')
                     <x-lsuppo-input type="text" id="ScratchID" name="ScratchID" value="{{$item->ScratchID}}" class="form-control" required />
@@ -69,7 +69,7 @@
                     <x-lsuppo-input type="text" id="ScratchID" name="ScratchID" value="{{old('ScratchID')}}" class="form-control" required />
                 @endif
             </div>
-            <div class="col-md-12">
+            <div class="mb-2">
                 <label for="ScratchURL" class="form-label">ScratchURL</label>
                 @if($mode=='edit')
                     <x-lsuppo-input type="text" id="ScratchURL" name="ScratchURL" value="{{$item->ScratchURL}}" class="form-control" required maxlength="255"/>
@@ -77,12 +77,16 @@
                     <x-lsuppo-input type="text" id="ScratchURL" name="ScratchURL" value="{{old('ScratchURL')}}" class="form-control" required maxlength="255"/>
                 @endif
             </div>
-            <div class="col-md-6">
+            <div class="mb-2">
                 <label for="LearningRoomCd" class="form-label">LRコード</label>
-                <select class="form-select" id="LearningRoomCd" name="LearningRoomCd">
-                @foreach($lrs as $lr)
-                 <option value="{{$lr->LearningRoomCd}}" @if(old('LearningRoomCd')==$lr->LearningRoomCd) selected @endif >{{$lr->getCdName()}}</option>
-                @endforeach
+                <select class="form-select rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="LearningRoomCd" name="LearningRoomCd">
+                    @foreach($lrs as $lr)
+                    @if($mode=='edit')
+                    <option value="{{$lr->LearningRoomCd}}" @if($item->LearningRoomCd==$lr->LearningRoomCd) selected @endif >{{$lr->getCdName()}}</option>
+                    @else
+                    <option value="{{$lr->LearningRoomCd}}" @if(old('LearningRoomCd')==$lr->LearningRoomCd) selected @endif >{{$lr->getCdName()}}</option>
+                    @endif
+                    @endforeach
                 </select>
             </div>
             <div class="mb-2">

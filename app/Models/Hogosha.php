@@ -12,7 +12,7 @@ class Hogosha extends Model
     use HasFactory;
 
     protected $table = 'm_hogosha';
-    protected $primaryKey = 'HogoshaCd';//これ使うと表示が0になった
+    protected $primaryKey = 'HogoshaCd';
     protected $keyType = 'string';
     public $incrementing = false;
     protected $fillable = [
@@ -20,7 +20,16 @@ class Hogosha extends Model
         'UpdateGamen','UpdateSystem'
     ];
     public static $rules = [
-        'HogoshaCd' => 'required'
+        //HogoshaCd
+        'HogoshaCd' => 'required',
+        //Sei
+        'Sei'=>'required',
+        //Mei
+        'Mei'=>'required',
+        //Hurigana
+        'Hurigana'=>'required',
+        //LearningRoomCd
+        'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
     ];
 
     public function lr(){

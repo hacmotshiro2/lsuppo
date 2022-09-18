@@ -46,12 +46,16 @@
                 @endif
             </div>
             <div class="mb-2">
-                <label for="valLearningRoomCd" class="form-label">LRコード</label>
-                @if($mode=='edit')
-                    <x-lsuppo-input type="text" id="valLearningRoomCd" name="LearningRoomCd" value="{{$item->LearningRoomCd}}" class="form-control" required />
-                @else
-                    <x-lsuppo-input type="text" id="valLearningRoomCd" name="LearningRoomCd" value="{{old('LearningRoomCd')}}" class="form-control" required maxlength="6" />
-                @endif
+                <label for="LearningRoomCd" class="form-label">LRコード</label>
+                <select class="form-select rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="LearningRoomCd" name="LearningRoomCd">
+                    @foreach($lrs as $lr)
+                    @if($mode=='edit')
+                    <option value="{{$lr->LearningRoomCd}}" @if($item->LearningRoomCd==$lr->LearningRoomCd) selected @endif >{{$lr->getCdName()}}</option>
+                    @else
+                    <option value="{{$lr->LearningRoomCd}}" @if(old('LearningRoomCd')==$lr->LearningRoomCd) selected @endif >{{$lr->getCdName()}}</option>
+                    @endif
+                    @endforeach
+                </select>
             </div>
             <div class="mb-2">
                 <label for="valRiyouFrom" class="form-label">利用期間</label>
