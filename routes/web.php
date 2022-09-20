@@ -93,6 +93,11 @@ Route::middleware('lsuppo')->group(function () {
     Route::post('/lc/add/', 'App\Http\Controllers\LCoinController@addpost');
     Route::post('/lc/delete/', 'App\Http\Controllers\LCoinController@deletepost');
 
+    Route::get('/lcziyuu/add/','App\Http\Controllers\LCZiyuuController@add')->name('lcziyuu-add');
+    Route::post('/lcziyuu/create','App\Http\Controllers\LCZiyuuController@create');
+    Route::post('/lcziyuu/edit','App\Http\Controllers\LCZiyuuController@edit');
+    Route::post('/lcziyuu/delete','App\Http\Controllers\LCZiyuuController@delete');
+
     /* CLOVA */
     Route::get('/conv/', 'App\Http\Controllers\ConvController@index')->name('conv-index');
     Route::get('/conv/detail/', 'App\Http\Controllers\ConvController@detail')->name('convDetail');
