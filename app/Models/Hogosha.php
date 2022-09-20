@@ -21,7 +21,7 @@ class Hogosha extends Model
     ];
     public static $rules = [
         //HogoshaCd
-        'HogoshaCd' => 'required',
+        'HogoshaCd' => ['required','unique:m_hogosha,HogoshaCd'],
         //Sei
         'Sei'=>'required',
         //Mei

@@ -15,8 +15,8 @@ class User2Supporter extends Model
     protected $dates = ['deleted_at'];
 
     public static $rules = [
-        'user_id' => 'required',
-        'SupporterCd' => 'required',
+        'user_id' => ['required','exists:users,id'],
+        'SupporterCd' => ['required','exists:m_supporter,SupporterCd'],
     ];
     protected $fillable = [
         'user_id',

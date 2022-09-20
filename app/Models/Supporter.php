@@ -21,7 +21,7 @@ class Supporter extends Model
     //validationルール
     public static $rules = [
             //SupporterCd
-            'SupporterCd'=>'required',
+            'SupporterCd'=>['required','unique:m_supporter,SupporterCd'],
             //Sei
             'Sei'=>'required',
             //Mei
@@ -34,6 +34,8 @@ class Supporter extends Model
             'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
             //authlevel 1字以内
             'authlevel' => ['required','size:1'],
+            //riyouShuuryouDate
+            'RiyouShuuryouDate'=>['after_or_equal:RiyouKaisiDate'],
     ];
     public function getCdName(){
         return $this->SupporterCd.':'.$this->HyouziMei;

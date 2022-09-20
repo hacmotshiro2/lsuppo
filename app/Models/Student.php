@@ -17,7 +17,22 @@ class Student extends Model
     use HasFactory;
 
     public static $rules = [
-        'StudentCd' => 'required'
+        //StudentCd
+        'StudentCd' => ['required','unique:m_student,StudentCd'],
+        //HogoshaCd
+        'HogoshaCd' => ['required','exists:m_hogosha,HogoshaCd'],
+        //Sei
+        'Sei'=>'required',
+        //Mei
+        'Mei'=>'required',
+        //Hurigana
+        'Hurigana'=>'required',
+        //HyouziMei
+        'HyouziMei'=>'required',
+        //LearningRoomCd
+        'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
+        //riyouShuuryouDate
+        'RiyouShuuryouDate'=>['after_or_equal:RiyouKaisiDate'],
     ];
     protected $fillable = [
         'StudentCd',
