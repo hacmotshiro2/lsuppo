@@ -19,9 +19,9 @@ class Supporter extends Model
     protected $guarded = [];
 
     //validationルール
-    public static $rules = [
+    public static $rules_edit = [
             //SupporterCd
-            'SupporterCd'=>['required','unique:m_supporter,SupporterCd'],
+            
             //Sei
             'Sei'=>'required',
             //Mei
@@ -35,9 +35,27 @@ class Supporter extends Model
             //authlevel 1字以内
             'authlevel' => ['required','size:1'],
             //riyouShuuryouDate
-            'RiyouShuuryouDate'=>['after_or_equal:RiyouKaisiDate'],
+            // 'RiyouShuuryouDate'=>['after_or_equal:RiyouKaisiDate'],//nullのとき上手くいかないので
     ];
-    public function getCdName(){
+    public static $rules_create = [
+        //SupporterCd
+        'SupporterCd'=>['required','unique:m_supporter,SupporterCd'],
+        //Sei
+        'Sei'=>'required',
+        //Mei
+        'Mei'=>'required',
+        //Hurigana
+        'Hurigana'=>'required',
+        //HyouziMei
+        'HyouziMei'=>'required',
+        //LearningRoomCd
+        'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
+        //authlevel 1字以内
+        'authlevel' => ['required','size:1'],
+        //riyouShuuryouDate
+        // 'RiyouShuuryouDate'=>['after_or_equal:RiyouKaisiDate'],//nullのとき上手くいかないので
+];
+public function getCdName(){
         return $this->SupporterCd.':'.$this->HyouziMei;
     }
     //Update系項目のセット

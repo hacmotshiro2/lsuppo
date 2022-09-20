@@ -37,6 +37,18 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        // No. h.hashimoto 2022/09/20 ------>
+        //利用開始日終了日判定。利用不能の場合にtrue
+        Gate::define('isDisabled',function(User $user){
+            if(is_null($user)){return false;}
+    
+            //必要なプロパティに値をセット
+            $user->setUserTypeStatus();
+            if($user->isDisabled==1){return true;}
+            return false;
+        });
+        // <------  No. h.hashimoto 2022/09/20 
+
         // No. h.hashimoto 2022/08/25 ------>
         //ログインユーザーのタイプを定義
         //m_hogoshaとの紐づけが済んでいる保護者

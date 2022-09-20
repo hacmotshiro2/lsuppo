@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 // No. h.hashimoto 2022/08/25 ------>
 use App\Models\User2Hogosha;
+use App\Models\Hogosha;
 use App\Models\User2Supporter;
 use App\Models\Supporter;
 
@@ -59,7 +60,11 @@ class User extends Authenticatable
     public $userTypeStatus = '';
     public $isBinded=0;
     public $sp_authlevel=0;
-    
+    // No. h.hashimoto 2022/09/20 ------>
+    //利用開始終了日をチェックして、利用不可であれば1
+    public $isDisabled=0;
+    // <------  No. h.hashimoto 2022/09/20 
+
     public function setUserTypeStatus(){
         //memo:コンストラクタで呼ぼうとしたが、その時点では、プロパティが出来上がっていない。
         //ユーザータイプ
@@ -68,6 +73,8 @@ class User extends Authenticatable
         $isBinded=0;
         //サポーターの権限レベル
         $sp_authlevel=0;
+        //利用不可かどうか
+        $isDisabled=0;
 
         $user=$this;
         if(!is_null($user)){
@@ -84,6 +91,18 @@ class User extends Authenticatable
                     }
                     else{
                         $isBinded=1;
+                        // No. h.hashimoto 2022/09/20 ------>
+                        //保護者マスタの利用開始終了日チェック
+                        $h=Hogosha::find($u2h->HogoshaCd);
+                        //利用開始日がnullではなく、かつ、利用開始日が、今日より後の場合
+                        if(!is_null($h->RiyouKaisiDate) and $h->RiyouKaisiDate > date('Y-m-d') ){
+                            $isDisabled = 1;
+                        }
+                        //利用終了日がnullではなく、かつ、利用終了日が、今日より後の場合
+                        if(!is_null($h->RiyouShuuryouDate)and $h->RiyouShuuryouDate < date('Y-m-d')){
+                            $isDisabled = 1;
+                        }
+                        // <------  No. h.hashimoto 2022/09/20 
                     }
                     break;
                 case AuthConst::USER_TYPE_SUPPORTER:
@@ -100,6 +119,17 @@ class User extends Authenticatable
                         //authlevelの取得
                         $supporter=Supporter::where('SupporterCd',$u2s->SupporterCd)->first();
                         $sp_authlevel = $supporter->authlevel;
+                        // No. h.hashimoto 2022/09/20 ------>
+                        //サポーターマスタの利用開始終了日チェック
+                        //利用開始日がnullではなく、かつ、利用開始日が、今日より後の場合
+                        if(!is_null($supporter->RiyouKaisiDate) and $supporter->RiyouKaisiDate > date('Y-m-d') ){
+                            $isDisabled = 1;
+                        }
+                        //利用終了日がnullではなく、かつ、利用終了日が、今日より後の場合
+                        if(!is_null($supporter->RiyouShuuryouDate)and $supporter->RiyouShuuryouDate < date('Y-m-d')){
+                            $isDisabled = 1;
+                        }
+                        // <------  No. h.hashimoto 2022/09/20 
                     }
                     break;
                 default:
@@ -108,7 +138,7 @@ class User extends Authenticatable
         }
         $this->isBinded= $isBinded;
         $this->sp_authlevel = $sp_authlevel;
-
+        $this->isDisabled = $isDisabled;
     }
     // <------  No. h.hashimoto 2022/08/25 
     

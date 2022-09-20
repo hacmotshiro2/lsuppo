@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 use App\Models\MGateAuthorization;
+use App\Consts\MessageConst;
 
 class GateAuthorization
 {
@@ -37,6 +38,12 @@ class GateAuthorization
         print " | ";
         print $request->user()->name;//斉藤雅子
         */
+        
+        // No. h.hashimoto 2022/09/20 ------>
+        if(Gate::allows('isDisabled')){
+            abort(403,MessageConst::IS_DISABLED);
+        }
+        // <------  No. h.hashimoto 2022/09/20 
 
         //パス情報から、許可されているGATE情報を取得する
         $mga=MGateAuthorization::find($request->path());
