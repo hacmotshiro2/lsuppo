@@ -52,7 +52,7 @@
                     <x-lsuppo-alert-warning :alert="$alertWar" />
                     @endif
                 </div>
-                <div class="content overflow-auto">
+                <div class="content overflow-none ">
                 @yield('content')
                 </div>
             </div>

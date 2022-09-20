@@ -6,9 +6,9 @@ CLOVA会話明細
 
 @section('content')
 <!-- reffer: https://flowbite.com/docs/components/tables/#table-with-modal -->
-<div class="overflow-auto relative shadow-md sm:rounded-lg">
+<div class="relative shadow-md sm:rounded-lg">
     <!-- ヘッダ部分 -->
-    <div class=" mx-3">
+    <div class="mx-3">
         <p><a href="{{route('conv-index')}}" class="mb-4 text-gray-400">＜ 一覧へ戻る</a></p>
         <!-- 参加者 -->
         <div class="flex flex-wrap">
@@ -16,7 +16,7 @@ CLOVA会話明細
             <form method="POST" action="#">
             @csrf
             <input type="hidden" name="headerId" value="{{$headerId}}">
-            <button formaction="/conv/detail/" class="rounded text-xs inline-block bg-indigo-500 hover:bg-red-600 active:bg-gray-700 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-4 py-2 mx-2 my-2" name="OriginalSpeaker" >フィルター解除</button>
+            <button formaction="/conv/detail" class="rounded text-xs inline-block bg-indigo-500 hover:bg-red-600 active:bg-gray-700 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-4 py-2 mx-2 my-2" name="OriginalSpeaker" >フィルター解除</button>
 			@foreach($speakers as $speaker)
             <button formaction="/conv/detail/?orgSpeaker={{$speaker->OriginalSpeaker}}" class="rounded text-xs inline-block bg-gray-500 hover:bg-red-600 active:bg-gray-700 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-4 py-2 mx-2 my-2" name="OriginalSpeaker" value="{{$speaker->OriginalSpeaker}}" >{{$speaker->OriginalSpeaker}}</button>
 			@endforeach
@@ -68,7 +68,7 @@ CLOVA会話明細
     </div>
     <!-- ヘッダ部分 end-->
     <!-- 明細部 -->
-    <div class="mx-3" style="height:500px;">
+    <div class="mx-3 overflow-auto " style="height:600px;">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <div class="sticky top-0">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 sticky top-0">
@@ -124,11 +124,19 @@ CLOVA会話明細
                 @endforeach
             </tbody>
         </table>
+        <div class="px-8 py-1 bg-gray-100">
+            {{$lines->appends(['headerId'=>$headerId])->links()}}
+        </div>
     </div>
     <!-- 明細部 end -->
-    <div class="fixed bottom-4 md:bottom-10 left-2 md:left-32">
-        <p><a href="{{route('conv-index')}}" class="mb-4 text-gray-700 sticky top-0 z-1">＜ 一覧へ戻る</a></p>
-    </div>
+    {{-- <div class="container fixed flex justify-between bottom-4 md:bottom-10 bg-gray-100 content-center"> --}}
+        {{-- <div class="px-6 py-1">
+            <p><a href="{{route('conv-index')}}" class="mb-4 text-gray-700 sticky top-0 z-1">＜ 一覧へ戻る</a></p>
+        </div>
+        <div class="px-8 py-1">
+            {{$lines->links()}}
+        </div>
+    </div> --}}
 </div>
 <script>
     //リダイレクトでidが指定されたときに、そこまでスクロール

@@ -26,6 +26,7 @@ class ConvController extends Controller
         return view('Conv.index',$args);
     }
     //GET /conv/
+    //一つの会話記録ファイルの中身を一覧で表示する
     public function detail(Request $request){
 
         //クエリ文字列から、ヘッダーID、オリジナルスピーカーを取得する
@@ -55,10 +56,10 @@ class ConvController extends Controller
         //クエリ文字列に、orgSpeakerがセットされていれば、絞り込む
         $lines;
         if(isset($orgSpeaker)){
-            $lines = ConvTXTMeisai::where('Header_id',$headerId)->where('OriginalSpeaker',$orgSpeaker)->orderBy('LineCount','asc')->get();
+            $lines = ConvTXTMeisai::where('Header_id',$headerId)->where('OriginalSpeaker',$orgSpeaker)->orderBy('LineCount','asc')->paginate(100);
         }
         else{
-            $lines = ConvTXTMeisai::where('Header_id',$headerId)->orderBy('LineCount','asc')->get();
+            $lines = ConvTXTMeisai::where('Header_id',$headerId)->orderBy('LineCount','asc')->paginate(100);
         }
 
         //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
