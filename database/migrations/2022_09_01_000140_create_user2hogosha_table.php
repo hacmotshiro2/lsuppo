@@ -27,7 +27,8 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDeletes('no action');
             $table->foreign('HogoshaCd')->references('HogoshaCd')->on('m_hogosha')->onDeletes('no action');
 
-            $table->unique('user_id');
+            // このユニークキーがあることで、ソフトデリート後の挿入ができなくなった
+            // $table->unique('user_id');
 
         });
     }
