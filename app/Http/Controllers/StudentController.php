@@ -58,7 +58,7 @@ class StudentController extends Controller
 
     //生徒登録画面のPOST
     public function create(Request $request){
-        $this->validate($request, Student::$rules);
+        $this->validate($request, Student::$rules_create);
         $student = new Student;
         $form = $request->all();
         unset($form['_token']);
@@ -85,7 +85,7 @@ class StudentController extends Controller
     }
     //生徒編集画面のPOST
     public function edit(Request $request){
-        $this->validate($request, Student::$rules);
+        $this->validate($request, Student::$rules_edit);
         $student = Student::where('StudentCd',$request->StudentCd)->first();
         $form = $request->all();
         unset($form['_token']);

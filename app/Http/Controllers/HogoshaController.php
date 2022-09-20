@@ -80,7 +80,7 @@ class HogoshaController extends Controller
     }
     //保護者登録画面のPOST
     public function create(Request $request){
-        $this->validate($request, Hogosha::$rules);
+        $this->validate($request, Hogosha::$rules_create);
         $hogosha = new Hogosha;
         $form = $request->all();
         unset($form['_token']);
@@ -106,7 +106,7 @@ class HogoshaController extends Controller
     }
     //保護者登録画面のPOST
     public function edit(Request $request){
-        $this->validate($request, Hogosha::$rules);
+        $this->validate($request, Hogosha::$rules_edit);
         $hogosha = Hogosha::where('HogoshaCd',$request->HogoshaCd)->first();
         $form = $request->all();
         unset($form['_token']);

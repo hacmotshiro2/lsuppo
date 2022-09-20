@@ -19,7 +19,21 @@ class Hogosha extends Model
         'HogoshaCd','Sei','Mei','Hurigana','RiyouKaisiDate','RiyouShuuryouDate','LearningRoomCd','IsLocked','IsNeedPWChange',
         'UpdateGamen','UpdateSystem'
     ];
-    public static $rules = [
+    //編集時のバリデーションルール
+    public static $rules_edit = [
+        //HogoshaCd
+        
+        //Sei
+        'Sei'=>'required',
+        //Mei
+        'Mei'=>'required',
+        //Hurigana
+        'Hurigana'=>'required',
+        //LearningRoomCd
+        'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
+    ];
+    //新規登録時のバリデーションルール
+    public static $rules_create = [
         //HogoshaCd
         'HogoshaCd' => ['required','unique:m_hogosha,HogoshaCd'],
         //Sei

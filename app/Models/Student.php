@@ -16,7 +16,25 @@ class Student extends Model
 
     use HasFactory;
 
-    public static $rules = [
+    public static $rules_edit = [
+        //StudentCd
+        
+        //HogoshaCd
+        'HogoshaCd' => ['required','exists:m_hogosha,HogoshaCd'],
+        //Sei
+        'Sei'=>'required',
+        //Mei
+        'Mei'=>'required',
+        //Hurigana
+        'Hurigana'=>'required',
+        //HyouziMei
+        'HyouziMei'=>'required',
+        //LearningRoomCd
+        'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
+        //riyouShuuryouDate
+        // 'RiyouShuuryouDate'=>['after_or_equal:RiyouKaisiDate'],//nullのとき上手くいかないので
+    ];
+    public static $rules_create = [
         //StudentCd
         'StudentCd' => ['required','unique:m_student,StudentCd'],
         //HogoshaCd
@@ -32,8 +50,9 @@ class Student extends Model
         //LearningRoomCd
         'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
         //riyouShuuryouDate
-        'RiyouShuuryouDate'=>['after_or_equal:RiyouKaisiDate'],
+        // 'RiyouShuuryouDate'=>['after_or_equal:RiyouKaisiDate'],//nullのとき上手くいかないので
     ];
+
     protected $fillable = [
         'StudentCd',
         'Sei',

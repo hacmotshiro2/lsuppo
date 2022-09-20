@@ -70,7 +70,7 @@ class SupporterController extends Controller
     }
     //サポーター登録画面のPOST
     public function create(Request $request){
-        $this->validate($request, Supporter::$rules);
+        $this->validate($request, Supporter::$rules_create);
         $supporter = new Supporter;
         $form = $request->all();
         unset($form['_token']);
@@ -97,7 +97,7 @@ class SupporterController extends Controller
 
     }
     public function edit(Request $request){
-        $this->validate($request, Supporter::$rules);
+        $this->validate($request, Supporter::$rules_edit);
         $supporter = Supporter::where('SupporterCd',$request->SupporterCd)->first();
         $form = $request->all();
         unset($form['_token']);
