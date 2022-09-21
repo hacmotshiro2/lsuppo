@@ -97,5 +97,6 @@
     <!-- <script src="../path/to/flowbite/dist/flowbite.js"></script> -->
     <!-- Flowbite追加 -->
     <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
+    @yield('pageScript')
     </body>
 </html>
