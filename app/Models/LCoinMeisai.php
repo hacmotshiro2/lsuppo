@@ -32,7 +32,7 @@ class LCoinMeisai extends Model
         return $this->belongsTo('App\Models\Student');
     }
     public function ziyuu(){
-        return $this->belongsTo('App\Models\Ziyuu');
+        return $this->belongsTo('App\Models\LCZiyuu');
     }
     public function supporter(){
         return $this->belongsTo('App\Models\Supporter');

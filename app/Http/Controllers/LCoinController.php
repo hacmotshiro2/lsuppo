@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\LCoinMeisai;
 use App\Models\Student;
-use App\Models\Ziyuu;
+use App\Models\LCZiyuu;
 use App\Models\Hogosha;
 use App\Models\Supporter;
 use App\Http\Requests\LCoinRequest;
@@ -158,7 +158,7 @@ class LCoinController extends Controller
 
         //ドロップダウンリスト用データ取得（#TODOキャッシュにしたい）
         $students = Student::all();
-        $ziyuus = Ziyuu::all();
+        $ziyuus = LCZiyuu::all();
 
         //userとsupporterを紐づけて、セット
         $supporterCd = Supporter::getSupporterCd($user);
