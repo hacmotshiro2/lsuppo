@@ -38,6 +38,14 @@ LC事由マスタメンテ
                 @endif
             </div>
             <div class="mb-2">
+                <label for="description" class="form-label">説明</label>
+                @if($mode=='edit')
+                    <textarea name="description" class="w-full h-64 bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2" >{{$item->description}}</textarea>
+                @else
+                    <textarea name="description" class="w-full h-64 bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2" >{{old('description')}}</textarea>
+                @endif
+            </div>
+            <div class="mb-2">
                 @if($mode=='edit')
                     <div class="flex justify-between">
                         <x-lsuppo-submit formaction="/lcziyuu/edit" :mode="'edit'">更新</x-lsuppo-submit>
@@ -55,6 +63,7 @@ LC事由マスタメンテ
                     <th>ZiyuuCd</th>
                     <th>Ziyuu</th>
                     <th>DefaultAmount</th>
+                    <th>description</th>
                     <th>updated_at</th>
                 </tr>
                 @foreach($items as $item)
@@ -62,6 +71,7 @@ LC事由マスタメンテ
                     <td><a href="/lcziyuu/add/?ZiyuuCd={{$item->ZiyuuCd}}" class="text-indigo-700">{{$item->ZiyuuCd}}</a></td>
                     <td>{{$item->Ziyuu}}</td>
                     <td>{{$item->DefaultAmount}}</td>
+                    <td>{{$item->description}}</td>
                     <td>{{$item->updated_at}}</td>
                 </tr>
                 @endforeach

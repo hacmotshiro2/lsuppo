@@ -58,7 +58,8 @@
             </div>
             <!-- フッターと重なるので空白を入れる -->
             <div class="h-12"></div>
-            <div class="w-full fixed bottom-1 z-50">
+            {{-- <div class="w-full fixed bottom-1 z-50"> ずっと見えておく必要もないので--}}
+            <div class="w-full z-50">
                 <x-lsuppo-footer />
             </div>
         </div>

@@ -68,7 +68,27 @@
 
     </div>
     @endforeach
-
+    {{-- 付与ルールの掲載 --}}
+    <div class="mt-20">
+      <h2>エルコインの付与・使用ルール</h2>
+      <p class="text-slate-300 text-xs">※ルールは今後変更する可能性があります</p>
+      <table class="table-fixed text-base my-4">
+        <tr>
+            <th class="w-2/9 bg-gray-50 text-gray-700 px-2 py-2">付与事由</th>
+            <th class="w-2/9 bg-gray-50 text-gray-700 px-2 py-2">コイン数</th>
+            <th class="w-2/9 bg-gray-50 text-gray-700 px-2 py-2">説明</th>
+        </tr>
+        @foreach($mlcZiyuu as $item)
+        <!-- <tr class="hover:bg-gray-400"> -->
+        <tr class="">
+            <td class="px-2 py-2">{{$item->Ziyuu}}</td>
+            <td class="px-2 py-2">{{$item->DefaultAmount}}</td>
+            <td class="px-2 py-2">{!!nl2br(e($item->description))!!}</td>
+        </tr>
+        @endforeach
+      </table>
+      <p class="text-slate-700">◆100エルコインがたまると、翌月の受講料をキャッシュバックします。</p>
+    </div>
   </div>
 </div>
 

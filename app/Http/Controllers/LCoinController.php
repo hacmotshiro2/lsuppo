@@ -46,11 +46,17 @@ class LCoinController extends Controller
             $itemset[$student->StudentCd]=$items;
         }
 
+        // No. h.hashimoto 2022/09/26 ------>
+        $mlcZiyuu = LCZiyuu::orderBy('ZiyuuCd','asc')->get();
+        // <------  No. h.hashimoto 2022/09/26 
 
         $args = [
             'students'=>$students,
             'lczandakas'=>$lczandakas,
             'itemset' => $itemset,
+            // No. h.hashimoto 2022/09/26 ------>
+            'mlcZiyuu' => $mlcZiyuu,
+            // <------  No. h.hashimoto 2022/09/26 
         ];
         return view('LCoin.index',$args);
 

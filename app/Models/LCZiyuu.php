@@ -29,6 +29,10 @@ class LCZiyuu extends Model
         'Ziyuu' => ['required','max:40'],
         //DefaultAmount
         'DefaultAmount' =>['required','integer'],
+        // No. h.hashimoto 2022/09/26 ------>
+        //description
+        'description' =>['max:255'],
+        // <------  No. h.hashimoto 2022/09/26 
     ];
     public static $rules_create = [
         //ZiyuuCd
@@ -37,6 +41,10 @@ class LCZiyuu extends Model
         'Ziyuu' => ['required','max:40'],
         //DefaultAmount
         'DefaultAmount' =>['required','integer'],
+        // No. h.hashimoto 2022/09/26 ------>
+        //description
+        'description' =>['max:255'],
+        // <------  No. h.hashimoto 2022/09/26 
     ];
 
     public function getCdName(){
