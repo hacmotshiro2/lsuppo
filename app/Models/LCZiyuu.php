@@ -20,6 +20,9 @@ class LCZiyuu extends Model
         'ZiyuuCd',
         'Ziyuu',
         'DefaultAmount',
+        // No. h.hashimoto 2022/09/30 ------>
+        'description',
+        // <------  No. h.hashimoto 2022/09/30 
         'UpdateGamen',
         'UpdateSystem',
     ];
