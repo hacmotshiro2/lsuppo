@@ -53,7 +53,10 @@ return [
             'password' => env('DB_PASSWORD', 'manager@0'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
+            // No. h.hashimoto 2022/10/01 ------>
+            // 'collation' => 'utf8mb4_unicode_ci',
+            'collation' => 'utf8mb4_general_ci',
+            // <------  No. h.hashimoto 2022/10/01 
             'prefix' => '',
             'prefix_indexes' => true,
             'strict' => true,
