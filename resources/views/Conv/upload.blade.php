@@ -19,7 +19,7 @@
         @csrf
         <div class="mb-2 md:mb-4">
             <label for="LearningRoomCd" class="inline-block text-gray-800 text-sm sm:text-base mb-2">LRコード*</label>
-            <select class="w-full bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2" id="LearningRoomCd" name="LearningRoomCd">
+            <select class="bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2" id="LearningRoomCd" name="LearningRoomCd">
               <!-- 空白行入れる -->
                   <option value="" >----</option>
               @foreach($lrs as $lr)
@@ -34,7 +34,7 @@
             <!-- ゆくゆくは -->
             <!-- <label class="block text-gray-800 text-sm sm:text-base mb-2">音声記録（音声ファイル）</label> -->
             <!-- <input type="file" name="uploadMP4"> -->
-            <label for="SessionDate" class="text-gray-800 text-sm sm:text-base my-2">セッション開催日*</label>
+            <label for="SessionDate" class="block text-gray-800 text-sm sm:text-base my-2">セッション開催日*</label>
             <input type="date" name="SessionDate" class="w-full sm:w-1/3 bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2" 
             value="{{old('SessionDate')}}"></input>
         </div>
@@ -42,7 +42,7 @@
           <label class="inline-block text-gray-800 text-sm sm:text-base mb-2">コメント（補足）</label>
           <textarea name="Comment" rows="3" class="w-full bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2" >{{old('Comment')}} </textarea>
       </div>
-      <div class="sm:col-span-2 flex justify-between items-center">
+      <div class="sm:col-span-2 flex justify-between items-center my-2">
         <button class="inline-block bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">
              アップロード
         </button>
