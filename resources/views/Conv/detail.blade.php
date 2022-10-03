@@ -14,12 +14,12 @@ CLOVA会話明細
         <div class="flex flex-wrap">
             <span scope="col" class="py-1 px-6">参加者</span>
             <form method="POST" action="#">
-            @csrf
-            <input type="hidden" name="headerId" value="{{$headerId}}">
-            <button formaction="/conv/detail" class="rounded text-xs inline-block bg-indigo-500 hover:bg-red-600 active:bg-gray-700 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-4 py-2 mx-2 my-2" name="OriginalSpeaker" >フィルター解除</button>
-			@foreach($speakers as $speaker)
-            <button formaction="/conv/detail/?orgSpeaker={{$speaker->OriginalSpeaker}}" class="rounded text-xs inline-block bg-gray-500 hover:bg-red-600 active:bg-gray-700 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-4 py-2 mx-2 my-2" name="OriginalSpeaker" value="{{$speaker->OriginalSpeaker}}" >{{$speaker->OriginalSpeaker}}</button>
-			@endforeach
+                @csrf
+                <input type="hidden" name="headerId" value="{{$headerId}}">
+                <button formaction="/conv/detail" class="rounded text-xs inline-block bg-indigo-500 hover:bg-red-600 active:bg-gray-700 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-4 py-2 mx-2 my-2" name="OriginalSpeaker" >フィルター解除</button>
+                @foreach($speakers as $speaker)
+                    <button formaction="/conv/detail?orgSpeaker={{$speaker->OriginalSpeaker}}" class="rounded text-xs inline-block bg-gray-500 hover:bg-red-600 active:bg-gray-700 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-4 py-2 mx-2 my-2" name="OriginalSpeaker" value="{{$speaker->OriginalSpeaker}}" >{{$speaker->OriginalSpeaker}}</button>
+                @endforeach
             </form>
         </div>
         <!-- 参加者 end -->
