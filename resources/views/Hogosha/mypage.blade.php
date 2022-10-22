@@ -24,6 +24,9 @@
       </div>
       <!-- image - end -->
     </section>
+    <div>
+      <a href="https://manabiail-steam.com/session-log/"><img src="/images/sessionlog-banner.png" loading="lazy" alt="セッションログ" class=" object-cover object-center shadow-lg mx-auto my-8 hover:scale-110 duration-300" /></a>
+    </div>
   </div>
 </div>
 <!-- hero - end -->
