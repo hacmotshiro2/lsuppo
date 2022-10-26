@@ -32,6 +32,7 @@ Route::get('/error',function(){
     return view('error');
 });
 
+
 Route::middleware('lsuppo')->group(function () {
 
     /*
@@ -49,6 +50,8 @@ Route::middleware('lsuppo')->group(function () {
     Route::get('/fb/detail/', 'App\Http\Controllers\FBController@fbDetail')->name('fbDetail');
     Route::get('/fb/', 'App\Http\Controllers\FBController@index')->name('fbIndex');
     Route::get('/lc/', 'App\Http\Controllers\LCoinController@index');
+    Route::get('/mv/presen/watch/','App\Http\Controllers\MVController@index');
+    Route::get('/scratch/index_pj/','App\Http\Controllers\ScratchController@index_pj');
 
     /*サポーターが参照するページ*/
     Route::get('/supporter-page/','App\Http\Controllers\SupporterController@index')->name('supporter-page');
@@ -108,11 +111,19 @@ Route::middleware('lsuppo')->group(function () {
     Route::get('/conv/upload/', 'App\Http\Controllers\ConvController@upload')->name('conv-upload');
     Route::post('/conv/confirm/', 'App\Http\Controllers\ConvController@confirm');
     Route::post('/conv/upload/', 'App\Http\Controllers\ConvController@uploadpost');
+    /*発表動画*/
+    Route::get('/mv/presen/all/', 'App\Http\Controllers\MVController@index_admin')->name('mvpresen-all');
+    Route::get('/mv/presen/add/', 'App\Http\Controllers\MVController@add')->name('mvpresen-add');
+    Route::post('/mv/presen/confirm/', 'App\Http\Controllers\MVController@confirm');
+    Route::post('/mv/presen/create/', 'App\Http\Controllers\MVController@create');
+    Route::post('/mv/presen/edit/', 'App\Http\Controllers\MVController@edit');
+    Route::post('/mv/presen/delete/', 'App\Http\Controllers\MVController@delete');
 
 });
 
     #DEBUG用
-    Route::get('/mail/test/manabiail/','App\Http\Controllers\SettingsController@sendmailtest')->middleware('auth');
+    // Route::get('/mail/test/manabiail/','App\Http\Controllers\SettingsController@sendmailtest')->middleware('auth');
+    // Route::get('/line-push/','App\Http\Controllers\SettingsController@linePushtest');
 
 
 
