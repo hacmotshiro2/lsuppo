@@ -169,7 +169,6 @@ class FBController extends Controller
         $fb->FirstReadDate=null;
         $fb->LastReadDate=null;
         $fb->KinyuuDate=date("Y-m-d H:i:s");
-        #TODO承認機能
         // $fb->ShouninDate=date("Y-m-d H:i:s");
         $fb->ShouninStatus=DBConst::SHOUNIN_STATUS_APPROVING;
         // $fb->ShouninSupporterCd=$request->KinyuuSupporterCd;
@@ -230,7 +229,6 @@ class FBController extends Controller
         $lah = ApproveHistory::where('TargetToken',$fb->ApprovalToken)->orderBy('HasseiDate','desc')->get();
 
         $arg = [
-            #TODO
             'fbNo' =>$fbNo,
             'mode' =>'edit',
             'form' =>$fb,
@@ -272,7 +270,6 @@ class FBController extends Controller
         $ah->TargetToken = $fb->ApprovalToken;
         $ah->HasseiDate = date("Y-m-d H:i:s");
         $ah->ShouninStatus=DBConst::SHOUNIN_STATUS_APPROVING;
-        #TODO
         $ah->Comment = $request->Comment;
         $ah->TourokuSupporterCd = $request->ShoriSupporterCd;
         $ah->setUpdateColumn();
@@ -425,7 +422,6 @@ class FBController extends Controller
         ];
 
         return redirect()->route('fbDetail',$args)->with('alertComp',MessageConst::DECLINED);//http://127.0.0.1:8000/fb/detail?fbNo=30
-        #TODO
 
     }
 

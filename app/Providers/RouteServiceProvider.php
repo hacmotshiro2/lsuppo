@@ -20,7 +20,6 @@ class RouteServiceProvider extends ServiceProvider
     // No. h.hashimoto 2022/08/18 ------>
     // public const HOME = '/dashboard';
     public const HOME = '/';
-    #TODO サポーターやシステム管理者の分岐
     // <------  No. h.hashimoto 2022/08/18 
 
     /**

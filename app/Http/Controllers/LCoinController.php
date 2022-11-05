@@ -181,7 +181,6 @@ class LCoinController extends Controller
         
 
         $arg = [
-            #TODO
             'mode'=>'add',
             'alertComp' =>$alertComp,
             'alertErr' =>$alertErr,
