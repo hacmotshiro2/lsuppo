@@ -30,15 +30,18 @@
                 @can('hogosha-binded')
                 <li class="border-b-2 md:border-none"><a href="/mypage/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">ホーム</a></li>
                 <li class="border-b-2 md:border-none"><a href="/fb/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">フィードバック</a></li>
-                <li class="border-b-2 md:border-none"><button @click="ismvOpen = !ismvOpen" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">動画と作品</button></li>
-                    {{-- <div :class="ismvOpen? 'block' : 'hidden'"> --}}
-                    <div v-show="ismvOpen">
-                    {{-- <div :class="block"> --}}
-                        <ul>
-                            <li class="border-b-2 md:border-none"><a href="/mv/presen/watch/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">発表動画</a></li>
-                            <li class="border-b-2 md:border-none"><a href="/scratch/index_pj/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">Scratch作品</a></li>
-                        </ul>
+                <li class="border-b-2 md:border-none">
+                    <div class="flex-col">
+                        <button @click="ismvOpen = !ismvOpen" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">動画と作品</button>
+                        <div :class="ismvOpen? 'block' : 'hidden'">
+                        {{-- <div v-show="ismvOpen"> --}}
+                            <ul>
+                                <li class="border-b-2 md:border-none"><a href="/mv/presen/watch/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded"> - 発表動画</a></li>
+                                <li class="border-b-2 md:border-none"><a href="/scratch/index_pj/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded"> - Scratch作品</a></li>
+                            </ul>
+                        </div>
                     </div>
+                </li>
                 <li class="border-b-2 md:border-none"><a href="/lc/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">エルコイン</a></li>
                 <!-- 生徒紐づけが完了していない保護者 -->
                 @elsecan('hogosha-nobind')

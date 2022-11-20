@@ -69,15 +69,17 @@
         el:'#app',
         data:{
             isOpen:false,
-        }
-       })
-       const appMV= new Vue({
-        //動画と作品ドロップダウンメニュー用
-        el:'#app',
-        data:{
             ismvOpen:false,
         }
-       })
+       });
+       //このやり方は間違っている↓
+       //    const appMV= new Vue({
+       //     //動画と作品ドロップダウンメニュー用
+       //     el:'#app',
+       //     data:{
+       //         ismvOpen:false,
+       //     }
+       //    });
     </script> 
     <script type="text/javascript">
         // FB登録画面で、文字数をカウントします
