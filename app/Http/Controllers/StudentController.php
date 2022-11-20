@@ -119,4 +119,27 @@ class StudentController extends Controller
         return redirect()->route('student-add',$args)->with('alertComp',MessageConst::DELETE_COMPLETED);
     }
 
+    //API LR一覧を返す
+    public function getLRs(Request $request){
+        //シークレットトークンのチェックは、ミドルウェアで済み
+
+        $lrs = LR::all();
+
+        return response()->json($lrs);
+        // return $lrs->toJson();        
+    }
+
+    //API LRに所属するStudentCd一覧を返す
+    public function getStudents(Request $request){
+        //シークレットトークンのチェックは、ミドルウェアで済み
+
+        //lrcd（ラーニングルームコード）を渡してもらいます
+        $lrcd = $request->lrcd;
+  
+        //lrcdに所属するStudentだけを返します StudentCdだけ返す
+        $students = Student::where('LearningRoomCd',$lrcd)->get(['StudentCd']);
+
+        return response()->json($students);        
+    }
+
 }
