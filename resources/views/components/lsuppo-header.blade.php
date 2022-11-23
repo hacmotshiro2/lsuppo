@@ -28,36 +28,36 @@
             <ul class="md:flex justify-end">
                 <!-- 生徒紐づけて完了している保護者 -->
                 @can('hogosha-binded')
-                <li class="border-b-2 md:border-none"><a href="/mypage/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">ホーム</a></li>
-                <li class="border-b-2 md:border-none"><a href="/fb/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">フィードバック</a></li>
-                <li class="border-b-2 md:border-none">
+                <li class="border-b-2 md:border-none md:h-4"><a href="/mypage/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">ホーム</a></li>
+                <li class="border-b-2 md:border-none md:h-4"><a href="/fb/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">フィードバック</a></li>
+                <li class="border-b-2 md:border-none md:h-4">
                     <div class="flex-col">
-                        <button @click="ismvOpen = !ismvOpen" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">動画と作品</button>
+                        <button @click="ismvOpen = !ismvOpen" class="block px-8 py-2 my-2 hover:bg-gray-600 rounded">動画と作品</button>
                         <div :class="ismvOpen? 'block' : 'hidden'">
                         {{-- <div v-show="ismvOpen"> --}}
                             <ul>
-                                <li class="border-b-2 md:border-none"><a href="/mv/presen/watch/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded"> - 発表動画</a></li>
-                                <li class="border-b-2 md:border-none"><a href="/scratch/index_pj/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded"> - Scratch作品</a></li>
+                                <li class="border-b-2 md:border-none md:h-5"><a href="/mv/presen/watch/" class="block px-8 py-2 my-2 bg-gray-300 hover:bg-gray-600  rounded"> - 発表動画</a></li>
+                                <li class="border-none md:h-5 mt-6"><a href="/scratch/index_pj/" class="block px-8 py-2 my-2 bg-gray-300 hover:bg-gray-600  rounded"> - Scratch作品</a></li>
                             </ul>
                         </div>
                     </div>
                 </li>
-                <li class="border-b-2 md:border-none"><a href="/lc/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">エルコイン</a></li>
+                <li class="border-b-2 md:border-none md:h-4"><a href="/lc/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">エルコイン</a></li>
                 <!-- 生徒紐づけが完了していない保護者 -->
                 @elsecan('hogosha-nobind')
-                <li class="border-b-2 md:border-none"><a href="/mypage/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">ホーム</a></li>
+                <li class="border-b-2 md:border-none md:h-4"><a href="/mypage/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">ホーム</a></li>
                 <!-- サポーターマスタとの紐づけが完了しているサポーター -->
                 @elsecan('supporter-binded')
-                <li class="border-b-2 md:border-none"><a href="/supporter-page/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">ホーム</a></li>
-                <li class="border-b-2 md:border-none"><a href="/fb/index_sp" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">フィードバック</a></li>
+                <li class="border-b-2 md:border-none md:h-4"><a href="/supporter-page/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">ホーム</a></li>
+                <li class="border-b-2 md:border-none md:h-4"><a href="/fb/index_sp" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">フィードバック</a></li>
                 <!-- サポーターマスタとの紐づけが完了していないサポーター -->
                 @elsecan('supporter-nobind')
-                <li class="border-b-2 md:border-none"><a href="/supporter-page/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">ホーム</a></li>
+                <li class="border-b-2 md:border-none md:h-4"><a href="/supporter-page/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">ホーム</a></li>
                 <!-- その他 -->
                 @else
                 @endcan
-                <li class="border-b-2 md:border-none"><a href="/settings/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">設定</a></li>
-                <li><form method="POST" action="{{ route('logout') }}">
+                <li class="border-b-2 md:border-none md:h-4"><a href="/settings/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">設定</a></li>
+                <li class=""><form method="POST" action="{{ route('logout') }}">
                             @csrf<a href="{{ route('logout') }}" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded" onclick="event.preventDefault();
                                                 this.closest('form').submit();">ログアウト</a>
                         </form>
