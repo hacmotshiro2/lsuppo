@@ -330,7 +330,10 @@ class ConvController extends Controller
             // print '<br>';
             // print preg_match('/^参加者.*/u',$line);
             // print '<br>';
-            if(preg_match('/^参加者.*/u',$line)){
+            # No. h.hashimoto 2022/11/27 会話の先頭が「参加者」だとエラーになることに対処------>
+            // if(preg_match('/^参加者.*/u',$line)){
+            if(preg_match('/^参加者.*/u',$line) and count(explode(" ",$line))==3){
+            # <------  No. h.hashimoto 2022/11/27 
                 //参加者～で始まる行の時
                 $lineCount+=1;
 
