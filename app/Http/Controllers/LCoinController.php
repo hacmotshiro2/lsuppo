@@ -8,14 +8,18 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\User;
 use App\Models\LCoinMeisai;
 use App\Models\Student;
 use App\Models\LCZiyuu;
 use App\Models\Hogosha;
 use App\Models\Supporter;
+use App\Models\User2Hogosha;
 use App\Http\Requests\LCoinRequest;
 use App\Consts\DBConst;
 use App\Consts\MessageConst;
+
+use App\Notifications\LCoinAddedNotification;
 
 
 class LCoinController extends Controller
@@ -205,6 +209,21 @@ class LCoinController extends Controller
             //INSERT処理
             $lcmeisai->save();
     
+            //保護者へ通知を行う
+            //管理者が登録するので、ログインユーザーではなく、いま登録したユーザーに対して送る
+            //エルコイン明細のStudentCd＞スチューデントマスタのHogoshaCd＞User2HogoshaのUserId
+            $student = Student::find($lcmeisai->StudentCd);
+            $u2hs = User2Hogosha::where('HogoshaCd', $student->HogoshaCd)->get();
+            //事由マスタから事由取得
+            $lcziyuu = LCZiyuu::find($lcmeisai->ZiyuuCd);
+
+            //1つの保護者コードに対して、複数のユーザーがいる可能性があるので
+            foreach($u2hs as $u2h){
+                $user = User::find($u2h->user_id);
+                if(!is_null($user)){
+                    $user->notify(new LCoinAddedNotification($user->name,$lcmeisai->Amount,$lcziyuu->Ziyuu."  ".$lcmeisai->ZiyuuHosoku));
+                }
+            }
             //リダイレクト時にクエリ文字列として渡す
             $args = [
             ];
