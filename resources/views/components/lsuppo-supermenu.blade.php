@@ -14,5 +14,6 @@
         <li class="hover:bg-emerald-200 rounded pl-4"><a href="/conv/">登録済みCLOVA一覧</a></li>
         <li class="hover:bg-emerald-200 rounded pl-4"><a href="/mv/presen/add/">発表動画登録</a></li>
         <li class="hover:bg-emerald-200 rounded pl-4"><a href="/mv/presen/all/">発表動画一覧</a></li>
+        <li class="hover:bg-emerald-200 rounded pl-4"><a href="/signinhistory/index/">サインイン履歴一覧</a></li>
     </ul>
 </div>

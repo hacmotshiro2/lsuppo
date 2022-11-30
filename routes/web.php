@@ -118,8 +118,13 @@ Route::middleware('lsuppo')->group(function () {
     Route::post('/mv/presen/create/', 'App\Http\Controllers\MVController@create');
     Route::post('/mv/presen/edit/', 'App\Http\Controllers\MVController@edit');
     Route::post('/mv/presen/delete/', 'App\Http\Controllers\MVController@delete');
+    /* サインイン履歴 */
+    Route::get('/signinhistory/index/','App\Http\Controllers\SigninHistoryController@index');
+
 
 });
+
+
 
     #DEBUG用
     // Route::get('/mail/test/manabiail/','App\Http\Controllers\SettingsController@sendmailtest')->middleware('auth');
