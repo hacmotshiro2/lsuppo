@@ -204,6 +204,9 @@ return [
         App\Providers\UserInfoServiceProvider::class,
         // <------  No. h.hashimoto 2022/08/24 
 
+        // No. h.hashimoto 2022/11/30 ------>
+        Jenssegers\Agent\AgentServiceProvider::class,
+        // <------  No. h.hashimoto 2022/11/30 
     ],
 
     /*
@@ -219,6 +222,11 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+
+        // No. h.hashimoto 2022/11/30 ------>
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        // <------  No. h.hashimoto 2022/11/30 
+
     ])->toArray(),
 
 
