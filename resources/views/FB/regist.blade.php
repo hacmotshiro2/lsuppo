@@ -63,7 +63,7 @@
         </div>
         <div class="sm:col-span-2">
             <label for="Detail" class="inline-block text-gray-800 text-sm sm:text-base mb-2">フィードバック詳細*</label>
-            <label class="inline-block text-gray-400 text-sm sm:text-base mb-2">200字～300字程度</label>
+            <label class="inline-block text-gray-400 text-sm sm:text-base mb-2">200字以上800字未満</label>
             <textarea id="txtaDetail" name="Detail" class="w-full h-64 bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2" >@if($mode=='add'){{old('Detail')}} @elseif($mode=='edit'){{$form->Detail}} @endif</textarea>
             <p class="text-gray-500 text-sm"><span class="" id="detail_length">0</span> 字</p>
         </div>
