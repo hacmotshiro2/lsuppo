@@ -24,8 +24,13 @@
       </div>
       <!-- image - end -->
     </section>
-    <div>
-      <a href="https://manabiail-steam.com/session-log/"><img src="/images/sessionlog-banner.png" loading="lazy" alt="セッションログ" class=" object-cover object-center shadow-lg mx-auto my-8 hover:scale-110 duration-300" /></a>
+    <div class="flex flex-wrap mx-auto my-8">
+      <div class="mr-6">
+        <a href="https://manabiail-steam.com/session-log/"><img src="/images/sessionlog-banner.png" loading="lazy" alt="セッションログ" class=" object-cover object-center shadow-lg mx-auto my-2 hover:scale-110 duration-300" /></a>
+      </div>
+      <div>
+        <a href="https://manabiail-steam.com/lsuppo-manual/"><img src="/images/lsuppo-manual-banner.png" loading="lazy" alt="エルサポマニュアル" class=" object-cover object-center shadow-lg mx-auto my-2 hover:scale-110 duration-300" /></a>
+      </div>
     </div>
   </div>
 </div>
