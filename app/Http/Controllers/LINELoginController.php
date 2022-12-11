@@ -69,7 +69,7 @@ class LINELoginController extends Controller
         session()->put(SessionConst::LINELOGIN_STATE,$state);
 
         //redirectURL
-        $redirectURL = htmlentities(url('/line/callback/'),ENT_QUOTES,'UTF-8');
+        $redirectURL = htmlentities(url('/api/line/callback/'),ENT_QUOTES,'UTF-8');
         if(env('APP_DEBUG')){
             //ngrok対策
             $redirectURL = htmlentities(self::CBURL_debug,ENT_QUOTES,'UTF-8');
@@ -116,7 +116,7 @@ class LINELoginController extends Controller
         // 取得URL
         $url = "https://api.line.me/oauth2/v2.1/token";
         //redirectURL
-        $redirectURL = htmlentities(url('/line/callback/'),ENT_QUOTES,'UTF-8');
+        $redirectURL = htmlentities(url('/api/line/callback/'),ENT_QUOTES,'UTF-8');
         if(env('APP_DEBUG')){
             //ngrok対策
             $redirectURL = htmlentities(self::CBURL_debug,ENT_QUOTES,'UTF-8');
