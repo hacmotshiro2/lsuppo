@@ -18,4 +18,5 @@ class MessageConst
     const UPLOAD_COMPLETED = 'アップロードが完了しました。';
     const SPEAKER_EDITED = '発言者を更新しました';
     const IS_DISABLED = '利用可能期間外です。詳しくはサポーターにお問い合わせ下さい。';
+    const LINE_ERROR = 'LINEとの接続でエラーが発生しました。';
 }

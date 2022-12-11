@@ -35,6 +35,12 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.update');
+
+    // No. h.hashimoto 2022/12/05 ------>
+    Route::get('/line/login/','App\Http\Controllers\LINELoginController@lineLogin');
+    Route::get('/line/create/','App\Http\Controllers\LINELoginController@createUser');
+    // <------  No. h.hashimoto 2022/12/05 
+
 });
 
 Route::middleware('auth')->group(function () {

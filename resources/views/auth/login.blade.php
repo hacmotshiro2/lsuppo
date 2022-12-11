@@ -41,24 +41,32 @@
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex items-center justify-start mt-4">
+                <x-button class="px-16">
+                    {{ __('Log in') }}
+                </x-button>
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900 ml-3" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
 
-                <x-button class="ml-3">
-                    {{ __('Log in') }}
-                </x-button>
             </div>
+    {{-- -- No. h.hashimoto 2022/12/02 ------> --}}
+    <hr class="border-dashed border-1 border-gray-600 mt-4">
+    <div class="w-fit mx-auto mt-4">
+        <a href="/line/login"><img src="/images/btn_login_base.png" /></a>
+    </div>
+    {{-- -- <------  No. h.hashimoto 2022/12/02  --}}
     <!-- No. h.hashimoto 2022/08/18 ------> 
-    <div>
-        <a class="text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}/1">
-        保護者の方の登録はこちらから
+    <hr class="border-dashed border-1 border-gray-600 my-4">
+    <div class="w-fit mx-auto">
+        <a class="text-lg text-gray-600 hover:text-gray-900" href="{{ route('register') }}/1">
+        保護者の方の新規登録はこちらから
         </a>
     </div>
     <!-- <------  No. h.hashimoto 2022/08/18  -->
+
         </form>
     </x-auth-card>
 </x-guest-layout>

@@ -25,7 +25,10 @@ class RegisteredUserController extends Controller
     // {
     //     return view('auth.register');
     // }
-    public function create($tourokuUserType=0)
+    // No. h.hashimoto 2022/12/11 ------>
+    // public function create($tourokuUserType=0)
+    public function create(Request $request,$tourokuUserType=0)
+    // <------  No. h.hashimoto 2022/12/11 
     {
         // No. h.hashimoto 2022/08/25 ------>
         //登録想定のユーザータイプでない場合は、404エラー
@@ -34,8 +37,22 @@ class RegisteredUserController extends Controller
         }
         // <------  No. h.hashimoto 2022/08/25 
 
+        // No. h.hashimoto 2022/12/11 ------>
+        $line_user_id = $request->query('user_id');
+        $bindChecked = "";
+        //user_idが紐づく場合は、ＬＩＮＥ紐づけにチェックを入れる
+        if(!empty($line_user_id)){
+            $bindChecked = "checked";
+        }
+
+        // <------  No. h.hashimoto 2022/12/11 
+
         $arg=[
             'tourokuUserType'=>$tourokuUserType,
+            // No. h.hashimoto 2022/12/11 ------>
+            'line_user_id' =>$line_user_id,
+            'bindChecked' =>$bindChecked,
+            // <------  No. h.hashimoto 2022/12/11 
         ];
         return view('auth.register',$arg);
     }
@@ -73,6 +90,16 @@ class RegisteredUserController extends Controller
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
         }
+        // No. h.hashimoto 2022/12/10 ------>
+        $ll_enabled = 0;//false
+        $line_user_id = "";
+        if(!empty($request->line_user_id)){
+            $ll_enabled = 1;
+            $line_user_id = $request->line_user_id;
+        }
+
+        // <------  No. h.hashimoto 2022/12/10 
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -81,6 +108,10 @@ class RegisteredUserController extends Controller
             'userType' => intVal($tourokuUserType),
             'studentName' => $request->student_name,
             // <------  No. h.hashimoto 2022/08/18         
+            // No. h.hashimoto 2022/12/10 ------>
+            'll_enabled' => $ll_enabled,
+            'line_user_id' => $line_user_id,
+            // <------  No. h.hashimoto 2022/12/10 
         ]);
 
         event(new Registered($user));

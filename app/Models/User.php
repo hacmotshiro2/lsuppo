@@ -34,6 +34,12 @@ class User extends Authenticatable
         'userType',
         'studentName',
         // <------  No. h.hashimoto 2022/08/18 
+        // No. h.hashimoto 2022/12/07 ------>
+        'll_enabled',
+        'line_user_id',
+        'lnots_enabled',
+        'notification_type',
+        // <------  No. h.hashimoto 2022/12/07 
     ];
 
     /**

@@ -44,6 +44,8 @@ Route::middleware('lsuppo')->group(function () {
     /*共通ページ*/
     Route::get('/settings/', 'App\Http\Controllers\SettingsController@settings')->name('settings');
     Route::post('/settings/edit/', 'App\Http\Controllers\SettingsController@edit');
+    Route::get('/line/bind','App\Http\Controllers\LINELoginController@bind');
+    Route::get('/line/binding/', 'App\Http\Controllers\LINELoginController@binding')->name('line-binding');
 
     /*保護者が参照するページ*/
     Route::get('/mypage/', 'App\Http\Controllers\HogoshaController@mypage')->name('mypage');
@@ -121,9 +123,16 @@ Route::middleware('lsuppo')->group(function () {
     /* サインイン履歴 */
     Route::get('/signinhistory/index/','App\Http\Controllers\SigninHistoryController@index');
 
-
 });
 
+/*LINEログイン関連*/
+// Route::get('/line/callback','App\Http\Controllers\LINELoginController@callback');
+//ログイン画面＞callback＞user_idがusersに紐づいているとき 
+Route::get('/line/attemptLogin/', 'App\Http\Controllers\LINELoginController@attemptLogin');//まだログインしていないのでここ
+//ログイン画面＞callback＞user_idがusersに紐づいていないとき 
+Route::get('/line/selectregistration','App\Http\Controllers\LINELoginController@selectRegistration');
+//設定画面＞callback＞
+Route::get('/line/binding/', 'App\Http\Controllers\LINELoginController@binding')->name('line-binding');
 
 
     #DEBUG用

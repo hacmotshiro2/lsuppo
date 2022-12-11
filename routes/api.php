@@ -22,5 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //API このルートファイルに書くと、prefix api/が勝手につく
 #TODO きちんともろもろの認証を行う
+
+/*入退室アプリ関連*/
 Route::post('/getlrs','App\Http\Controllers\StudentController@getLRs');
 Route::post('/getstudents','App\Http\Controllers\StudentController@getStudents');
+// /*LINEログイン関連*/
+Route::get('/line/callback','App\Http\Controllers\LINELoginController@callback');
+

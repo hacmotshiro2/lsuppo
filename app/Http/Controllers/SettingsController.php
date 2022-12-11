@@ -40,11 +40,21 @@ class SettingsController extends Controller
         if($request->session()->has('alertErr')){
             $alertErr = $request->session()->get('alertErr');
         }
+
+        //LINEログイン情報の取得
+        $buttonAbility="";
+        $llsettei="未設定";
+        if($user->ll_enabled==1){
+            $llsettei = "設定済み";
+            $buttonAbility = "disabled";
+        }
         
         $args=[
             'mail'=>$user->email,
             'alertComp'=>$alertComp,
             'alertErr'=>$alertErr,
+            'llsettei'=>$llsettei,
+            'buttonAbility'=>$buttonAbility,
         ];
         return view('Settings.settings',$args);
     }
