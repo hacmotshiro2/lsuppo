@@ -42,14 +42,14 @@
           <tbody>
             @foreach ($itemset[$student->StudentCd] as $item)
             <tr>
-              <td class="border border-slate-600">{{$item->id}}
-              <td class="border border-slate-600">{{$item->StudentCd}}
-              <td class="border border-slate-600">{{$item->ShootingDate}}
-              <td class="border border-slate-600">{{$item->Title}}
+              <td class="border border-slate-600">{{$item->id}}</td>
+              <td class="border border-slate-600">{{$item->StudentCd}}</td>
+              <td class="border border-slate-600">{{$item->ShootingDate}}</td>
+              <td class="border border-slate-600">{{$item->Title}}</td>
               <td class="border border-slate-600">{{mb_strimwidth($item->Description,0,20,"...")}}
-              <td class="border border-slate-600">{{$item->YouTubeId}}
-              <td class="border border-slate-600">{{$item->created_at}}
-              <td class="border border-slate-600">{{$item->updated_at}}
+              <td class="border border-slate-600"><a href="https://youtu.be/{{$item->YouTubeId}}" target="_blank" >{{$item->YouTubeId}}</a></td>
+              <td class="border border-slate-600">{{$item->created_at}}</td>
+              <td class="border border-slate-600">{{$item->updated_at}}</td>
               <td class="border border-slate-600">
                 <a href="/mv/presen/add?id={{$item->id}}">
                   <span class ="inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-base text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150">編集</span>
