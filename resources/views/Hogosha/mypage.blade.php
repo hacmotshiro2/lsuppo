@@ -3,7 +3,7 @@
 @section('title')
 エルサポ 保護者ページ
 @endsection
-      
+
 @section('content')
 
 <!-- hero - start -->
@@ -19,8 +19,10 @@
       <!-- content - end -->
 
       <!-- image - start -->
-      <div class="xl:w-5/12 h-48 lg:h-auto bg-gray-100 overflow-hidden shadow-lg rounded-lg">
-        <img src="https://images.unsplash.com/photo-1618004912476-29818d81ae2e?auto=format&q=75&fit=crop&w=1000" loading="lazy" alt="lsuppo mypage" class="w-full h-full object-cover object-center" />
+      <div class="xl:w-5/12 h-48 lg:h-auto bg-gray-100 overflow-hidden shadow-lg rounded-lg mt-4">
+        <p class="text-lg ml-3">セッションカレンダー</p>
+        <iframe class="w-full h-full" src="https://calendar.google.com/calendar/embed?height=600&wkst=7&bgcolor=%232f5597&ctz=Asia%2FTokyo&showTitle=0&showNav=1&showPrint=0&showTabs=0&showTz=0&mode=AGENDA&src=cTM2dG5zam9yMzhraWlwdDNvdWNoZDAwMGtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%23616161&color=%232f5597" style="border-width:0" frameborder="0" scrolling="no"></iframe>
+        {{-- <img src="https://images.unsplash.com/photo-1618004912476-29818d81ae2e?auto=format&q=75&fit=crop&w=1000" loading="lazy" alt="lsuppo mypage" class="w-full h-full object-cover object-center" /> --}}
       </div>
       <!-- image - end -->
     </section>
