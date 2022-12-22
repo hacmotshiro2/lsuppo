@@ -122,6 +122,9 @@ Route::middleware('lsuppo')->group(function () {
     Route::post('/mv/presen/delete/', 'App\Http\Controllers\MVController@delete');
     /* サインイン履歴 */
     Route::get('/signinhistory/index/','App\Http\Controllers\SigninHistoryController@index');
+    /* フォトギャラリー */
+    Route::get('/photos/index/', 'App\Http\Controllers\GooglePhotoController@index')->name('gphoto-index');
+
 
 });
 
@@ -133,6 +136,8 @@ Route::get('/line/attemptLogin/', 'App\Http\Controllers\LINELoginController@atte
 Route::get('/line/selectregistration','App\Http\Controllers\LINELoginController@selectRegistration');
 //設定画面＞callback＞
 Route::get('/line/binding/', 'App\Http\Controllers\LINELoginController@binding')->name('line-binding');
+
+
 
 
     #DEBUG用
