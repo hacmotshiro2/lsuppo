@@ -11,7 +11,10 @@
     <div class="-my-8 divide-y-2 divide-gray-100">
     @foreach($students as $student)
       <!-- Studentが切り替わるタイミングのみStudentNameを表示 -->
-      <span class="font-semibold title-font text-gray-700 mt-10 md:mt-24">{{$student->HyouziMei}}さんの作品一覧</span>
+      <div class="mt-10 md:mt-24">
+        <p class="font-semibold title-font text-gray-700 mt-10 md:mt-24">{{$student->HyouziMei}}さんの作品一覧</p>
+        <span class="text-base title-font text-gray-500 mt-6 md:mt-10">※作品を操作するにはPCから閲覧する必要があります</span>
+      </div>
       @if(count($itemset[$student->StudentCd])==0)
         <span class="font-semibold title-font text-gray-700 mt-10 md:mt-24">まだプロジェクトがありません</span>
       @else
