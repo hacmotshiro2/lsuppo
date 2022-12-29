@@ -2,7 +2,7 @@
 @extends('layouts.lsuppo-base')
 
 @section('title')
-サポーター登録ページ
+管理者用メニュー
 @endsection
       
 @section('content')
