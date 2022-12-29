@@ -26,13 +26,11 @@
 @section('content')
 <section class="text-gray-600 body-font overflow-hidden">
   <!-- コンテンツ -->
-  <div class="row mx-0 pt-0 pb-3 align-items-center">
+  {{-- <div class="row mx-0 pt-0 pb-3 align-items-center">
     <label for="width" class="my-0">Width:</label>
-    {{-- <input type="number" step="120" min="0" id="width" class="form-control form-control-sm mx-2 my-0" style="width: 120px;" placeholder="Number" <%if(width){%><%=`value=${width}`%><%}%>> --}}
     <input type="number" step="120" min="0" id="width" class="form-control form-control-sm mx-2 my-0" style="width: 120px;" placeholder="Number" @if(!empty($width))value={{$width}} @endif>
     <label for="md" class="mx-2 my-0">Markdown:</label>
-    {{-- <input type="checkbox" id="md" <%if(md){%><%="checked "%><%}%>data-toggle="toggle" data-size="small" data-onstyle="success"> --}}
-  </div>
+  </div> --}}
   
   <div class="">
     <ul class="gallery">
