@@ -207,6 +207,10 @@ return [
         // No. h.hashimoto 2022/11/30 ------>
         Jenssegers\Agent\AgentServiceProvider::class,
         // <------  No. h.hashimoto 2022/11/30 
+
+        // No. h.hashimoto 2022/12/31 ------>
+        App\Providers\NotificationChannelServiceProvider::class,
+        // <------  No. h.hashimoto 2022/12/31 
     ],
 
     /*

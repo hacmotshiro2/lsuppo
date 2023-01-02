@@ -7,7 +7,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class FBApprovedNotification extends Notification
+use App\Notifications\LSuppoNotification;
+
+class FBApprovedNotification extends LSuppoNotification
+// class FBApprovedNotification extends Notification
 {
     use Queueable;
 
@@ -24,16 +27,16 @@ class FBApprovedNotification extends Notification
         $this->name=$name;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function via($notifiable)
-    {
-        return ['mail'];
-    }
+    // /**
+    //  * Get the notification's delivery channels.
+    //  *
+    //  * @param  mixed  $notifiable
+    //  * @return array
+    //  */
+    // public function via($notifiable)
+    // {
+    //     return ['mail'];
+    // }
 
     /**
      * Get the mail representation of the notification.
@@ -54,7 +57,19 @@ class FBApprovedNotification extends Notification
         ->action('こちらから',$url)
         ->line('');
     }
+    
+    public function toLine(){
 
+        $url= route('fbIndex');
+
+        return (new TextMessageBuilder("新しいフィードバックが届きました。\n"
+        .$this->name."さん こんにちは　プログラミングスクールLです。\n
+        サポーターから新しいフィードバックが届きました。\n
+        \n
+        下記リンクからご覧ください。
+        こちら\n"
+        .$url."\n"));
+    }
     /**
      * Get the array representation of the notification.
      *

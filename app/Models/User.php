@@ -148,6 +148,19 @@ class User extends Authenticatable
     }
     // <------  No. h.hashimoto 2022/08/25 
     
+    // No. h.hashimoto 2022/12/31 ------>
+    //このユーザーでラインが使えるかどうか
+    //Notificationを作成する時に呼ばれる（RouteNotificationクラス）
+    public function routeNotificationForLine(){
+
+        if($this->lnots_enabled==1){
+            //使える場合は、user_idを返す
+            return $this->line_user_id;
+        }
+        return null;
+    }
+    // <------  No. h.hashimoto 2022/12/31 
+
 
 }
 

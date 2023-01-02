@@ -7,7 +7,26 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class LCoinAddedNotification extends Notification
+use App\Notifications\LSuppoNotification;
+
+use Illuminate\Support\Facades\Log;
+
+use LINE\LINEBot\MessageBuilder;
+use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
+use LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
+use LINE\LINEBot\MessageBuilder\StickerMessageBuilder;
+use LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
+use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
+
+class LCoinAddedNotification extends LSuppoNotification
+// class LCoinAddedNotification extends Notification
 {
     use Queueable;
 
@@ -28,16 +47,16 @@ class LCoinAddedNotification extends Notification
         $this->ziyuu = $ziyuu;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function via($notifiable)
-    {
-        return ['mail'];
-    }
+    // /**
+    //  * Get the notification's delivery channels.
+    //  *
+    //  * @param  mixed  $notifiable
+    //  * @return array
+    //  */
+    // public function via($notifiable)
+    // {
+    //     return ['mail'];
+    // }
 
     /**
      * Get the mail representation of the notification.
@@ -61,6 +80,22 @@ class LCoinAddedNotification extends Notification
         ->action('詳しくはこちらから',$url)
         ->line('');
             
+    }
+
+    public function toLine($notifiable)
+    {
+        $url= url('/lc/');
+
+        return (new TextMessageBuilder("エルコインが付与されました
+        \n".$this->name."さん こんにちは　プログラミングスクールLです。
+        \n以下の通りエルコインが付与されましたので、お知らせいたします。
+        \n
+        \n** エルコイン **
+        \n付与数量： ".$this->amount.
+        "\n事由： ".$this->ziyuu.
+        "\n\n詳しくはこちらから\n".
+        $url."\n"
+        ));
     }
 
     /**

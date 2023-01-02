@@ -16,8 +16,7 @@ use App\Consts\MessageConst;
 use App\Consts\AuthConst;
 use App\Consts\SessionConst;
 
-use App\Notifications\User2HogoshaRegisteredNotification;
-
+use App\Notifications\Channels\LineChannel;
 
 class SettingsController extends Controller
 {
@@ -42,19 +41,24 @@ class SettingsController extends Controller
         }
 
         //LINEログイン情報の取得
-        $buttonAbility="";
-        $llsettei="未設定";
+        $llsettei=false;
         if($user->ll_enabled==1){
-            $llsettei = "設定済み";
-            $buttonAbility = "disabled";
+            $llsettei = true;
         }
+
+        //usersにline_user_idが登録されている場合のみ、通知先設定変更エリアを表示する
+        $canEditNoti = !empty($user->line_user_id);
+        
+        //友だち追加済みかチェック
+        $isFriend =$this->checkIsFriend();
         
         $args=[
             'mail'=>$user->email,
             'alertComp'=>$alertComp,
             'alertErr'=>$alertErr,
             'llsettei'=>$llsettei,
-            'buttonAbility'=>$buttonAbility,
+            'canEditNoti'=>$canEditNoti,
+            'isFriend'=>$isFriend,
         ];
         return view('Settings.settings',$args);
     }
@@ -70,20 +74,33 @@ class SettingsController extends Controller
         ];
         return redirect()->route('settings',$args)->with('alertComp',MessageConst::EDIT_COMPLETED);
     }
-    //デバッグ用
-    public function sendmailtest(Request $request){
-        #forDEBUG
-        if(!env('APP_DEBUG')){
-            abort(404);
+    //通知関連の更新用Postページ
+    public function editNotification(Request $request){
+        $user=Auth::user();
+
+        if($this->checkIsFriend()){
+            $user->lnots_enabled = 1;
         }
-        $user = User::find(14);
-
-        if(is_null($user)){
-            abort(500);
-
+        if($request->notiType=='line'){
+            $user->notification_type=1;
         }
+        else{
+            $user->notification_type=0;
+        }
+        //入力された名称で上書く
+        $user->save();
 
-        $user->notify(new User2HogoshaRegisteredNotification($user->name));
+        $args = [
+        ];
+        return redirect()->route('settings',$args)->with('alertComp',MessageConst::EDIT_COMPLETED);
     }
+    
+    //userが友だち追加しているかチェックする
+    public function checkIsFriend(){
+
+        //エルサポ公式アカウントを友だち追加で来ているかチェック
+        return (new LineChannel())->checkIsFriend(Auth::user());
+    }
+
 
 }

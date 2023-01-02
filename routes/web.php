@@ -44,6 +44,7 @@ Route::middleware('lsuppo')->group(function () {
     /*共通ページ*/
     Route::get('/settings/', 'App\Http\Controllers\SettingsController@settings')->name('settings');
     Route::post('/settings/edit/', 'App\Http\Controllers\SettingsController@edit');
+    Route::post('/settings/editNotification/', 'App\Http\Controllers\SettingsController@editNotification');
     Route::get('/line/bind','App\Http\Controllers\LINELoginController@bind');
     Route::get('/line/binding/', 'App\Http\Controllers\LINELoginController@binding')->name('line-binding');
 

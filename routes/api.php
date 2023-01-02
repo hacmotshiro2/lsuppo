@@ -29,3 +29,9 @@ Route::post('/getstudents','App\Http\Controllers\StudentController@getStudents')
 // /*LINEログイン関連*/
 Route::get('/line/callback','App\Http\Controllers\LINELoginController@callback');
 
+/*LINE MessaggeAPI Webhook */
+Route::post('/line/webhook',function(Request $request){
+    //pushメッセージしか使わないので、何もせず返す
+    return ;
+});
+
