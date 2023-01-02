@@ -59,6 +59,9 @@
     {{-- <%}%> --}}
     </ul>
   </div>
+  <div>
+    <label class="block text-gray-700 text-sm sm:text-base my-2 md:my-4">HPには掲載していない写真も含めて掲載しています。保護者の方およびサポーターしか見ることができませんので、ご安心ください。</label>
+  </div>
 </section>
 
 @endsection
