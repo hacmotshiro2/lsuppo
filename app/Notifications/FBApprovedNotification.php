@@ -57,8 +57,8 @@ class FBApprovedNotification extends LSuppoNotification
         ->action('こちらから',$url)
         ->line('');
     }
-    
-    public function toLine(){
+
+    public function toLine($notifiable){
 
         $url= route('fbIndex');
 
