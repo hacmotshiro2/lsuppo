@@ -39,22 +39,25 @@
                     <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
                     <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                 </label>
-            </div>
-
-            <div class="flex items-center justify-start mt-4">
-                <x-button class="px-16">
-                    {{ __('Log in') }}
-                </x-button>
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 ml-3" href="{{ route('password.request') }}">
+                    <a class="block my-2 md:mb-8 underline text-sm text-gray-600 hover:text-gray-900 ml-3" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
+            </div>
+
+            <div class="block w-full mt-4">
+                {{-- <x-button class="w-3/5 text-center px-12 md:h-24 bg-gray-700 hover:bg-gray-500 text-lg hover:underline">
+                    {{ __('Log in') }}
+                </x-button> --}}
+                <button class="block w-4/5 text-center px-12 h-12 md:h-24 mx-auto bg-gray-700 hover:bg-gray-500 rounded-xl text-lg text-white focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 hover:underline">
+                    {{ __('Log in') }}
+                </button>
 
             </div>
     {{-- -- No. h.hashimoto 2022/12/02 ------> --}}
-    <hr class="border-dashed border-1 border-gray-600 mt-4">
-    <div class="w-fit mx-auto mt-4">
+    {{-- <hr class="border-dashed border-1 border-gray-600 mt-4"> --}}
+    <div class="w-fit mx-auto mt-4 md:mt-8">
         <a href="/line/login"><img src="/images/btn_login_base.png" /></a>
     </div>
     {{-- -- <------  No. h.hashimoto 2022/12/02  --}}
