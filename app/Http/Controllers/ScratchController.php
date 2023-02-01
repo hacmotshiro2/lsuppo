@@ -37,7 +37,7 @@ class ScratchController extends Controller
         // ストリームコンテキストの作成
         $context = stream_context_create($options);
 
-        //生徒ひ紐づく発表動画を取得する
+        //生徒ひ紐づくプロジェクト一覧を取得する
         $itemset=[];
         foreach($students as $student){
            
