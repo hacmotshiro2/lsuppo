@@ -61,15 +61,26 @@
             <form method="POST" action="/settings/editNotification">
               @csrf
               <label class="inline-block text-gray-800  text-base sm:text-xl mt-4 md:mt-8 mb-2">通知先の設定</label>
+              @if(old('notiType')=='')
               <div class="form-check form-check-inline">
-                  <input type="radio" name="notiType" class="form-check-input" value="mail" {{ old ('notiType') == 'mail' ? 'checked' : '' }} checked>
+                  <input type="radio" name="notiType" class="form-check-input" value="mail" {{ $notiType == 'mail' ? 'checked' : '' }} checked>
                   <label class="form-check-label">メール</label>
               </div>
               <div class="form-check form-check-inline mb-2">
-                  <input type="radio" name="notiType" class="form-check-input" value="line" {{ old ('notiType') == 'line' ? 'checked' : '' }} {{$isFriend?"":"disabled"}}>
+                  <input type="radio" name="notiType" class="form-check-input" value="line" {{ $notiType == 'line' ? 'checked' : '' }} {{$isFriend?"":"disabled"}}>
                   <label class="form-check-label">LINE</label>
               </div>
-              <button class="block w-2/5 bg-gray-800 hover:bg-gray-700 active:bg-gray-600 focus-visible:ring ring-gray-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">通知先の変更</button>
+              @else
+              <div class="form-check form-check-inline">
+                <input type="radio" name="notiType" class="form-check-input" value="mail" {{ old ('notiType') == 'mail' ? 'checked' : '' }} checked>
+                <label class="form-check-label">メール</label>
+              </div>
+              <div class="form-check form-check-inline mb-2">
+                <input type="radio" name="notiType" class="form-check-input" value="line" {{ old ('notiType') == 'line' ? 'checked' : '' }} {{$isFriend?"":"disabled"}}>
+                <label class="form-check-label">LINE</label>
+              </div>
+              @endif
+             <button class="block w-2/5 bg-gray-800 hover:bg-gray-700 active:bg-gray-600 focus-visible:ring ring-gray-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">通知先の変更</button>
             </form>
           </div>
         </div>

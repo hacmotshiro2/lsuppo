@@ -52,6 +52,12 @@ class SettingsController extends Controller
         //友だち追加済みかチェック
         $isFriend =$this->checkIsFriend();
         
+        //通知タイプ
+        $notiType = 'mail';
+        if($user->notification_type==1){
+            $notiType = 'line';
+        }
+
         $args=[
             'mail'=>$user->email,
             'alertComp'=>$alertComp,
@@ -59,6 +65,8 @@ class SettingsController extends Controller
             'llsettei'=>$llsettei,
             'canEditNoti'=>$canEditNoti,
             'isFriend'=>$isFriend,
+            'notiType'=>$notiType,
+
         ];
         return view('Settings.settings',$args);
     }
