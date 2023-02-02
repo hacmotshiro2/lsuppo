@@ -369,7 +369,8 @@ class FBController extends Controller
         foreach($u2hs as $u2h){
             $user = User::find($u2h->user_id);
             if(!is_null($user)){
-                $user->notify(new FBApprovedNotification($user->name));
+                // $user->notify(new FBApprovedNotification($user->name));
+                $user->notify(new FBApprovedNotification($user->name,mb_substr($fb->Detail,0,140),$fbNo));
             }
         }
         //引数だけ渡して、後はリダイレクトした方がいい

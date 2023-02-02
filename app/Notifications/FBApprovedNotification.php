@@ -37,11 +37,15 @@ class FBApprovedNotification extends LSuppoNotification
      * @return void
      */
     private string $name;
-
-    public function __construct($name)
+    private string $content;
+    private string $fbNo;
+    // public function __construct($name)
+    public function __construct($name,$content,$fbNo)
     {
         //
         $this->name=$name;
+        $this->content = $content;
+        $this->fbNo = $fbNo;
     }
 
     // /**
@@ -63,28 +67,29 @@ class FBApprovedNotification extends LSuppoNotification
      */
     public function toMail($notifiable)
     {
-        $url= route('fbIndex');
+        // $url= route('fbIndex');
+        $url= route('fbDetail',['fbNo'=>$this->fbNo]);
 
         return (new MailMessage)
         ->subject(env('MAIL_SUBJECT_PRE').'新しいフィードバックが届きました')
         ->greeting($this->name.'さん こんにちは　プログラミングスクールLです。')
         ->line('サポーターから新しいフィードバックが届きました。')
         ->line('')
-        ->line('下記ボタンからご覧ください')
-        ->action('こちらから',$url)
+        ->line($this->content.'...')
+        ->action('続きはこちらから',$url)
         ->line('');
     }
 
     public function toLine($notifiable){
 
-        $url= route('fbIndex');
+        // $url= route('fbIndex');
+        $url= route('fbDetail',['fbNo'=>$this->fbNo]);
 
         return (new TextMessageBuilder("新しいフィードバックが届きました。\n"
-        .$this->name."さん こんにちは　プログラミングスクールLです。\n
-        サポーターから新しいフィードバックが届きました。\n
-        \n
-        下記リンクからご覧ください。
-        こちら\n"
+        .$this->name.
+        "さん こんにちは　プログラミングスクールLです。\nサポーターから新しいフィードバックが届きました。\n\n"
+        .$this->content.
+        "...\n\n続きはこちらから\n"
         .$url."\n"));
     }
     /**
