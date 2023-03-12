@@ -136,8 +136,13 @@ class StudentController extends Controller
         //lrcd（ラーニングルームコード）を渡してもらいます
         $lrcd = $request->lrcd;
   
-        //lrcdに所属するStudentだけを返します StudentCdだけ返す
-        $students = Student::where('LearningRoomCd',$lrcd)->get(['StudentCd']);
+        // No17. h.hashimoto 2023/03/12 ------>
+        // //lrcdに所属するStudentだけを返します StudentCdだけ返す
+        // $students = Student::where('LearningRoomCd',$lrcd)->get(['StudentCd']);
+
+        //lrcdに所属するStudentだけを返します StudentCdだけ返す。退会した生徒は出ないようにする
+        $students = Student::where('LearningRoomCd',$lrcd)->whereRaw('RiyouShuuryouDate IS NULL OR RiyouShuuryouDate > CURDATE()')->get(['StudentCd']);
+        // <------  No17. h.hashimoto 2023/03/12 
 
         return response()->json($students);        
     }
