@@ -95,6 +95,24 @@ class FB extends Model
         ,$param);
 
     }
+     //保護者が参照できるFB一覧の未読件数を取得します。
+     public static function getFBUnreadCountByHogoshaCd(String $hogoshaCd){
+        //保護者が参照できるFBリストを取得
+        $lFB = self::getFBListByHogoshaCd($hogoshaCd);
+
+        //未読件数
+        $unreads = 0;
+
+        foreach($lFB as $item){
+            // FirstReadDate 初回閲覧日がNULLの場合カウントする
+            if ($item->FirstReadDate === null){
+                $unreads += 1;
+            }
+        }
+
+        return $unreads;
+
+     }
     //承認状態に関わらず取得 削除済みは除く
     public static function getAllFBList(){
         return DB::select("

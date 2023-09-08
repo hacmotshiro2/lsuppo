@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Hogosha;
 use App\Models\User2Hogosha;
 use App\Models\LR;
+use App\Models\FB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Consts\MessageConst;
@@ -34,6 +35,17 @@ class HogoshaController extends Controller
         //m_hogoshaが紐づけがない場合には、informationを表示
         if(Gate::allows('hogosha-nobind')){
             $args=['alertInfo'=>MessageConst::NOT_BINDED,];
+        }
+        // 紐づけがされている場合には未読件数の表示
+        else{
+            //認証情報を取得し、保護者コードを取得する
+            $user = Auth::user();
+            $hogoshaCd = Hogosha::getHogoshaCd($user);
+
+            //フィードバック未読件数の取得
+            $unreads = FB::getFBUnreadCountByHogoshaCd($hogoshaCd);
+
+            $args=['unreads' => $unreads];
         }
 
         return view('Hogosha.mypage',$args);

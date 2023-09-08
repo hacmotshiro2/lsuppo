@@ -13,7 +13,10 @@
       <!-- content - start -->
       <div class="xl:w-5/12 flex flex-col justify-center sm:text-center lg:text-left lg:py-12 xl:py-24">
         <p class="text-indigo-500 md:text-lg xl:text-xl font-semibold mb-4 md:mb-6">{{$userName}}さん　こんにちは</p>
-        <h1 class="text-black-800 text-4xl sm:text-5xl md:text-6xl font-bold mb-8 md:mb-12">いつもありがとうございます</h1>
+        <h2 class="text-indigo-500 text-4xl sm:text-5xl md:text-6xl font-bold mb-8 md:mb-12">いつもありがとうございます</h2>
+        @if($unreads > 0)
+          <h3 class="text-gray-700 text-2xl sm:text-xl md:text-xl font-bold mb-8 md:mb-12">{{$unreads}}件の未読フィードバックがあります</h3>
+        @endif
         <p class="lg:w-4/5 text-gray-500 xl:text-lg leading-relaxed mb-8 md:mb-12">サポーターからのフィードバックメッセージをぜひご覧ください。</p>
       </div>
       <!-- content - end -->
