@@ -94,6 +94,7 @@ Route::middleware('lsuppo')->group(function () {
     Route::post('/user2suppo/add/', 'App\Http\Controllers\SupporterController@u2screate');
     Route::get('/user2suppo/delete/', 'App\Http\Controllers\SupporterController@u2sdelete');
 
+    /* エルコイン */
     Route::get('/lc/add/', 'App\Http\Controllers\LCoinController@add')->name('lcAdd');
     Route::get('/lc/list/', 'App\Http\Controllers\LCoinController@list')->name('lcList');
     Route::post('/lc/add/', 'App\Http\Controllers\LCoinController@addpost');
@@ -125,6 +126,11 @@ Route::middleware('lsuppo')->group(function () {
     Route::get('/signinhistory/index/','App\Http\Controllers\SigninHistoryController@index');
     /* フォトギャラリー */
     Route::get('/photos/index/', 'App\Http\Controllers\GooglePhotoController@index')->name('gphoto-index');
+    /* 欠席情報 */
+    Route::get('/absence/list', 'App\Http\Controllers\AbsenceController@list')->name('absenceList');
+    Route::get('/absence/add', 'App\Http\Controllers\AbsenceController@add')->name('absenceAdd');
+    Route::post('/absence/add', 'App\Http\Controllers\AbsenceController@addpost');
+
 
 
 });
