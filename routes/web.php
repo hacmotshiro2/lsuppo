@@ -128,8 +128,10 @@ Route::middleware('lsuppo')->group(function () {
     Route::get('/photos/index/', 'App\Http\Controllers\GooglePhotoController@index')->name('gphoto-index');
     /* 欠席情報 */
     Route::get('/absence/list', 'App\Http\Controllers\AbsenceController@list')->name('absenceList');
-    Route::get('/absence/add', 'App\Http\Controllers\AbsenceController@add')->name('absenceAdd');
-    Route::post('/absence/add', 'App\Http\Controllers\AbsenceController@addpost');
+    Route::get('/absence/add', 'App\Http\Controllers\AbsenceController@regist')->name('absenceAdd');
+    Route::post('/absence/edit', 'App\Http\Controllers\AbsenceController@edit');
+    Route::post('/absence/delete', 'App\Http\Controllers\AbsenceController@delete');
+    Route::post('/absence/add', 'App\Http\Controllers\AbsenceController@add');
 
 
 

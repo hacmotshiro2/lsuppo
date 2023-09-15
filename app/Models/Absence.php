@@ -31,4 +31,7 @@ class Absence extends Model
     public function supporter(){
         return $this->belongsTo('App\Models\Supporter','TourokuSupporterCd','SupporterCd');
     }
+    public function ziyuu(){
+        return $this->belongsTo('App\Models\LCZiyuu','LCZiyuuCd','ZiyuuCd');
+    }
 }
