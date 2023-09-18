@@ -77,7 +77,7 @@
         </div>
         <div class="my-2">
             <label for="LCZiyuuHosoku" class="inline-block text-gray-800 text-sm sm:text-base mb-2">事由補足　※デフォルトから数量を変更する場合はその旨も記載</label>
-            <x-lsuppo-input type="text" name="LCZiyuuHosoku" value="{{ $mode === 'add' ? old('LCZiyuuHosoku') : $item->LCZiyuuHosoku }}"></x-lsuppo-input>
+            <x-lsuppo-input type="text" name="LCZiyuuHosoku" class="w-full" value="{{ $mode === 'add' ? old('LCZiyuuHosoku') : $item->LCZiyuuHosoku }}"></x-lsuppo-input>
         </div>
         <div class="my-2">
             <label for="TourokuSupporterCd" class="inline-block text-gray-800 text-sm sm:text-base mb-2">登録サポーターコード</label>
