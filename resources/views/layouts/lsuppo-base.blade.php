@@ -61,6 +61,9 @@
             </div>
             <div class="bg-white-100 mt-16 md:mt-44">
                 <div>
+                    <div wire:offline>
+                        <x-lsuppo-alert-warning :alert=""接続が不安定です"" />
+                    </div>
                     @if(!empty($alertComp))
                     <x-lsuppo-alert-completed :alert="$alertComp" />
                     @endif
