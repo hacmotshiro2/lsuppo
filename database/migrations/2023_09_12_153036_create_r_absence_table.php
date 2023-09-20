@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('LCZiyuuHosoku',200)->nullable();
             $table->integer('LCYoteiAmountImm')->unsigned();
             $table->integer('LCYoteiAmountExp')->unsigned();
-            $table->dateTime('LCSwapedDatetime')->nullable();
+            $table->dateTime('LCSwappedDatetime')->nullable();
             $table->bigInteger('LCMeisaiId')->unsigned()->nullable();
             $table->string('TourokuSupporterCd',8);
 
