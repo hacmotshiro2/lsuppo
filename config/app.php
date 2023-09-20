@@ -211,6 +211,11 @@ return [
         // No. h.hashimoto 2022/12/31 ------>
         App\Providers\NotificationChannelServiceProvider::class,
         // <------  No. h.hashimoto 2022/12/31 
+
+        // No. h.hashimoto 2023/09/20 ------>
+        App\Providers\CustomValidationServiceProvider::class,
+        // <------  No. h.hashimoto 2023/09/20 
+
     ],
 
     /*
