@@ -29,6 +29,7 @@ return new class extends Migration
             $table->integer('LCYoteiAmountExp')->unsigned();
             $table->dateTime('LCSwappedDatetime')->nullable();
             $table->bigInteger('LCMeisaiId')->unsigned()->nullable();
+            $table->tinyInteger('HurikaeStatus')->default(0);
             $table->string('TourokuSupporterCd',8);
 
             $table->string('UpdateGamen',128);

@@ -127,7 +127,8 @@ Route::middleware('lsuppo')->group(function () {
     /* フォトギャラリー */
     Route::get('/photos/index/', 'App\Http\Controllers\GooglePhotoController@index')->name('gphoto-index');
     /* 欠席情報 */
-    Route::get('/absence/list', 'App\Http\Controllers\AbsenceController@list')->name('absenceList');
+    Route::get('/absence/list_sp', 'App\Http\Controllers\AbsenceController@list_sp')->name('absenceList-sp');
+    Route::get('/absence/list', 'App\Http\Controllers\AbsenceController@list_hogosha')->name('absenceList-hogosha');
     Route::get('/absence/add', 'App\Http\Controllers\AbsenceController@regist')->name('absenceAdd');
     Route::post('/absence/edit', 'App\Http\Controllers\AbsenceController@edit');
     Route::post('/absence/delete', 'App\Http\Controllers\AbsenceController@delete');

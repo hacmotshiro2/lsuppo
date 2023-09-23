@@ -21,7 +21,23 @@ use App\Consts\MessageConst;
 class AbsenceController extends Controller
 {
     //\absence\list
-    public function list(Request $request){
+    public function list_hogosha(Request $request){
+        //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
+        $alertComp='';
+        if($request->session()->has('alertComp')){
+            $alertComp = $request->session()->get('alertComp');
+        }
+
+        $args = [
+            'alertComp' =>$alertComp,
+        ];
+
+
+        return view('Absence.list-hogosha',$args);
+    }
+
+    //\absence\list_sp
+    public function list_sp(Request $request){
         //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
         $alertComp='';
         if($request->session()->has('alertComp')){

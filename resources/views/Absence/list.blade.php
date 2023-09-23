@@ -2,7 +2,7 @@
 @extends('layouts.lsuppo-base')
 
 @section('title')
-欠席情報明細一覧
+欠席情報明細一覧（サポーター用）
 @endsection
       
 @section('content')
