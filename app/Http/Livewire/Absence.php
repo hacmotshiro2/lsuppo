@@ -18,7 +18,7 @@ class Absence extends Component
     public function render()
     {
         //student という名前のリレーションシップを eager loading 
-        $items = AbModel::with('student')->with('supporter')->orderby($this->orderColumn,$this->sortOrder)->paginate(30);
+        $items = AbModel::with('student')->with('supporter')->orderby($this->orderColumn,$this->sortOrder)->paginate(8);
         $args=[
             'absences' => $items,
         ];
