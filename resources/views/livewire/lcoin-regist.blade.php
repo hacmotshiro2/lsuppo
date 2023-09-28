@@ -9,6 +9,8 @@
                         <th class="sort border border-slate-600 p-4" wire:click="sortOrder('id')">id {!! $sortLink !!}</th>
                         <th class="sort border border-slate-600 p-4" wire:click="sortOrder('StudentCd')">StudentCd {!! $sortLink !!}</th>
                         <th class="border border-slate-600 p-4" >StudentName</th>
+                        <th class="sort border border-slate-600 p-4" wire:click="sortOrder('HurikaeStatus')">HurikaeStatus {!! $sortLink !!}</th>
+                        <th class="border border-slate-600 p-4" >HurikaeStatusName</th>
                         <th class="sort border border-slate-600 p-4" wire:click="sortOrder('AbsentDate')">AbsentDate {!! $sortLink !!}</th>
                         <th class="sort border border-slate-600 p-4" wire:click="sortOrder('NotifiedDatetime')">NotifiedDatetime {!! $sortLink !!}</th>
                         <th class="sort border border-slate-600 p-4" wire:click="sortOrder('ToYoteiDate')">ToYoteiDate {!! $sortLink !!}</th>
@@ -29,6 +31,8 @@
                         <td class="border border-slate-700 p-2">{{$item->id}}</td>
                         <td class="border border-slate-700 p-2">{{$item->StudentCd}}</td>
                         <td class="border border-slate-700 p-2">{{$item->student->HyouziMei}}</td>
+                        <td class="border border-slate-700 p-2">{{$item->HurikaeStatus}}</td>
+                        <td class="border border-slate-700 p-2">{{$item->HurikaeStatusName}}</td>
                         <td class="border border-slate-700 p-2">{{$item->AbsentDate}}</td>
                         <td class="border border-slate-700 p-2">{{$item->NotifiedDatetime}}</td>
                         <td class="border border-slate-700 p-2">{{$item->ToYoteiDate}}</td>

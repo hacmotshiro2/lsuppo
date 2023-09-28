@@ -42,12 +42,14 @@ class CustomValidationServiceProvider extends ServiceProvider
                 return false;
             } 
 
-             //欠席情報idから欠席情報を取得
-             $absence = Absence::find($absence_id);
+            //欠席情報idから欠席情報を取得
+            $absence = Absence::find($absence_id);
 
-             if($absence && is_null($absence->LCSwappedDatetime)){
+            $allow = [0,9]; //0未振替　9期限超過
+            //  if($absence && is_null($absence->LCSwappedDatetime)){
+             if($absence && in_array(intval($absence->HurikaeStatus),$allow)){
 
-                //欠席情報が取得できて、かつエルコイン変換日付がNULLであれば
+                //欠席情報が取得できて、振替ステータスが、未振替または期限超過であれば
                 return true;
 
              }
@@ -78,6 +80,14 @@ class CustomValidationServiceProvider extends ServiceProvider
             }
 
             return false;
+        });
+
+        //エルコインを削除しようとする際に、欠席情報に紐づけがされている明細は削除できないようにする
+        //$valueにはLCoinMeisaiのidを渡す
+        Validator::extend('lcmeisai_exists', function ($attribute, $value, $parameters, $validator) {
+            // $value は削除しようとするLCoinMeisaiのIDです
+            // Absenceテーブル内で指定のLCMeisaiIdが存在するかを確認します
+            return !Absence::where('LCMeisaiId', $value)->exists();
         });
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use DateTime;
 use App\Consts\DBConst;
+use Illuminate\Support\Facades\Log;
 
 class Absence extends Model
 {
@@ -94,5 +95,51 @@ class Absence extends Model
         }
 
 
+    }
+
+    //他の項目を見て、振替ステータスをセットする
+    //必ず各項目をセットしてから、コールしてください
+    //AbsenceControllerからコールすることを想定してつくっています
+    public function setHurikaeStatus(){
+
+        $status = 0; //未振替
+
+        if(!empty($this->ToActualDate)){
+            //振替実績日がセットされている場合　3振替済み
+            $status = 3;
+        }
+        else if(!empty($this->LCMeisaiId)){
+            //LCMeisaiidがセットされている場合　5エルコイン変換済み
+            //ここは通らない想定
+            $status = 5;
+        }
+        else if(strtotime($this->ExpirationDate) <  strtotime('today')){
+            //期限が切れている場合　9期限切れ
+            $status = 9;
+        }
+
+        Log::info("setHurikaeStatus",[$status,$this->HurikaeStatus,$this->ExpirationDate,strtotime($this->ExpirationDate) , strtotime('today')]);
+
+        //（編集モード時用）今のステータスを見て、更新可否を判定
+        //更新不可の場合は、元のステータスのママにして返す
+        if($this->HurikaeStatus==3){
+            if(in_array($status, [5,9])){
+                return false;
+            }
+        }
+        else if($this->HurikaeStatus==5){
+            if(in_array($status, [3,9])){
+                return false;
+            }
+        }
+        else if($this->HurikaeStatus==9){
+            if($status == 3){ 
+                return false;
+            }
+        }
+
+
+        $this->HurikaeStatus = $status;
+        return true;
     }
 }

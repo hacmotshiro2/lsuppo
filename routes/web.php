@@ -96,8 +96,10 @@ Route::middleware('lsuppo')->group(function () {
 
     /* エルコイン */
     Route::get('/lc/add/', 'App\Http\Controllers\LCoinController@add')->name('lcAdd');
+    Route::get('/lc/addnoab/', 'App\Http\Controllers\LCoinController@addnoab');
     Route::get('/lc/list/', 'App\Http\Controllers\LCoinController@list')->name('lcList');
     Route::post('/lc/add/', 'App\Http\Controllers\LCoinController@addpost');
+    Route::post('/lc/addnoab/', 'App\Http\Controllers\LCoinController@addpostnoab');//エルコイン単独で登録する画面（欠席情報(ab)との紐づけなし）
     Route::post('/lc/delete/', 'App\Http\Controllers\LCoinController@deletepost');
 
     Route::get('/lcziyuu/add/','App\Http\Controllers\LCZiyuuController@add')->name('lcziyuu-add');

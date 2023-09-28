@@ -12,6 +12,7 @@
         <div class="my-2">
             @if($mode=='edit')
             <input type=hidden name="id" value="{{$id}}">
+            <p class="text-gray-800 text-sm md:text-base mb-2">振替ステータス：<span class="text-red-800 text-xl md:text-2xl mb-2">{{$item->HurikaeStatus}} - {{$item->HurikaeStatusName}}</span></p>
             @endif
             <label for="StudentCd" class="text-gray-800 text-sm sm:text-base mb-2">生徒コード*</label>
             <select class="w-2/3 bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2" id="StudentCd" name="StudentCd">
@@ -85,7 +86,7 @@
         </div>
         <div class="flex my-2">
             <div class="my-2">
-                <a href="/absence/list">
+                <a href="/absence/list_sp">
                     <input type="button" name="back" value="一覧へ戻る" class="inline-block bg-gray-500 hover:bg-gray-600 active:bg-gray-700 focus-visible:ring ring-gray-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3" >
                 </a>
             </div>
@@ -103,6 +104,12 @@
         </div>
     </div>
 </form>
+<div>
+    <div class="mx-4 md:mx-12 mt-8">
+        <p class="text-gray-800 text-sm md:text-base mb-2">参照）更新ルール</p>
+        <img src="/images/absence-control-status.png"  class=""/>
+    </div>
+</div>
 @endsection
 @section('pageScript')
 

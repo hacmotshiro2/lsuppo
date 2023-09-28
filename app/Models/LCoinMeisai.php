@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 use App\Consts\DBConst;
 
-
-
 class LCoinMeisai extends Model
 {
     use HasFactory;
@@ -37,7 +35,10 @@ class LCoinMeisai extends Model
     public function supporter(){
         return $this->belongsTo('App\Models\Supporter');
     }
-
+    public function absence(){
+        // return $this->hasOne('App\Models\Absence','id','LCMeisaiId');
+        return $this->hasOne('App\Models\Absence','LCMeisaiId','id');
+    }
 
     //Update系項目のセット
     public function setUpdateColumn(){
@@ -125,6 +126,17 @@ class LCoinMeisai extends Model
 
     public function getStudentCdName(){
         return $this->StudentCd.":".$this->studnet->HyouziMei;
+
+    }
+    //欠席情報がある場合だけidを返し、ない場合は空白を返します。
+    public function getAbsenceIdAttribute(){
+
+        if($this->absence != null){
+            return $this->absence->id;
+        }
+        else{
+            return "";
+        }
 
     }
 }
