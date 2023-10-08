@@ -27,7 +27,22 @@
                 <tbody>
                     @foreach($absences as $item)
                     <tr class="bg-white border-b hover:bg-gray-50">
-                        <td class="border border-slate-700 p-2"><button wire:click="selectAb({{$item->id}})" class="px-4 border rounded-md border-indigo-700 hover:noborder hover:bg-indigo-700 hover:text-white"><span class="whitespace-nowrap">選択</span></button></td>
+                        <td class="border border-slate-700 p-2">
+                            <div class="flex overflow-hidden relative h-6 lg:h-8">
+                                <input type="radio" id="rd{{$loop->index}}" name="absence" value="{{$item->id}}"  wire:model="selectedAb" wire:click="selectAb({{$item->id}})" class="w-full h-full opacity-0" />
+                                @if($selectedAb == $item->id)
+                                <!-- 選択中 -->
+                                    <label for="rd{{ $loop->index }}" class="absolute top-0 left-0 w-full h-full flex items-center justify-center rounded-md cursor-pointer pointer-events-auto border-solid border-2 
+                                    border-indigo-600 bg-indigo-600 text-white hover:text-gray-300 text-xs lg:text-sm whitespace-nowrap transition-all duration-100 "
+                                    >選択</label>
+                                @else
+                                <!-- 未選択 -->
+                                    <label for="rd{{ $loop->index }}" class="absolute top-0 left-0 w-full h-full flex items-center justify-center rounded-md cursor-pointer pointer-events-auto border-solid border-2 
+                                    border-indigo-600 bg-white text-indigo-600 hover:bg-indigo-600 hover:text-white text-xs lg:text-sm whitespace-nowrap transition-all duration-100"
+                                    >選択</label>
+                                @endif
+                            </div>
+                        </td>
                         <td class="border border-slate-700 p-2">{{$item->id}}</td>
                         <td class="border border-slate-700 p-2">{{$item->StudentCd}}</td>
                         <td class="border border-slate-700 p-2">{{$item->student->HyouziMei}}</td>

@@ -22,8 +22,13 @@ class LcoinRegist extends Component
     public $sortLink = '<i class="sorticon fa-solid fa-caret-up"></i>';
     public $selected_id = 0;
     public $mode = "add";
+    //エルコイン登録部のReadOnly制御
     public $isReadOnly = true;
+    public $selectedAb;
 
+    //Runs once, immediately after the component is instantiated, but before render() is called. This is only called once on initial page load and never called again, even on component refreshes
+    public function mount(){
+    }
     public function render()
     {
         //student という名前のリレーションシップを eager loading 
@@ -48,6 +53,8 @@ class LcoinRegist extends Component
             'TourokuSupporterCd' => $supporterCd,
         ];
 
+        // dd($this->selectedAb);
+
         return view('livewire.lcoin-regist',$args);
     }
 
@@ -67,10 +74,13 @@ class LcoinRegist extends Component
 
     }
 
-    public function selectAb($id=0){
+    //第一引数：欠席情報のid 第二引数：テーブルのindex
+    public function selectAb($id=0, $index=-1){
+        //選択中のAbsenceIdを更新する
         $this->selected_id = $id;
-
+        
         if($id==0){
+            //idが0つまり欠席情報を選択していない場合は、エルコイン登録部は読み取り専用に
             $this->isReadOnly = true;
         }
         else{
@@ -79,9 +89,9 @@ class LcoinRegist extends Component
 
     }
 
+
     /* #TODO
     LCコイン情報や欠席情報への遷移ボタンを追加
-    選択ボタンの色見を制御　選択中のときに見え方が変わるように
     事由とコインのJSロジックをLivewireに移管
     */
 }
