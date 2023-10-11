@@ -17,6 +17,9 @@
         @if($unreads > 0)
           <h3 class="text-gray-700 text-2xl sm:text-xl md:text-xl font-bold mb-8 md:mb-12"><a href="/fb/">{{$unreads}}件の未読フィードバックがあります</a></h3>
         @endif
+        @if($unabsences > 0)
+          <h3 class="text-gray-700 text-2xl sm:text-xl md:text-xl font-bold mb-8 md:mb-12"><a href="/absence/list/">{{$unabsences}}件の未振替があります</a></h3>
+        @endif
         <p class="lg:w-4/5 text-gray-500 xl:text-lg leading-relaxed mb-8 md:mb-12">サポーターからのフィードバックメッセージをぜひご覧ください。</p>
       </div>
       <!-- content - end -->

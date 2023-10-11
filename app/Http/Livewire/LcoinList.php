@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
+use Livewire\WithPagination;
 
 use App\Models\LCoinMeisai;
 use App\Consts\DBConst;
@@ -11,6 +12,8 @@ use App\Consts\MessageConst;
 
 class LcoinList extends Component
 {
+    use WithPagination;
+ 
     //ページロード時の設定
     public $orderColumn = "updated_at";
     public $sortOrder = "desc";

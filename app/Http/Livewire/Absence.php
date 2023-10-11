@@ -9,6 +9,7 @@ use App\Models\Absence as AbModel;
 
 class Absence extends Component
 {
+    use WithPagination;
     
     //ページロード時の設定
     public $orderColumn = "created_at";

@@ -43,7 +43,8 @@
                     </div>
                 </li>
                 <li class="border-b-2 md:border-none md:h-4"><a href="/photos/index/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">フォトギャラリー</a></li>
-                <li class="border-b-2 md:border-none md:h-4"><a href="/lc/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">エルコイン</a></li>
+                <!-- <li class="border-b-2 md:border-none md:h-4"><a href="/lc/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">エルコイン</a></li> -->
+                <li class="border-b-2 md:border-none md:h-4"><a href="/absence/list/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">欠席・振替情報</a></li>
                 <!-- 生徒紐づけが完了していない保護者 -->
                 @elsecan('hogosha-nobind')
                 <li class="border-b-2 md:border-none md:h-4"><a href="/mypage/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">ホーム</a></li>

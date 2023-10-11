@@ -8,6 +8,8 @@ use DateTime;
 use App\Consts\DBConst;
 use Illuminate\Support\Facades\Log;
 
+use App\Models\Student;
+
 class Absence extends Model
 {
     use HasFactory;
@@ -142,4 +144,21 @@ class Absence extends Model
         $this->HurikaeStatus = $status;
         return true;
     }
+
+    //保護者が参照できる未振替欠席情報の件数を取得します。
+    public static function getUnAbsenceCountByHogoshaCd(String $hogoshaCd){
+
+        //未振替件数
+        $unabsences = 0;
+        //保護者が選択できる生徒
+        $students = Student::where('hogoshaCd',$hogoshaCd)->get();
+        
+        foreach($students as $student){
+            $items_un = self::where('StudentCd',$student->StudentCd)->whereIn('HurikaeStatus',[0,9])->get();
+            $unabsences += $items_un->count();
+        }
+
+        return $unabsences;
+    }
+    
 }

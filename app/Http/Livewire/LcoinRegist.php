@@ -15,6 +15,7 @@ use App\Models\Supporter;
 
 class LcoinRegist extends Component
 {
+    use WithPagination;
     
     //ページロード時の設定
     public $orderColumn = "created_at";
