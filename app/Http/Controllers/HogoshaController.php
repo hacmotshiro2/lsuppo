@@ -13,6 +13,7 @@ use App\Models\User2Hogosha;
 use App\Models\LR;
 use App\Models\FB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Absence as AbModel;
 
 use App\Consts\MessageConst;
 use App\Consts\AuthConst;
@@ -45,7 +46,13 @@ class HogoshaController extends Controller
             //フィードバック未読件数の取得
             $unreads = FB::getFBUnreadCountByHogoshaCd($hogoshaCd);
 
-            $args=['unreads' => $unreads];
+            //未振替件数の取得
+            $unabsences = AbModel::getUnAbsenceCountByHogoshaCd($hogoshaCd);
+
+            $args=[
+                'unreads' => $unreads,
+                'unabsences' => $unabsences,
+            ];
         }
 
         return view('Hogosha.mypage',$args);

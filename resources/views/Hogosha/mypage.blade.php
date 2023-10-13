@@ -15,7 +15,10 @@
         <p class="text-indigo-500 md:text-lg xl:text-xl font-semibold mb-4 md:mb-6">{{$userName}}さん　こんにちは</p>
         <h2 class="text-indigo-500 text-4xl sm:text-5xl md:text-6xl font-bold mb-8 md:mb-12">いつもありがとうございます</h2>
         @if($unreads > 0)
-          <h3 class="text-gray-700 text-2xl sm:text-xl md:text-xl font-bold mb-8 md:mb-12">{{$unreads}}件の未読フィードバックがあります</h3>
+          <h3 class="text-gray-700 text-2xl sm:text-xl md:text-xl font-bold mb-8 md:mb-12"><a href="/fb/">{{$unreads}}件の未読フィードバックがあります</a></h3>
+        @endif
+        @if($unabsences > 0)
+          <h3 class="text-gray-700 text-2xl sm:text-xl md:text-xl font-bold mb-8 md:mb-12"><a href="/absence/list/">{{$unabsences}}件の未振替があります</a></h3>
         @endif
         <p class="lg:w-4/5 text-gray-500 xl:text-lg leading-relaxed mb-8 md:mb-12">サポーターからのフィードバックメッセージをぜひご覧ください。</p>
       </div>

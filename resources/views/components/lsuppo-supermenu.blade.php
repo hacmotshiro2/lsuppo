@@ -8,6 +8,7 @@
         <li class="hover:bg-emerald-200 rounded pl-4"><a href="/user2hogosha/add/">ユーザーと保護者の紐づけ登録</a></li>
         <li class="hover:bg-emerald-200 rounded pl-4"><a href="/supporter/add/">サポーター登録</a></li>
         <li class="hover:bg-emerald-200 rounded pl-4"><a href="/user2suppo/add/">ユーザーとサポーターの紐づけ登録</a></li>
+        <li class="hover:bg-emerald-200 rounded pl-4"><a href="/absence/list_sp/">欠席情報登録</a></li>
         <li class="hover:bg-emerald-200 rounded pl-4"><a href="/lc/list/">エルコイン登録</a></li>
         <li class="hover:bg-emerald-200 rounded pl-4"><a href="/lcziyuu/add/">エルコイン事由マスタメンテ</a></li>
         <li class="hover:bg-emerald-200 rounded pl-4"><a href="/conv/upload/">CLOVAアップロード</a></li>

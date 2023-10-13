@@ -34,6 +34,24 @@
             }
 
         </style>
+        
+        <!-- livewireで決まり文句 -->
+        @livewireStyles
+
+        <!-- Fontawesome -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+        <style type="text/css">
+       .sorticon{
+             visibility: hidden;
+             color: darkgray;
+       }
+       .sort:hover .sorticon{
+             visibility: visible;
+       }
+       .sort:hover{
+             cursor: pointer;
+       }
     </head>
     <body class="container mx-auto text-xl text-gray-800" >
         <!-- id=app は下のVuewスクリプトで使われているので消さない -->
@@ -43,6 +61,9 @@
             </div>
             <div class="bg-white-100 mt-16 md:mt-44">
                 <div>
+                    <div wire:offline>
+                        <x-lsuppo-alert-warning :alert=""接続が不安定です"" />
+                    </div>
                     @if(!empty($alertComp))
                     <x-lsuppo-alert-completed :alert="$alertComp" />
                     @endif
@@ -116,5 +137,7 @@
     <!-- Flowbite追加 -->
     <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
     @yield('pageScript')
+
+    @livewireScripts
     </body>
 </html>

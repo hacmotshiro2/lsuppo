@@ -94,9 +94,12 @@ Route::middleware('lsuppo')->group(function () {
     Route::post('/user2suppo/add/', 'App\Http\Controllers\SupporterController@u2screate');
     Route::get('/user2suppo/delete/', 'App\Http\Controllers\SupporterController@u2sdelete');
 
+    /* エルコイン */
     Route::get('/lc/add/', 'App\Http\Controllers\LCoinController@add')->name('lcAdd');
+    Route::get('/lc/addnoab/', 'App\Http\Controllers\LCoinController@addnoab');
     Route::get('/lc/list/', 'App\Http\Controllers\LCoinController@list')->name('lcList');
     Route::post('/lc/add/', 'App\Http\Controllers\LCoinController@addpost');
+    Route::post('/lc/addnoab/', 'App\Http\Controllers\LCoinController@addpostnoab');//エルコイン単独で登録する画面（欠席情報(ab)との紐づけなし）
     Route::post('/lc/delete/', 'App\Http\Controllers\LCoinController@deletepost');
 
     Route::get('/lcziyuu/add/','App\Http\Controllers\LCZiyuuController@add')->name('lcziyuu-add');
@@ -125,6 +128,14 @@ Route::middleware('lsuppo')->group(function () {
     Route::get('/signinhistory/index/','App\Http\Controllers\SigninHistoryController@index');
     /* フォトギャラリー */
     Route::get('/photos/index/', 'App\Http\Controllers\GooglePhotoController@index')->name('gphoto-index');
+    /* 欠席情報 */
+    Route::get('/absence/list_sp', 'App\Http\Controllers\AbsenceController@list_sp')->name('absenceList-sp');
+    Route::get('/absence/list', 'App\Http\Controllers\AbsenceController@list_hogosha')->name('absenceList-hogosha');
+    Route::get('/absence/add', 'App\Http\Controllers\AbsenceController@regist')->name('absenceAdd');
+    Route::post('/absence/edit', 'App\Http\Controllers\AbsenceController@edit');
+    Route::post('/absence/delete', 'App\Http\Controllers\AbsenceController@delete');
+    Route::post('/absence/add', 'App\Http\Controllers\AbsenceController@add');
+
 
 
 });
