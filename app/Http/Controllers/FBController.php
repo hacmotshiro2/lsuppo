@@ -45,8 +45,11 @@ class FBController extends Controller
     }
     //get fb\splist
     public function index_sp(Request $request){
-        #TODO 自LRに絞るかは要検討
-        $items = FB::getAllFBList(); //通常のallでとると、indexの場合とプロパティが変わるので。（例StudentName）
+        // No.Ph.2.2 h.hashimoto 2023/10/22 ------>
+        // Livewire側に移管するため、本ControllerではDBアクセスしない
+        // #TODO 自LRに絞るかは要検討
+        // $items = FB::getAllFBList(); //通常のallでとると、indexの場合とプロパティが変わるので。（例StudentName）
+        // <------  No.Ph.2.2 h.hashimoto 2023/10/22 
 
         //Deleteからのリダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
         $alertComp='';
@@ -61,10 +64,16 @@ class FBController extends Controller
         $arg = [
             'alertComp'=>$alertComp,
             'alertErr'=>$alertErr,
-            'items' => $items,
+            // No.Ph.2.2 h.hashimoto 2023/10/22 ------>
+            // 'items' => $items,
+            // <------  No.Ph.2.2 h.hashimoto 2023/10/22 
         ];
 
-        return view('FB.index',$arg);
+        // No.Ph.2.2 h.hashimoto 2023/10/22 ------>
+        // 保護者と共用だったが、サポーター用を作成する
+        // return view('FB.index',$arg);
+        return view('FB.list-sp',$arg);
+        // <------  No.Ph.2.2 h.hashimoto 2023/10/22 
 
     }
     // /fb/detail/{fbNo} サポーターも参照する
@@ -397,7 +406,10 @@ class FBController extends Controller
         //承認機能
         $fb->ShouninDate = date("Y-m-d H:i:s");
         $fb->ShouninStatus=DBConst::SHOUNIN_STATUS_RETURN;
-        $fb->ShouninSupporterCd=$supporterCd;
+        // No.不具合対応 h.hashimoto 2023/10/25 ------>
+        // 取り下げのときはセットしない
+        // $fb->ShouninSupporterCd=$supporterCd;
+        // <------  No.不具合対応 h.hashimoto 2023/10/25 
 
         //承認履歴
         $ah = new ApproveHistory;

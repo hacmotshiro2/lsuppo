@@ -63,7 +63,7 @@ Route::middleware('lsuppo')->group(function () {
     Route::post('/fb/add/', 'App\Http\Controllers\FBController@addpost');
     Route::get('/fb/edit/', 'App\Http\Controllers\FBController@edit')->name('fbEdit');
     Route::post('/fb/edit/', 'App\Http\Controllers\FBController@editpost');
-    Route::post('/fb/delete/', 'App\Http\Controllers\FBController@deletepost');
+    // Route::post('/fb/delete/', 'App\Http\Controllers\FBController@deletepost');//削除する想定ない。
 
     /*権限レベルが高いサポーターが参照するページ*/
     Route::get('/sysad/', function(){return view('SysAdmin.index');});

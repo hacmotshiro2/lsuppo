@@ -15,14 +15,19 @@
                 <p class="inline text-gray-700 sm:text-lg mb-6 md:mb-8">{{$item->student->HyouziMei}} さん</p>
                 <h1 class="text-gray-800 text-2xl sm:text-3xl font-bold my-4 md:my-6">{{$item->Title}}</h1>
                 <p class="text-gray-800 sm:text-lg mb-8 md:mb-10">{!!nl2br(e($item->Detail))!!}</p>
-                <h3 class="text-gray-600 sm:text-lg mb-2 ">記入者：</h3>
-                <p class="text-gray-500 sm:text-lg mb-6 md:mb-8">{{$item->kinyuusupporter->HyouziMei}}</p>
-                <h3 class="text-gray-500 sm:text-lg mb-2 ">対象期間：</h3>
-                <p class="text-gray-500 sm:text-lg mb-6 md:mb-8">{{$item->getTaishoukikanSTR()}}</P>
-                <p class="text-gray-500 sm:text-lg mb-6 md:mb-8">{{$item->getTaishoukikanTo}}</P>
+                <div class="mb-4 sm:mb-8 sm:flex">
+                    <h3 class="text-gray-600 sm:text-lg mb-2 sm:mb-0 ">記入者：</h3>
+                    <p class="text-gray-500 sm:text-lg">{{$item->kinyuusupporter->HyouziMei}}</p>
+                </div>
+                <div class="mb-4 sm:mb-8 sm:flex">
+                    <h3 class="text-gray-500 sm:text-lg mb-2 sm:mb-0">対象期間：</h3>
+                    <p class="text-gray-500 sm:text-lg ">{{$item->TaishoukikanStr}}</P>
+                </div>
                 @can('supporter-binded')
-                <h3 class="text-gray-500 sm:text-lg mb-2 ">承認状態：</h3>
-                <p class="text-gray-500 sm:text-lg mb-6 md:mb-8">{{$item->getShouninStatusName()}}</P>
+                <div class="mb-4 sm:mb-8 sm:flex">
+                    <h3 class="text-gray-500 sm:text-lg mb-2 sm:mb-0">承認状態：</h3>
+                    <p class="text-gray-500 sm:text-lg">{{$item->ShouninStatusName}}</P>
+                </div>
                 @endcan
 
             </div>
@@ -31,7 +36,8 @@
             @endcan
             @can('supporter-binded')
             <div class="mb-32">
-                <p><a class="text-indigo-500" href='\fb\index_sp'>&lt;戻る</a></p>
+                <p><a class="text-indigo-500" href='\fb\edit\?fbNo={{$item->FbNo}}'>&lt;編集</a></p>
+                <p><a class="text-gray-700" href='\fb\index_sp\'>&lt;戻る</a></p>
                 <div class="w-full px-5 py-2 mx-auto mb-8">
                     @include('components.approve-history')
                 </div>

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Consts\DBConst;
 
 use App\Models\ApproveHistory;
+use App\Models\Supporter;
 
 class FB extends Model
 {
@@ -19,11 +20,24 @@ class FB extends Model
     protected $guarded = ['UpdateTimeStamp'];
 
     //リレーション
-    public function kinyuusupporter(){
+    public function kinyuuSupporter(){
         return $this->belongsTo('App\Models\Supporter','KinyuuSupporterCd','SupporterCd');
     }
     public function student(){
         return $this->belongsTo('App\Models\Student','StudentCd','StudentCd');
+    }
+    public function learningRoom()
+    {
+        return $this->belongsTo('App\Models\LR', 'LearningRoomCd', 'LearningRoomCd');
+    }
+    public function shouninSupporter()
+    {
+        return $this->belongsTo('App\Models\Supporter', 'ShouninSupporterCd', 'SupporterCd')->withDefault(new Supporter);
+    }
+    public function shouninStatusName()
+    {
+        return $this->belongsTo('App\Models\MKoumoku', 'ShouninStatus', 'Code')
+            ->where('Shubetu', 100);
     }
 
     //スコープ：承認済みのみ
@@ -31,8 +45,11 @@ class FB extends Model
         //5承認済みに絞る
         return $query->where('ShouninStatus',DBConst::SHOUNIN_STATUS_APPROVED);
     }
+
     //対象期間を From ～ Toの文字で返します
-    public function getTaishoukikanSTR(){
+    //getXXXAttributeに変更。こうすることで、$item->XXX指定で取得できるようになる
+    // public function getTaishoukikanSTR(){
+    public function getTaishoukikanStrAttribute(){
         //取得した値はすべてstringなので、datetimeに変換する
         $from = date_create($this->TaishoukikanFrom);
         $to = date_create($this->TaishoukikanTo);
@@ -113,48 +130,107 @@ class FB extends Model
         return $unreads;
 
      }
-    //承認状態に関わらず取得 削除済みは除く
-    public static function getAllFBList(){
-        return DB::select("
-        SELECT 
-        FbNo, 
-        MAIN.StudentCd, 
-        mst.HyouziMei AS StudentName,
-        `FbShurui`, 
-        `TaishoukikanFrom`, 
-        `TaishoukikanTo`, 
-        MAIN.LearningRoomCd, 
-        mlr.LearningRoomName AS LRName,
-        `Title`, 
-        `Detail`, 
-        `KinyuuSupporterCd`, 
-        msp_kinyuu.HyouziMei AS KinyuuSupporterName , 
-        `KinyuuDate`, 
-        `ShouninSupporterCd`, 
-        msp_shounin.HyouziMei AS ShouninSupporterName , 
-        `ShouninDate`, 
-        `ShouninStatus`,
-        mk.Value AS ShouninStatusName
-        ,FirstReadDate
-        ,LastReadDate
+    //Ph2.2 Livewire化に伴ってEloquent化。廃止
+    // //承認状態に関わらず取得 削除済みは除く
+    // public static function getAllFBList(){
+    //     return DB::select("
+    //     SELECT 
+    //     FbNo, 
+    //     MAIN.StudentCd, 
+    //     mst.HyouziMei AS StudentName,
+    //     `FbShurui`, 
+    //     `TaishoukikanFrom`, 
+    //     `TaishoukikanTo`, 
+    //     MAIN.LearningRoomCd, 
+    //     mlr.LearningRoomName AS LRName,
+    //     `Title`, 
+    //     `Detail`, 
+    //     `KinyuuSupporterCd`, 
+    //     msp_kinyuu.HyouziMei AS KinyuuSupporterName , 
+    //     `KinyuuDate`, 
+    //     `ShouninSupporterCd`, 
+    //     msp_shounin.HyouziMei AS ShouninSupporterName , 
+    //     `ShouninDate`, 
+    //     `ShouninStatus`,
+    //     mk.Value AS ShouninStatusName
+    //     ,FirstReadDate
+    //     ,LastReadDate
 
-        FROM r_fe_feedbackmeisai MAIN 
-        LEFT OUTER JOIN m_student mst
-        ON mst.StudentCd = MAIN.StudentCd
-        LEFT OUTER JOIN m_learningroom mlr
-        ON mlr.LearningRoomCd = MAIN.LearningRoomCd
-        LEFT OUTER JOIN m_supporter msp_kinyuu
-        ON msp_kinyuu.SupporterCd = MAIN.KinyuuSupporterCd
-        LEFT OUTER JOIN m_supporter msp_shounin
-        ON msp_shounin.SupporterCd = MAIN.ShouninSupporterCd
-        LEFT OUTER JOIN m_koumoku mk
-        ON mk.Shubetu = 100
-        AND mk.Code = MAIN.ShouninStatus
-        WHERE 1=1
-        AND MAIN.deleted_at IS NULL
-        ORDER BY MAIN.StudentCd ,MAIN.TaishoukikanFrom DESC, MAIN.TaishoukikanTo DESC, MAIN.FbNo DESC
-        "
-        );
+    //     FROM r_fe_feedbackmeisai MAIN 
+    //     LEFT OUTER JOIN m_student mst
+    //     ON mst.StudentCd = MAIN.StudentCd
+    //     LEFT OUTER JOIN m_learningroom mlr
+    //     ON mlr.LearningRoomCd = MAIN.LearningRoomCd
+    //     LEFT OUTER JOIN m_supporter msp_kinyuu
+    //     ON msp_kinyuu.SupporterCd = MAIN.KinyuuSupporterCd
+    //     LEFT OUTER JOIN m_supporter msp_shounin
+    //     ON msp_shounin.SupporterCd = MAIN.ShouninSupporterCd
+    //     LEFT OUTER JOIN m_koumoku mk
+    //     ON mk.Shubetu = 100
+    //     AND mk.Code = MAIN.ShouninStatus
+    //     WHERE 1=1
+    //     AND MAIN.deleted_at IS NULL
+    //     ORDER BY MAIN.StudentCd ,MAIN.TaishoukikanFrom DESC, MAIN.TaishoukikanTo DESC, MAIN.FbNo DESC
+    //     "
+    //     );
+
+    // }
+
+    //サポーター用 LR別にすべての生徒のフィードバックを取得
+    public static function getAllFBListByLRCode($lr = '999999', $orderColumn = null, $sortOrder = null){
+
+        //指定されたソート列およびソート順に沿ってDBからフィードバック明細を取得
+        switch($orderColumn){
+            case "FbNo":
+                //FbNoは主キーのため、他のorderは不要（意味がない）
+                return self::with('student')
+                ->where('deleted_at', null)
+                ->where('LearningRoomCd', $lr)
+                ->orderBy('FbNo', $sortOrder)
+                ->get();
+                break;
+            case "StudentCd":
+                return self::with('student')
+                ->where('deleted_at', null)
+                ->where('LearningRoomCd', $lr)
+                ->orderBy('StudentCd', $sortOrder)
+                ->orderBy('TaishoukikanFrom', 'DESC')
+                ->orderBy('FbNo', 'DESC')
+                ->get();
+                break;
+            case "TaishoukikanFrom":
+                return self::with('student')
+                ->where('deleted_at', null)
+                ->where('LearningRoomCd', $lr)
+                ->orderBy('TaishoukikanFrom', $sortOrder)
+                ->orderBy('StudentCd', 'ASC')
+                ->orderBy('FbNo', 'DESC')
+                ->get();
+                break;
+            case "created_at":
+                return self::with('student')
+                ->where('deleted_at', null)
+                ->where('LearningRoomCd', $lr)
+                ->orderBy('created_at', $sortOrder)
+                ->get();
+                break;
+            case "updated_at":
+                return self::with('student')
+                ->where('deleted_at', null)
+                ->where('LearningRoomCd', $lr)
+                ->orderBy('updated_at', $sortOrder)
+                ->get();
+                break;
+            default:
+                //これが基本形
+                return self::with('student')
+                ->where('deleted_at', null)
+                ->where('LearningRoomCd', $lr)
+                ->orderBy('StudentCd', 'ASC')
+                ->orderBy('TaishoukikanFrom', 'DESC')
+                ->orderBy('FbNo', 'DESC')
+                ->get();
+        }
 
     }
     //Update系項目のセット
@@ -166,7 +242,8 @@ class FB extends Model
         
     }
     //承認ステータス名を取得
-    public function getShouninStatusName(){
+    //getXXXAttributeに変更。こうすることで、$item->XXX指定で取得できるようになる
+    public function getShouninStatusNameAttribute(){
         return ApproveHistory::stGetShouninStatusName($this->ShouninStatus);
     }
 }

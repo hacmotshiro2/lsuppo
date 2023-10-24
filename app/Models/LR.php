@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class LR extends Model
 {
     protected $table = 'm_learningroom';
-    
+    protected $primaryKey = 'LearningRoomCd';
+    protected $keyType = 'string';
 
     use HasFactory;
 
