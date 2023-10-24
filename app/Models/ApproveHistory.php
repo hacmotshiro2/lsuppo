@@ -49,6 +49,7 @@ class ApproveHistory extends Model
         return $this->ShouninStatus.":".self::stGetShouninStatusName($this->ShouninStatus);
     }
     public static function stGetShouninStatusName(string $shouninStatus){
+        #TODO 項目マスタから取るようにする
         switch($shouninStatus){
         case DBConst:: SHOUNIN_STATUS_DRAFT :
             return '下書き中';
