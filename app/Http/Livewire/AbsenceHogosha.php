@@ -46,8 +46,9 @@ class AbsenceHogosha extends Component
         $this->students = Student::where('hogoshaCd',$hogoshaCd)->orderBy('StudentCd','asc')->get();
 
         //一番最初のStudentCdを選択
-        $this->selectedSCd = $this->students->first()->StudentCd;
-
+        if(count($this->students)>0){
+            $this->selectedSCd = $this->students->first()->StudentCd;
+        }
     }
 
     public function render()

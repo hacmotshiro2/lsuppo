@@ -17,7 +17,7 @@
             </button>
         </div>
     </div>
-    <div :class="isOpen ? 'block' : 'hidden'" class="container fixed md:absolute w-full mt-16 md:mt-16 bg-gray-300 md:block">
+    <div :class="isOpen ? 'block' : 'hidden'" class="container fixed md:absolute w-full mt-16 md:mt-16 bg-gray-300 md:block z-50">
         <div align="right" class="mx-8">
             @unless(@empty($userName))
             <p>{{$userName}}さん</p>
@@ -36,15 +36,16 @@
                         <div :class="ismvOpen? 'block' : 'hidden'">
                         {{-- <div v-show="ismvOpen"> --}}
                             <ul>
-                                <li class="border-b-2 md:border-none md:h-5"><a href="/mv/presen/watch/" class="block px-8 py-2 my-2 bg-gray-300 hover:bg-gray-600  rounded"> - 発表動画</a></li>
-                                <li class="border-none md:h-5 mt-6"><a href="/scratch/index_pj/" class="block px-8 py-2 my-2 bg-gray-300 hover:bg-gray-600  rounded"> - Scratch作品</a></li>
+                                <li class="border-b-2 md:border-none md:h-5"><a href="/mv/presen/watch/" class="block px-8 py-2 my-2 bg-gray-300 hover:bg-gray-600 hover:rounded "> - 発表動画</a></li>
+                                <li class="border-none md:h-5 mt-6"><a href="/scratch/index_pj/" class="block px-8 py-2 my-2 bg-gray-300 hover:bg-gray-600 hover:rounded"> - Scratch作品</a></li>
                             </ul>
                         </div>
                     </div>
                 </li>
                 <li class="border-b-2 md:border-none md:h-4"><a href="/photos/index/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">フォトギャラリー</a></li>
                 <!-- <li class="border-b-2 md:border-none md:h-4"><a href="/lc/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">エルコイン</a></li> -->
-                <li class="border-b-2 md:border-none md:h-4"><a href="/absence/list/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">欠席・振替情報</a></li>
+                <!-- <li class="border-b-2 md:border-none md:h-4"><a href="/absence/list/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">欠席・振替情報</a></li> -->
+                <li class="border-b-2 md:border-none md:h-4"><a href="/absence/list/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">振替券・エルコイン</a></li>
                 <!-- 生徒紐づけが完了していない保護者 -->
                 @elsecan('hogosha-nobind')
                 <li class="border-b-2 md:border-none md:h-4"><a href="/mypage/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">ホーム</a></li>
