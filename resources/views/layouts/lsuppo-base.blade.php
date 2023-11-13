@@ -14,6 +14,12 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
+        <!-- livewireで決まり文句 -->
+        @livewireStyles
+
+        <!-- Fontawesome -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
         @yield('pageCSS')
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -33,26 +39,17 @@
 
             }
 
-        </style>
-        
-        <!-- livewireで決まり文句 -->
-        @livewireStyles
-
-        <!-- Fontawesome -->
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-
-        <style type="text/css">
-       .sorticon{
+            .sorticon{
              visibility: hidden;
-             color: darkgray;
-       }
-       .sort:hover .sorticon{
-             visibility: visible;
-       }
-       .sort:hover{
-             cursor: pointer;
-       }
-       </style>
+                color: darkgray;
+            }
+            .sort:hover .sorticon{
+                visibility: visible;
+            }
+            .sort:hover{
+                cursor: pointer;
+            }
+        </style>
     </head>
     <body class="container mx-auto text-xl text-gray-800" >
         <!-- id=app は下のVuewスクリプトで使われているので消さない -->
