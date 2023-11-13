@@ -52,6 +52,7 @@
        .sort:hover{
              cursor: pointer;
        }
+       </style>
     </head>
     <body class="container mx-auto text-xl text-gray-800" >
         <!-- id=app は下のVuewスクリプトで使われているので消さない -->
