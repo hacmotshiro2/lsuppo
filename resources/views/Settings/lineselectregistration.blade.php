@@ -9,24 +9,25 @@
             <div class="py-6 sm:py-8 lg:py-12">
                 <div class="max-w-screen-2xl px-4 md:px-8 mx-auto">
                     <!-- text - start -->
-                    <div class="mb-10 md:mb-16">
-                        <p class="max-w-screen-md text-gray-800 md:text-xl text-center mx-auto">LINEでログインするための事前設定がまだのようです</p>
+                    <div class="mb-6 sm:mb-16">
+                        <p class="hidden sm:block max-w-screen-md text-gray-800 text-xl text-center mx-auto">LINEでログインするための事前設定がまだのようです</p>
+                        <p class="sm:hidden max-w-screen-md text-gray-800 text-xl text-center mx-auto">事前設定がまだのようです</p>
                     </div>
                     <!-- text - end -->
                 
-                    <div class="grid sm:grid-rows-5 sm:grid-cols-2 grid-flow-col gap-6">
+                    <div class="grid sm:grid-rows-5 sm:grid-cols-2 sm:grid-flow-col gap-6">
                         {{-- 1列目 --}}
                         <!-- product - start -->
                         <div>
                             <h4 class="text-gray-700">すでにエルサポに登録済みの方はこちら</h4>
-                            <p class="text-gray-400">ログイン後、設定画面からLINEとの紐づけを行っていただきます</p>
+                            <p class="text-gray-400 text-xs sm:text-base">ログイン後、設定画面からLINEとの紐づけを行っていただきます</p>
                         </div>
                         <!-- product - end -->
-                
+                        
                         <!-- product - start -->
                         <div class="row-span-4">
-                            <a href="/settings" class="group h-80 flex items-end bg-gray-100 rounded-lg overflow-hidden shadow-lg relative p-4">
-                                <img src="/images/already-registered.png" loading="lazy" alt="Photo by Fakurian Design" class="w-full h-full object-cover object-center absolute inset-0 group-hover:scale-110 transition duration-200" />
+                            <a href="/settings" class="group h-40 sm:h-80 flex items-end bg-gray-100 rounded-lg overflow-hidden shadow-lg relative p-4">
+                                <img src="/images/already-registered.png" loading="lazy" class="w-full h-full object-cover object-center absolute inset-0 group-hover:scale-110 transition duration-200" />
                                 <div class="bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50 absolute inset-0 pointer-events-none"></div>
                             </a>
                         </div>
@@ -36,14 +37,14 @@
                         <!-- product - start -->
                         <div>
                             <h4 class="text-gray-700">これからエルサポに登録する方はこちら</h4>
-                            <p class="text-gray-400">LINEの情報で初期登録していただきます</p>
+                            <p class="text-gray-400 text-xs sm:text-base">LINEの情報で初期登録していただきます</p>
                         </div>
                         <!-- product - end -->
 
                         <!-- product - start -->
                         <div class="row-span-4">
-                            <a href="/register/1" class="group h-80 flex items-end bg-gray-100 rounded-lg overflow-hidden shadow-lg relative p-4">
-                                <img src="/images/new-registration.png" loading="lazy" alt="Photo by Fakurian Design" class="w-full h-full object-cover object-center absolute inset-0 group-hover:scale-110 transition duration-200" />
+                            <a href="/register/1" class="group h-40 sm:h-80 flex items-end bg-gray-100 rounded-lg overflow-hidden shadow-lg relative p-4">
+                                <img src="/images/new-registration.png" loading="lazy" class="w-full h-full object-cover object-center absolute inset-0 group-hover:scale-110 transition duration-200" />
                                 <div class="bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50 absolute inset-0 pointer-events-none"></div>
                             </a>
                         </div>
