@@ -13,16 +13,95 @@
       <!-- content - start -->
       <div class="xl:w-5/12 flex flex-col justify-center sm:text-center lg:text-left lg:py-12 xl:py-24">
         <p class="text-indigo-500 md:text-lg xl:text-xl font-semibold mb-4 md:mb-6">{{$userName}}さん　こんにちは</p>
-        <h2 class="text-indigo-500 text-4xl sm:text-5xl md:text-6xl font-bold mb-8 md:mb-12">いつもありがとうございます</h2>
+        <h2 class="text-indigo-500 text-3xl sm:text-5xl md:text-6xl font-bold mb-8 md:mb-12">いつもありがとうございます</h2>
         @can('hogosha-binded')
         @if($unreads > 0)
-          <h3 class="text-gray-700 text-2xl sm:text-xl md:text-xl font-bold mb-8 md:mb-12"><a href="/fb/">{{$unreads}}件の未読フィードバックがあります</a></h3>
+          <div class="overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div class="flex items-end justify-center min- pr-4 pt-2 pb-4 text-center sm:block sm:p-0">
+                  <!--This is the background that overlays when the modal is active. It  has opacity, and that's why the background looks gray.-->
+                  <!-----
+                add this code to this very first div:
+                fixed inset-0
+              -->
+              <div class="transition-opacity bg-gray-500 bg-opacity-75" aria-hidden="true"></div>
+              <span class="hidden sm:inline-block sm:align-middle sm:" aria-hidden="true">​</span>
+              <!--Modal panel : This is where you put the pop-up's content, the div on top this coment is the wrapper -->
+              <div class="inline-block w-full p-3 lg:p-6 overflow-hidden text-left align-bottom transition-all transform bg-gray-50 rounded-lg shadow-lg sm:shadow-xl sm:my-8 sm:align-middle sm:max-w-xl sm:w-full">
+                <a href="/fb/">
+                  <div class="my-6 sm:my-8 text-left flex">
+                    <div class="w-11/12">
+                      <h2 class="text-xl sm:text-2xl leading-none tracking-tighter text-gray-600"><span class="font-semibold">{{$unreads}}件</span>の未読フィードバックがあります</h2>
+                    </div>
+                    <div class="w-1/12">
+                      <h2 class="text-xl sm:text-2xl font-semibold leading-none tracking-tighter text-gray-600">　<i class="fa-solid fa-chevron-right"></i></h2>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
         @endif
         @if($unabsences > 0)
-          <h3 class="text-gray-700 text-2xl sm:text-xl md:text-xl font-bold mb-8 md:mb-12"><a href="/absence/list/">{{$unabsences}}件の未振替があります</a></h3>
+          <div class="overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div class="flex items-end justify-center min- pr-4 pt-2 pb-4 text-center sm:block sm:p-0">
+                  <!--This is the background that overlays when the modal is active. It  has opacity, and that's why the background looks gray.-->
+                  <!-----
+                add this code to this very first div:
+                fixed inset-0
+              -->
+              <div class="transition-opacity bg-gray-500 bg-opacity-75" aria-hidden="true"></div>
+              <span class="hidden sm:inline-block sm:align-middle sm:" aria-hidden="true">​</span>
+              <!--Modal panel : This is where you put the pop-up's content, the div on top this coment is the wrapper -->
+              <div class="inline-block w-full p-3 lg:p-6 overflow-hidden text-left align-bottom transition-all transform bg-gray-50 rounded-lg shadow-lg sm:shadow-xl sm:my-8 sm:align-middle sm:max-w-xl sm:w-full">
+                <a href="/absence/list/">
+                  <div class="my-6 sm:my-8 text-left flex">
+                    <div class="w-11/12">
+                      <h2 class="text-xl sm:text-2xl leading-none tracking-tighter text-gray-600"><span class="font-semibold">{{$unabsences}}件</span>の未振替があります</h2>
+                    </div>
+                    <div class="w-1/12">
+                      <h2 class="text-xl sm:text-2xl font-semibold leading-none tracking-tighter text-gray-600">　<i class="fa-solid fa-chevron-right"></i></h2>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
         @endif
+        <!-- コース・プラン -->
+          <div class="overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div class="flex items-end justify-center min- pr-4 pt-2 pb-4 text-center sm:block sm:p-0">
+                  <!--This is the background that overlays when the modal is active. It  has opacity, and that's why the background looks gray.-->
+                  <!-----
+                add this code to this very first div:
+                fixed inset-0
+              -->
+              <div class="transition-opacity bg-gray-500 bg-opacity-75" aria-hidden="true"></div>
+              <span class="hidden sm:inline-block sm:align-middle sm:" aria-hidden="true">​</span>
+              <!--Modal panel : This is where you put the pop-up's content, the div on top this coment is the wrapper -->
+              <div class="inline-block w-full p-3 lg:p-6 overflow-hidden text-left align-bottom transition-all transform bg-gray-50 rounded-lg shadow-lg sm:shadow-xl sm:my-8 sm:align-middle sm:max-w-xl sm:w-full">
+                <a href="/">
+                  <p class="text-base sm:text-xl">現在の受講コース・プラン</p>
+                  <div class="my-6 sm:my-8 text-left flex">
+                      <div class="w-11/12">
+                        @if(count($courseplans)>0)
+                        @foreach($courseplans as $cp)
+                          <h4 class="text-base sm:text-xl font-semibold leading-none tracking-tighter text-gray-600">{{$cp->student->HyouziMei}}さん：</h4>
+                          <h4 class="text-xl sm:text-2xl leading-none tracking-tighter text-gray-600">{{$cp->course->Value}}</h4>
+                          <h4 class="text-xl sm:text-2xl leading-none tracking-tighter text-gray-600 mb-2">{{$cp->plan->Value}}</h4>
+                        @endforeach
+                        @else
+                        <p>まだ登録がありません</P>
+                        @endif
+                      </div>
+                      <div class="w-1/12">
+                        <h2 class="text-xl sm:text-2xl font-semibold leading-none tracking-tighter text-gray-200">　<i class="fa-solid fa-chevron-right"></i></h2>
+                      </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
         @endcan
-        <p class="lg:w-4/5 text-gray-500 xl:text-lg leading-relaxed mb-8 md:mb-12">サポーターからのフィードバックメッセージをぜひご覧ください。</p>
       </div>
       <!-- content - end -->
 

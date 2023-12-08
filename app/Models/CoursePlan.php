@@ -35,4 +35,22 @@ class CoursePlan extends Model
         ->where('Shubetu', 120);
     }
 
+    //保護者が参照できる生徒のコース・プラン情報を取得します。
+    public static function getCoursePlansByHogoshaCd(String $hogoshaCd){
+
+        //保護者が選択できる生徒
+        $students = Student::where('hogoshaCd',$hogoshaCd)->get();
+        if(count($students)<=0){return null;}
+
+        $items = [];
+        
+        foreach($students as $student){
+            $item = self::where('StudentCd',$student->StudentCd)->orderBy('ApplicationDate','desc')->first();
+            if($item){
+                $items[]=$item;
+            }
+        }
+
+        return $items;
+    }
 }

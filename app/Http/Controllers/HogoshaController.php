@@ -14,6 +14,7 @@ use App\Models\LR;
 use App\Models\FB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Absence as AbModel;
+use App\Models\CoursePlan;
 
 use App\Consts\MessageConst;
 use App\Consts\AuthConst;
@@ -49,9 +50,13 @@ class HogoshaController extends Controller
             //未振替件数の取得
             $unabsences = AbModel::getUnAbsenceCountByHogoshaCd($hogoshaCd);
 
+            //コース・プラン情報の取得
+            $cps = CoursePlan::getCoursePlansByHogoshaCd($hogoshaCd);
+
             $args=[
                 'unreads' => $unreads,
                 'unabsences' => $unabsences,
+                'courseplans' => $cps,
             ];
         }
 
