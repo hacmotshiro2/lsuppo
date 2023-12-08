@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 
 use App\Models\Absence;
+use App\Models\CoursePlan;
 
 class CustomValidationServiceProvider extends ServiceProvider
 {
@@ -89,5 +90,20 @@ class CustomValidationServiceProvider extends ServiceProvider
             // Absenceテーブル内で指定のLCMeisaiIdが存在するかを確認します
             return !Absence::where('LCMeisaiId', $value)->exists();
         });
+
+        //コース・プランを登録しようとする際に、同じ生徒で同じ日にすでに登録がある場合にエラーとする
+        Validator::extend('appdate_exists', function($attribute,$value,$parameters, $validator){
+            //parameters[0]には、StudentCdがセットされている（CoursePlanRequestで指定）
+
+            //StudentCdとapplicationDateで検索する
+            $cp = CoursePlan::where('StudentCd',$parameters[0])->where('ApplicationDate', $value)->first();
+            if($cp){
+                return false;
+            }
+
+            return true;
+
+        });
+
     }
 }

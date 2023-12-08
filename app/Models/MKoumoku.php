@@ -14,5 +14,6 @@ class MKoumoku extends Model
 
     protected $table = 'm_koumoku'; 
     protected $primaryKey = ['Shubetu','Code'];
+    public $incrementing = false;
 
 }

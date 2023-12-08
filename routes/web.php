@@ -135,7 +135,9 @@ Route::middleware('lsuppo')->group(function () {
     Route::post('/absence/edit', 'App\Http\Controllers\AbsenceController@edit');
     Route::post('/absence/delete', 'App\Http\Controllers\AbsenceController@delete');
     Route::post('/absence/add', 'App\Http\Controllers\AbsenceController@add');
-
+    /* コース・プラン */
+    Route::get('/cp/add/', 'App\Http\Controllers\CoursePlanController@add')->name('cpadd');
+    Route::post('/cp/add/', 'App\Http\Controllers\CoursePlanController@addpost');
 
 
 });
