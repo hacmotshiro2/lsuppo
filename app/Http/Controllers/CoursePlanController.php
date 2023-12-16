@@ -18,7 +18,7 @@ use App\Consts\MessageConst;
 class CoursePlanController extends Controller
 {
     //
-    // \lc\add
+    // \cp\add
     public function add(Request $request){
 
         //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
@@ -37,6 +37,28 @@ class CoursePlanController extends Controller
             'alertErr' =>$alertErr,
         ];
         return view('CoursePlan.regist',$arg);
+
+    }
+    // \cp\detail
+    public function detail(Request $request){
+
+        //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
+        $alertComp='';
+        if($request->session()->has('alertComp')){
+            $alertComp = $request->session()->get('alertComp');
+        }
+        $alertErr='';
+        if($request->session()->has('alertErr')){
+            $alertErr = $request->session()->get('alertErr');
+        }
+        
+
+        $arg = [
+            'alertComp' =>$alertComp,
+            'alertErr' =>$alertErr,
+            'courseplan' =>"1-1",
+        ];
+        return view('CoursePlan.detail',$arg);
 
     }
 

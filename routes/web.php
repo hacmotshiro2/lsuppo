@@ -138,7 +138,7 @@ Route::middleware('lsuppo')->group(function () {
     /* コース・プラン */
     Route::get('/cp/add/', 'App\Http\Controllers\CoursePlanController@add')->name('cpadd');
     Route::post('/cp/add/', 'App\Http\Controllers\CoursePlanController@addpost');
-
+    Route::get('/cp/detail/', 'App\Http\Controllers\CoursePlanController@detail')->name('cpdetail');
 
 });
 

@@ -79,27 +79,33 @@
               <span class="hidden sm:inline-block sm:align-middle sm:" aria-hidden="true">​</span>
               <!--Modal panel : This is where you put the pop-up's content, the div on top this coment is the wrapper -->
               <div class="inline-block w-full p-3 lg:p-6 overflow-hidden text-left align-bottom transition-all transform bg-gray-50 rounded-lg shadow-lg sm:shadow-xl sm:my-8 sm:align-middle sm:max-w-xl sm:w-full">
-                <a href="/">
+                @if(count($courseplans)>0)
+                <a href="/cp/detail/">
                   <p class="text-base sm:text-xl">現在の受講コース・プラン</p>
                   <div class="my-6 sm:my-8 text-left flex">
                       <div class="w-11/12">
-                        @if(count($courseplans)>0)
                         @foreach($courseplans as $cp)
                           <h4 class="text-base sm:text-xl font-semibold leading-none tracking-tighter text-gray-600">{{$cp->student->HyouziMei}}さん：</h4>
                           <h4 class="text-xl sm:text-2xl leading-none tracking-tighter text-gray-600">{{$cp->course->Value}}</h4>
                           <h4 class="text-xl sm:text-2xl leading-none tracking-tighter text-gray-600 mb-2">{{$cp->plan->Value}}</h4>
                         @endforeach
-                        @else
-                        <p>まだ登録がありません</P>
-                        @endif
                       </div>
                       <div class="w-1/12">
-                        <h2 class="text-xl sm:text-2xl font-semibold leading-none tracking-tighter text-gray-200">　<i class="fa-solid fa-chevron-right"></i></h2>
+                        <h2 class="text-xl sm:text-2xl font-semibold leading-none tracking-tighter text-gray-600">　<i class="fa-solid fa-chevron-right"></i></h2>
                       </div>
                   </div>
                 </a>
+                @else
+                <div>
+                  <p class="text-base sm:text-xl">現在の受講コース・プラン</p>
+                  <div class="my-6 sm:my-8 text-left flex">
+                      <div class="w-12/12">
+                        <p>まだ登録がありません</P>
+                      </div>
+                  </div>
+                </div>
+                @endif
               </div>
-            </div>
           </div>
         @endcan
       </div>
