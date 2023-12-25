@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Consts\DBConst;
+use App\Models\MKoumoku;
 
 class CoursePlan extends Model
 {
@@ -34,6 +35,30 @@ class CoursePlan extends Model
         return $this->belongsTo('App\Models\MKoumoku', 'PlanCd', 'Code')
         ->where('Shubetu', 120);
     }
+
+    //コース名
+    public function getCourseNameAttribute(){
+
+        $mkoumoku = MKoumoku::where('Shubetu', 110)->where('Code',$this->CourseCd)->first();
+        if($mkoumoku){
+            return $mkoumoku->Value;
+        }
+        else{
+            return "";
+        }
+    }
+    //プラン名
+    public function getPlanNameAttribute(){
+        $mkoumoku = MKoumoku::where('Shubetu', 120)->where('Code',$this->PlanCd)->first();
+        if($mkoumoku){
+            return $mkoumoku->Value;
+        }
+        else{
+            return "";
+        }
+
+    }
+    
 
     //保護者が参照できる生徒のコース・プラン情報を取得します。
     public static function getCoursePlansByHogoshaCd(String $hogoshaCd){

@@ -6,31 +6,20 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Livewire\WithPagination;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Carbon; // Carbonクラスを使うために追加
 
 use App\Models\Hogosha;
 use App\Models\Student;
-use App\Models\Absence as AbModel;
+use App\Models\CoursePlan;
+use App\Models\MMonthlyFee;
 
 class CourseplanDetail extends Component
 {
     use WithPagination;
 
-    //未振替テーブル用
-    public $orderColumn = "AbsentDate";
-    public $sortOrder = "asc";
-    public $sortLink = '<i class="sorticon fa-solid fa-caret-up"></i>';
-    //振替済みテーブル用
-    public $orderColumnDone = "AbsentDate";
-    public $sortOrderDone = "desc";
-    public $sortLinkDone = '<i class="sorticon fa-solid fa-caret-down"></i>';
-
     //選択中のスチューデントコード
     public $selectedSCd = "DUMMY";
-    //ラジオボタンの値
-    public $rdHurikae = "rdUn";
-    //それぞれの件数
-    public $countUn = 0;
-    public $countDone = 0;
 
     public function __construct()
     {
@@ -51,94 +40,71 @@ class CourseplanDetail extends Component
 
     public function render()
     {
+        //取得する情報がない場合1を立てる
+        $noitem=0;
 
         //選択中の（抽出対象の）生徒コード　未選択なら空白に
         $studentCd = isset($this->selectedSCd) ? $this->selectedSCd : "";
 
         //選択中の生徒コードから生徒名を取得　未選択なら空白に
-        $student = Student::find($studentCd);
+        $student = Student::find($this->selectedSCd);
         $studentName = $student ? $student->HyouziMei : "";
 
         // Log::info("欠席情報Livewire",[$studentCd,$studentName]);
 
-        //未振替欠席情報の取得（期限切れもこちらに）
+        //コースプラン履歴を取得
         //student という名前のリレーションシップを eager loading 
-        $items_un = AbModel::with('student')
-        ->where('StudentCd',$studentCd)
-        ->whereIn('HurikaeStatus',[0,9])
-        ->orderby($this->orderColumn,$this->sortOrder)
-        ->paginate(8);
+        $cpHistories=[];
+        $cpHistories = CoursePlan::with('student')
+        // ->where('StudentCd',$studentCd)
+        ->where('StudentCd',$this->selectedSCd)
+        ->where('ApplicationDate',"<=",Carbon::now())
+        ->orderby('ApplicationDate','desc')
+        ->get();
 
-        //ヘッダ表示表に総件数を取得
-        $this->countUn = $items_un->total();
+        //コースプラン月謝マスタの取得
+        $mmfs= MMonthlyFee::orderby('CPCd','ASC')
+        ->get();
 
-        //振替済み欠席情報の取得
-        $items_done = AbModel::with('student')
-        ->where('StudentCd',$studentCd)
-        ->whereNotIn('HurikaeStatus',[0,9])
-        ->orderby($this->orderColumnDone,$this->sortOrderDone)
-        ->paginate(5,['*'],'pageDone');
-        //1ページに複数のpaginationをする場合は、このように名前を指定する。URLの ~? pageDone=2を指定している。 
+        // 選択中のコースプランを1行目、それ以外を2行目以降にした配列を作る
+        $cps=new Collection();
 
-        //ヘッダ表示表に総件数を取得
-        $this->countDone = $items_done->total();
+        if($cpHistories->isNotEmpty()){
 
+            //条件に合致する行を先頭に配置する
+            $cps = $mmfs->sortByDesc(function ($item) use ($cpHistories) {
+                return $item['CPCd'] === $cpHistories[0]->CPCd;
+                // return $item['CPCd'] === '2_4';
+            });
+
+        }
+        else{
+            $noitem = 1;
+        }
 
         $args=[
             'students' => $this->students,
             'studentName' => $studentName,
-            'absences_un' => $items_un,
-            'absences_done' => $items_done,
+            'cps' => $cps,
+            'cpHistories' => $cpHistories,
+            'noitem'=>$noitem,
         ];
+
+        // print($mmfs);
+        // // 結果を表示
+        // // $cps->each(function ($item) {
+        // //     print_r($item); // または別の表示方法を選択
+        // // });
+        // print($cps);
 
         return view('livewire.courseplan-detail',$args);
     }
     // updated メソッドは、Livewireコンポーネント内の特別なメソッドであり、プロパティが更新されたときに自動的に呼び出されます。
     public function updated(){
-        //paginationを使用するときに、ページネーションをリセットして最初のページに戻すために使用されます。
-        //何かが変更されたときにページをリセットし、最初のページに戻すことができます。
-        $this->resetPage();
-        $this->resetPage('pageDone');
+       
     }
     //selectedSCdプロパティが変更されたときに発生するイベント（勝手にコールされる）
-    public function updatedSelectedSCd(){
+    public function updatedSelectedSCd(){}
 
-        //選択された生徒コードが変わった時、
-        //ページネーションをリセットする
-        $this->resetPage();
-        $this->resetPage('pageDone');
 
-    }
-    //未振替テーブル用
-    public function sortOrder($columnName=""){
-        $caretOrder = "up";
-        //今がASCならDESC。DESCならASC
-        if($this->sortOrder == 'asc'){
-             $this->sortOrder = 'desc';
-             $caretOrder = "down";
-        }else{
-             $this->sortOrder = 'asc';
-             $caretOrder = "up";
-        } 
-        $this->sortLink = '<i class="sorticon fa-solid fa-caret-'.$caretOrder.'"></i>';
-
-        $this->orderColumn = $columnName;
-
-    }
-    //振替済みテーブル用
-    public function sortOrderDone($columnName=""){
-        $caretOrder = "up";
-        //今がASCならDESC。DESCならASC
-        if($this->sortOrderDone == 'asc'){
-             $this->sortOrderDone = 'desc';
-             $caretOrder = "down";
-        }else{
-             $this->sortOrderDone = 'asc';
-             $caretOrder = "up";
-        } 
-        $this->sortLinkDone = '<i class="sorticon fa-solid fa-caret-'.$caretOrder.'"></i>';
-
-        $this->orderColumnDone = $columnName;
-
-    }
 }

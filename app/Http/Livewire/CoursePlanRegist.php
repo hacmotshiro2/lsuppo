@@ -14,7 +14,7 @@ use App\Models\MKoumoku;
 use App\Models\CoursePlan;
 
 
-class CoursePlanRegist extends Component
+class CourseplanRegist extends Component
 {
     use WithPagination;
 

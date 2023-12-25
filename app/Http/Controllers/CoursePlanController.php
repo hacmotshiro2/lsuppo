@@ -56,7 +56,6 @@ class CoursePlanController extends Controller
         $arg = [
             'alertComp' =>$alertComp,
             'alertErr' =>$alertErr,
-            'courseplan' =>"1-1",
         ];
         return view('CoursePlan.detail',$arg);
 
