@@ -61,9 +61,6 @@
             </div>
             <div class="bg-white-100 mt-16 md:mt-44">
                 <div>
-                    <div wire:offline>
-                        <x-lsuppo-alert-warning :alert=""接続が不安定です"" />
-                    </div>
                     @if(!empty($alertComp))
                     <x-lsuppo-alert-completed :alert="$alertComp" />
                     @endif
@@ -82,62 +79,43 @@
                     @endif
                 </div>
                 <div class="content overflow-none ">
-                @yield('content')
+                    @yield('content')
                 </div>
             </div>
             <!-- フッターと重なるので空白を入れる -->
             <div class="h-12"></div>
-            {{-- <div class="w-full fixed bottom-1 z-50"> ずっと見えておく必要もないので--}}
             <div class="w-full z-50">
                 <x-lsuppo-footer />
             </div>
         </div>
-    <script>
-       const app= new Vue({
-        //ハンバーガーメニュー用
-        el:'#app',
-        data:{
-            isOpen:false,
-            ismvOpen:false,
-        }
-       });
-       //このやり方は間違っている↓
-       //    const appMV= new Vue({
-       //     //動画と作品ドロップダウンメニュー用
-       //     el:'#app',
-       //     data:{
-       //         ismvOpen:false,
-       //     }
-       //    });
-    </script> 
-    <script type="text/javascript">
-        // FB登録画面で、文字数をカウントします
-        const textarea = document.querySelector('#txtaDetail');
-        const detail_length = document.querySelector('#detail_length');
-        //イベント登録
-        textarea.addEventListener('keyup', onKeyUp);
-        function onKeyUp(){
-            detail_length.innerText = textarea.value.length;
-        }
-        //LC削除時の確認処理
-        function onDelete(){
-            if(window.confirm('削除します。よろしいですか？')){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-        // const formLCDelete = document.querySelector('#formLCDelete');
-        // formLCDelete.addEventListener('onsubmit',(event)=>{
-        //     return window.confirm();
-        // });
-    </script>
-    <!-- <script src="../path/to/flowbite/dist/flowbite.js"></script> -->
-    <!-- Flowbite追加 -->
-    <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
-    @yield('pageScript')
+        <script type="text/javascript">
+            const app= new Vue({
+                //ハンバーガーメニュー用
+                el:'#app',
+                data:{
+                    isOpen:false,
+                    ismvOpen:false,
+                }
+            });
 
-    @livewireScripts
+
+            //LC削除時の確認処理
+            function onDelete(){
+                if(window.confirm('削除します。よろしいですか？')){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            
+        </script>
+        <!-- Flowbite追加 -->
+        <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
+
+        @yield('pageScript')
+
+        @livewireScripts
+
     </body>
 </html>
