@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Consts\DBConst;
 use App\Models\MKoumoku;
+use Illuminate\Support\Carbon; // Carbonクラスを使うために追加
 
 class CoursePlan extends Model
 {
@@ -70,7 +71,7 @@ class CoursePlan extends Model
         $items = [];
         
         foreach($students as $student){
-            $item = self::where('StudentCd',$student->StudentCd)->orderBy('ApplicationDate','desc')->first();
+            $item = self::where('StudentCd',$student->StudentCd)->where('ApplicationDate',"<=",Carbon::now())->orderBy('ApplicationDate','desc')->first();
             if($item){
                 $items[]=$item;
             }

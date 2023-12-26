@@ -50,13 +50,12 @@ class CourseplanDetail extends Component
         $student = Student::find($this->selectedSCd);
         $studentName = $student ? $student->HyouziMei : "";
 
-        // Log::info("欠席情報Livewire",[$studentCd,$studentName]);
+        // Log::info("CourseplanDetailLivewire",[$studentCd,$studentName]);
 
         //コースプラン履歴を取得
         //student という名前のリレーションシップを eager loading 
         $cpHistories=[];
         $cpHistories = CoursePlan::with('student')
-        // ->where('StudentCd',$studentCd)
         ->where('StudentCd',$this->selectedSCd)
         ->where('ApplicationDate',"<=",Carbon::now())
         ->orderby('ApplicationDate','desc')
@@ -73,10 +72,8 @@ class CourseplanDetail extends Component
 
             //条件に合致する行を先頭に配置する
             $cps = $mmfs->sortByDesc(function ($item) use ($cpHistories) {
-                return $item['CPCd'] === $cpHistories[0]->CPCd;
-                // return $item['CPCd'] === '2_4';
-            });
-
+                return $item['CPCd'] == MMonthlyFee::getCPCd($cpHistories[0]->CourseCd,$cpHistories[0]->PlanCd);
+            })->values();//☆☆☆values()をつけないと、キー（インデックス）はそのまま。
         }
         else{
             $noitem = 1;
@@ -90,21 +87,51 @@ class CourseplanDetail extends Component
             'noitem'=>$noitem,
         ];
 
-        // print($mmfs);
-        // // 結果を表示
-        // // $cps->each(function ($item) {
-        // //     print_r($item); // または別の表示方法を選択
-        // // });
-        // print($cps);
+        // echo '<pre>';
+        // print_r("| ");
+        // print_r($cps[0]->CPCd);
+        // print_r(",");
+        // print_r($cps[0]->Fee);
+
+        // print_r("  --- cps --- ");
+        // foreach ($cps as $cp) {
+        //     print_r("| ");
+        //     print_r($cp->index);
+        //     print_r($cp->CPCd);
+        //     print_r(",");
+        //     print_r($cp->Fee);
+        // }
+        // print_r("  --- cpHistories --- ");
+        // foreach ($cpHistories as $cpHistory) {
+        //     print_r("| ");
+        //     print_r($cpHistory->CourseCd);
+        //     print_r(",");
+        //     print_r($cpHistory->PlanCd);
+        // }
+        // echo '</pre>';
+        // echo '<pre>';
+        // var_dump($cps);
+        // // var_dump($cpHistories);
+        // echo '</pre>';
 
         return view('livewire.courseplan-detail',$args);
     }
     // updated メソッドは、Livewireコンポーネント内の特別なメソッドであり、プロパティが更新されたときに自動的に呼び出されます。
-    public function updated(){
-       
+    public function updated($field)
+    {
+        // Log::info("updated",[$field]);
+
+        if ($field == 'selectedSCd') {
+            $this->render();
+        }
     }
+    
     //selectedSCdプロパティが変更されたときに発生するイベント（勝手にコールされる）
-    public function updatedSelectedSCd(){}
+    public function updatedSelectedSCd()
+    {
+        // Log::info("updatedSelectedSCd",["updatedSelectedSCd"]);
+        $this->render();
+    }
 
 
 }

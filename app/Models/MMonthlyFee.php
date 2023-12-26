@@ -32,7 +32,7 @@ class MMonthlyFee extends Model
     }
 
     //このマスタの主キーと照合するために、ルールに従って主キーの形にして返してあげる
-    public function getCPCd($courseCd, $planCd){
+    public static function getCPCd($courseCd, $planCd){
 
         return $courseCd."_".$planCd;
     }

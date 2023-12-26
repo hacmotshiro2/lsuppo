@@ -79,7 +79,7 @@ class m_koumokuTableSeeder extends Seeder
         $param =[
             'Shubetu' => 110,
             'Code' => '1',
-            'Value'=>'Generalコース',
+            'Value'=>'ゼネラルコース',
             'Hosoku'=>'',
             'UpdateGamen' => 'seeder',
             'UpdateSystem' => 'lsuppo',
@@ -90,7 +90,7 @@ class m_koumokuTableSeeder extends Seeder
         $param =[
             'Shubetu' => 110,
             'Code' => '2',
-            'Value'=>'Professionalコース',
+            'Value'=>'プロフェッショナルコース',
             'Hosoku'=>'',
             'UpdateGamen' => 'seeder',
             'UpdateSystem' => 'lsuppo',
