@@ -25,13 +25,15 @@ use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
 
+use App\Models\Student;
+
 class UnDoneAbsencesNotification extends LSuppoNotification
 {
     use Queueable;
 
     private bool $toHogosha; //保護者かどうか。falseならサポーター向け
     private string $name; //通知先のお名前
-    private string $students;
+    private $students;
     private $countPerStudent;
 
     /**
@@ -43,7 +45,7 @@ class UnDoneAbsencesNotification extends LSuppoNotification
     {
         $this->toHogosha = $isToHogosha;
         $this->name = $name;
-        $this->studnets = $students;
+        $this->students = $students;
         $this->countPerStudent=$countPerStudent;
     }
 
@@ -94,7 +96,7 @@ class UnDoneAbsencesNotification extends LSuppoNotification
             // 呼び出し側で、対象の生徒に絞っている前提
 
             // 例）SDemo2 斉藤向日葵 2 件
-            $student = $this->studnets->where('StudentCd',$key)->first();
+            $student = $this->students->where('StudentCd',$key)->first();
             $ret = $ret->line($student->StudentCd." ".$student->HyouziMei."さん ".$count." 件");
         }
 
@@ -117,8 +119,8 @@ class UnDoneAbsencesNotification extends LSuppoNotification
             // 呼び出し側で、対象の生徒に絞っている前提
 
             // 例）SDemo2 斉藤向日葵 405 エルコイン
-            $student = $this->studnets->where('StudentCd',$key)->first();
-            $content = $content.$student->StudentCd." ".$student->HyouziMei."さん ".$count." エルコイン \n";
+            $student = $this->students->where('StudentCd',$key)->first();
+            $content = $content.$student->StudentCd." ".$student->HyouziMei."さん ".$count." 件 \n";
         }
 
         return (new TextMessageBuilder($this->name."さん こんにちは　プログラミングスクールLです。\n"

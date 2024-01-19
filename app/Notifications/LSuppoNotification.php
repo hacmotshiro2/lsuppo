@@ -18,7 +18,7 @@ abstract class LSuppoNotification extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable Userの中にあるtrait
+     * @param  mixed  $notifiable Userの中にあるtrait つまり$userのインスタンスが入ってくる
      * @return array
      */
     public function via($notifiable)
@@ -38,5 +38,24 @@ abstract class LSuppoNotification extends Notification
     * driver名 line に対して、toLineは、UpperCamel型にする必要がある
     */
     protected abstract function toLine($notifiable);
+
+    // No.Ph.2.4 h.hashimoto 2024/01/19 ------>
+    // 利用終了している保護者やサポーターには通知しない
+    /**
+     * Determine if the notification should be sent.
+     *
+     * @param  mixed  $notifiable
+     * @param  string  $channel
+     * @return bool
+     */
+    public function shouldSend($notifiable, $channel)
+    {
+        //UserのisDisabledが1なら送らない
+        if($notifiable->isDisabled == 1){return false;}
+
+        return true;
+    }
+    // <------  No.Ph.2.4 h.hashimoto 2024/01/19 
+
 }
 

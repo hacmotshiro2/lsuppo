@@ -43,10 +43,13 @@ class MonitorUnDoneAbsences extends Command
         $today = now()->toDateString();
         $countPerStudent=[];
 
-        //1.アクティブなStudentを取得する
-        $students = Student::whereNull('RiyouShuuryouDate')
-        ->orWhere('RiyouShuuryouDate', '>', $today)
-        ->orderBy('StudentCd','asc')
+        // //1.アクティブなStudentを取得する
+        // $students = Student::whereNull('RiyouShuuryouDate')
+        // ->orWhere('RiyouShuuryouDate', '>', $today)
+        // ->orderBy('StudentCd','asc')
+        // ->get();
+        //ゆくゆくは、アクティブだけに絞るが、ページ側と合わないので、一旦は全生徒にする
+        $students = Student::orderBy('StudentCd','asc')
         ->get();
 
         Log::info('[MonitorUnDoneAbsences]1.students',[$students]);
@@ -107,7 +110,6 @@ class MonitorUnDoneAbsences extends Command
             $hogoshaCd = Hogosha::getHogoshaCd($hUser);
 
             Log::info('[MonitorUnDoneAbsences]4-3.hogoshaCd',[$hogoshaCd]);
-            Log::info('[MonitorUnDoneAbsences]4-3.students',[$students]);
 
 
             //4-4.保護者に紐づく生徒を取得

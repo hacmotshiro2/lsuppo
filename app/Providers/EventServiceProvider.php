@@ -12,6 +12,11 @@ use App\Models\User;
 use App\Observers\UserObserver;
 // <------  No. h.hashimoto 2022/08/25 
 
+// No.Ph.2.4 h.hashimoto 2024/01/19 ------>
+use App\Listeners\LogNotification;
+use Illuminate\Notifications\Events\NotificationSent;
+// <------  No.Ph.2.4 h.hashimoto 2024/01/19 
+
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -26,6 +31,11 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        // No.Ph.2.4 h.hashimoto 2024/01/19 ------>
+        NotificationSent::class => [
+            LogNotification::class,
+        ],
+        // <------  No.Ph.2.4 h.hashimoto 2024/01/19 
     ];
 
     /**

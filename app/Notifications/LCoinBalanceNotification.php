@@ -34,7 +34,7 @@ class LCoinBalanceNotification extends LSuppoNotification
 
     private bool $toHogosha; //保護者かどうか。falseならサポーター向け
     private string $name; //通知先のお名前
-    private string $students;
+    private $students;
     private $balancePerStudent;
 
     /**
@@ -46,7 +46,7 @@ class LCoinBalanceNotification extends LSuppoNotification
     {
         $this->toHogosha = $isToHogosha;
         $this->name = $name;
-        $this->studnets = $students;
+        $this->students = $students;
         $this->balancePerStudent=$balancePerStudent;
     }
 
@@ -97,7 +97,7 @@ class LCoinBalanceNotification extends LSuppoNotification
             // 呼び出し側で、対象の生徒に絞っている前提
 
             // 例）SDemo2 斉藤向日葵 405 エルコイン
-            $student = $this->studnets->where('StudentCd',$key)->first();
+            $student = $this->students->where('StudentCd',$key)->first();
             $ret = $ret->line($student->StudentCd." ".$student->HyouziMei."さん ".$balance." エルコイン");
         }
 
@@ -119,7 +119,7 @@ class LCoinBalanceNotification extends LSuppoNotification
             // 呼び出し側で、対象の生徒に絞っている前提
 
             // 例）SDemo2 斉藤向日葵 405 エルコイン
-            $student = $this->studnets->where('StudentCd',$key)->first();
+            $student = $this->students->where('StudentCd',$key)->first();
             $content = $content.$student->StudentCd." ".$student->HyouziMei."さん ".$balance." エルコイン \n";
         }
 
