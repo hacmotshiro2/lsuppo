@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Log;
 
 use App\Models\Absence;
 use App\Models\CoursePlan;
+use App\Models\User;
+
+use App\Consts\AuthConst;
 
 class CustomValidationServiceProvider extends ServiceProvider
 {
@@ -103,6 +106,20 @@ class CustomValidationServiceProvider extends ServiceProvider
 
             return true;
 
+        });
+
+        //ユーザータイプが保護者以外ならエラー
+        Validator::extend('user_is_hogosha', function($attribute, $value, $parameters, $validator){
+            //$value user_idがセットされる想定
+
+            $usr = User::find($value);
+            if($usr){
+                if($usr->userType == AuthConst::USER_TYPE_HOGOSHA){
+                    return true;
+                }
+            }
+        
+            return false;
         });
 
     }

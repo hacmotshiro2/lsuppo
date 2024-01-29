@@ -1,6 +1,7 @@
-<div class="bg-emerald-100 rounded-lg border-y-lime-700">
-    <h1>super menu</h1>
-    <ul class="list-decimal my-8">
+<div class="bg-emerald-100 rounded border-y-lime-700 relative my-8">
+    <button class="w-full" wire:click="toggleMenu">管理者メニュー　　{!! $icOpenClose !!}</button>
+    @if($isMenuOpen)
+    <ul class="list-decimal m-8">
         <!-- <li><a href="/lr/add/">ラーニングルーム登録</a></li> -->
         <li class="pl-4">ラーニングルーム登録</li>
         <li class="hover:bg-emerald-200 rounded pl-4"><a href="/hogosha/add/">保護者登録</a></li>
@@ -18,4 +19,5 @@
         <li class="hover:bg-emerald-200 rounded pl-4"><a href="/signinhistory/index/">サインイン履歴一覧</a></li>
         <li class="hover:bg-emerald-200 rounded pl-4"><a href="/cp/add/">コース・プラン登録</a></li>
     </ul>
+    @endif
 </div>

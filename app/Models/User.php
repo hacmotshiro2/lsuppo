@@ -161,6 +161,24 @@ class User extends Authenticatable
     }
     // <------  No. h.hashimoto 2022/12/31 
 
+    // No.Ph.2.5 h.hashimoto 2024/01/28 ------>
+    public function getUserTypeNameAttribute(){
+        $ret = "";
+
+        switch($this->userType){
+            case AuthConst::USER_TYPE_HOGOSHA:
+                $ret = "保護者";
+                break;
+            case AuthConst::USER_TYPE_SUPPORTER:
+                $ret = "サポーター";
+                break;
+            default:
+                break;
+        }
+        return $ret;
+    }
+    // <------  No.Ph.2.5 h.hashimoto 2024/01/28 
+
 
 }
 
