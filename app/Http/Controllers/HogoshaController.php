@@ -80,23 +80,23 @@ class HogoshaController extends Controller
         $items = Hogosha::all();
         $lrs = LR::all();
 
-        //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
-        $alertComp='';
-        if($request->session()->has('alertComp')){
-            $alertComp = $request->session()->get('alertComp');
-        }
-        $alertErr='';
-        if($request->session()->has('alertErr')){
-            $alertErr = $request->session()->get('alertErr');
-        }
+        // //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
+        // $alertComp='';
+        // if($request->session()->has('alertComp')){
+        //     $alertComp = $request->session()->get('alertComp');
+        // }
+        // $alertErr='';
+        // if($request->session()->has('alertErr')){
+        //     $alertErr = $request->session()->get('alertErr');
+        // }
         
         $arg=[
             'mode'=>$mode,
             'item'=>$item,
             'items'=>$items,
             'lrs' =>$lrs,
-            'alertComp'=>$alertComp,
-            'alertErr'=>$alertErr,
+            // 'alertComp'=>$alertComp,
+            // 'alertErr'=>$alertErr,
         ];
 
         return view('Hogosha.add',$arg);
@@ -169,24 +169,23 @@ class HogoshaController extends Controller
         $items = User2Hogosha::getu2hData();
 
         $itemsHogosha = Hogosha::all();
-        //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
-        $alertComp='';
-        if($request->session()->has('alertComp')){
-            $alertComp = $request->session()->get('alertComp');
-        }
-        $alertErr='';
-        if($request->session()->has('alertErr')){
-            $alertErr = $request->session()->get('alertErr');
-        }
+       
         
         $args=[
             'items'=>$items,
             'itemsHogosha' =>$itemsHogosha,
-            'alertComp'=>$alertComp,
-            'alertErr'=>$alertErr,
+            // 'alertComp'=>$alertComp,
+            // 'alertErr'=>$alertErr,
         ];
 
-        return view('user2hogosha.add',$args);
+        // return view('user2hogosha.add',$args)->with('alertComp',$request->session()->get('alertComp'));
+        return view('user2hogosha.add',$args)
+        ->with([
+            'alertComp'=>session('alertComp'),
+            'alertErr'=>session('alertErr'),
+            'alertInfo'=>session('alertInfo'),
+            'alertWar'=>session('alertWar'),
+        ]);
 
     }
     //user2保護者登録画面のPOST
