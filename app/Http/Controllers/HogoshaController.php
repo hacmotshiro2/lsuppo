@@ -168,22 +168,13 @@ class HogoshaController extends Controller
     //user2保護者登録第一画面へ /user2hogosha/list/
     public function u2hlist(Request $request, Response $response){
 
-        //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
-        $alertComp='';
-        if($request->session()->has('alertComp')){
-            $alertComp = $request->session()->get('alertComp');
-        }
-        $alertErr='';
-        if($request->session()->has('alertErr')){
-            $alertErr = $request->session()->get('alertErr');
-        }
-        
-        $args=[
-            'alertComp'=>$alertComp,
-            'alertErr'=>$alertErr,
-        ];
-
-        return view('user2hogosha.list',$args);
+        return view('user2hogosha.list',$args)
+            ->with([
+            'alertComp'=>session('alertComp'),
+            'alertErr'=>session('alertErr'),
+            'alertInfo'=>session('alertInfo'),
+            'alertWar'=>session('alertWar'),
+        ]);
 
     }
     //user2保護者登録第二画面へ /user2hogosha/edit/ GET
