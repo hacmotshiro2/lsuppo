@@ -50,7 +50,7 @@ class LsuppoSbHogosha extends Component
             //もしIDが入力されて、レコードにヒットすれば、検索画面は出さない
             $record = Hogosha::find($this->search);
             if($record){
-                $this->search = $record->id;
+                $this->search = $record->HogoshaCd;
                 $this->hDetails = $record;
                 $this->showresult = false;
             }

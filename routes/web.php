@@ -72,8 +72,10 @@ Route::middleware('lsuppo')->group(function () {
     Route::post('/fb/decline/', 'App\Http\Controllers\FBController@decline');
 
     Route::get('/hogosha/add/{HogoshaCd?}', 'App\Http\Controllers\HogoshaController@add')->name('hogosha-add');
-    Route::post('/hogosha/add/', 'App\Http\Controllers\HogoshaController@create');
-    Route::post('/hogosha/edit/', 'App\Http\Controllers\HogoshaController@edit');
+    Route::get('/hogosha/list', 'App\Http\Controllers\HogoshaController@list')->name('hogosha-list');
+    Route::get('/hogosha/edit/', 'App\Http\Controllers\HogoshaController@edit');
+    Route::post('/hogosha/create/', 'App\Http\Controllers\HogoshaController@create');
+    Route::post('/hogosha/update/', 'App\Http\Controllers\HogoshaController@update');
     Route::post('/hogosha/delete/', 'App\Http\Controllers\HogoshaController@delete');
 
     Route::get('/student/add/', 'App\Http\Controllers\StudentController@add')->name('student-add');

@@ -4,7 +4,7 @@
     <!-- ref:https://makitweb.com/make-live-autocomplete-search-with-livewire-in-laravel/ -->
     <div class="sm:flex ">
         <div>
-            <x-lsuppo-input type='text' name="HogoshaCd" wire:model.debounce.10ms="search" maxlength="8" wire:keyup="searchResult" placeholder="名前で検索できます"  :readonly="$isRO"></x-lsuppo-input>
+            <x-lsuppo-input type='text' name="HogoshaCd" wire:model.debounce.1000ms="search" maxlength="8" wire:keyup="searchResult" placeholder="名前で検索できます"  :readonly="$isRO"></x-lsuppo-input>
         </div>
         @if(!empty($hDetails))
             <div class="inline-block  align-middle ">
