@@ -71,16 +71,17 @@ Route::middleware('lsuppo')->group(function () {
     Route::post('/fb/approve/', 'App\Http\Controllers\FBController@approve');
     Route::post('/fb/decline/', 'App\Http\Controllers\FBController@decline');
 
-    Route::get('/hogosha/add/{HogoshaCd?}', 'App\Http\Controllers\HogoshaController@add')->name('hogosha-add');
+    // Route::get('/hogosha/add/{HogoshaCd?}', 'App\Http\Controllers\HogoshaController@add')->name('hogosha-add');
     Route::get('/hogosha/list', 'App\Http\Controllers\HogoshaController@list')->name('hogosha-list');
     Route::get('/hogosha/edit/', 'App\Http\Controllers\HogoshaController@edit');
     Route::post('/hogosha/create/', 'App\Http\Controllers\HogoshaController@create');
     Route::post('/hogosha/update/', 'App\Http\Controllers\HogoshaController@update');
     Route::post('/hogosha/delete/', 'App\Http\Controllers\HogoshaController@delete');
 
-    Route::get('/student/add/', 'App\Http\Controllers\StudentController@add')->name('student-add');
-    Route::post('/student/add/', 'App\Http\Controllers\StudentController@create');
-    Route::post('/student/edit/', 'App\Http\Controllers\StudentController@edit');
+    Route::get('/student/list/', 'App\Http\Controllers\StudentController@list')->name('student-list');
+    Route::get('/student/edit/', 'App\Http\Controllers\StudentController@edit')->name('student-edit');
+    Route::post('/student/create/', 'App\Http\Controllers\StudentController@create');
+    Route::post('/student/update/', 'App\Http\Controllers\StudentController@update');
     Route::post('/student/delete/', 'App\Http\Controllers\StudentController@delete');
 
     Route::get('/user2hogosha/list/', 'App\Http\Controllers\HogoshaController@u2hlist')->name('u2h-list');
@@ -88,14 +89,16 @@ Route::middleware('lsuppo')->group(function () {
     Route::post('/user2hogosha/create/', 'App\Http\Controllers\HogoshaController@u2hcreate');
     Route::post('/user2hogosha/delete/', 'App\Http\Controllers\HogoshaController@u2hdelete');
 
-    Route::get('/supporter/add/', 'App\Http\Controllers\SupporterController@add')->name('supporter-add');
-    Route::post('/supporter/add/', 'App\Http\Controllers\SupporterController@create');
-    Route::post('/supporter/edit/', 'App\Http\Controllers\SupporterController@edit');
+    Route::get('/supporter/list', 'App\Http\Controllers\SupporterController@list')->name('supporter-list');
+    Route::get('/supporter/edit/', 'App\Http\Controllers\SupporterController@edit');
+    Route::post('/supporter/create/', 'App\Http\Controllers\SupporterController@create');
+    Route::post('/supporter/update/', 'App\Http\Controllers\SupporterController@update');
     Route::post('/supporter/delete/', 'App\Http\Controllers\SupporterController@delete');
 
-    Route::get('/user2suppo/add/', 'App\Http\Controllers\SupporterController@u2sadd')->name('u2s-add');
-    Route::post('/user2suppo/add/', 'App\Http\Controllers\SupporterController@u2screate');
-    Route::get('/user2suppo/delete/', 'App\Http\Controllers\SupporterController@u2sdelete');
+    Route::get('/user2suppo/list/', 'App\Http\Controllers\SupporterController@u2slist')->name('u2s-list');
+    Route::get('/user2suppo/edit/', 'App\Http\Controllers\SupporterController@u2sedit')->name('u2s-edit');
+    Route::post('/user2suppo/create/', 'App\Http\Controllers\SupporterController@u2screate');
+    Route::post('/user2suppo/delete/', 'App\Http\Controllers\SupporterController@u2sdelete');
 
     /* エルコイン */
     Route::get('/lc/add/', 'App\Http\Controllers\LCoinController@add')->name('lcAdd');

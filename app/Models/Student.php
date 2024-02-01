@@ -4,54 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Consts\DBConst;
 
+use App\Models\Hogosha;
+
 class Student extends Model
 {
+    use HasFactory;
+    use SoftDeletes;
+
     protected $table = 'm_student';
     protected $primaryKey = 'StudentCd';
     protected $keyType = 'string';
     public $incrementing = false;
-
-    use HasFactory;
-
-    public static $rules_edit = [
-        //StudentCd
-        
-        //HogoshaCd
-        'HogoshaCd' => ['required','exists:m_hogosha,HogoshaCd'],
-        //Sei
-        'Sei'=>'required',
-        //Mei
-        'Mei'=>'required',
-        //Hurigana
-        'Hurigana'=>'required',
-        //HyouziMei
-        'HyouziMei'=>'required',
-        //LearningRoomCd
-        'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
-        //riyouShuuryouDate
-        // 'RiyouShuuryouDate'=>['after_or_equal:RiyouKaisiDate'],//nullのとき上手くいかないので
-    ];
-    public static $rules_create = [
-        //StudentCd
-        'StudentCd' => ['required','unique:m_student,StudentCd'],
-        //HogoshaCd
-        'HogoshaCd' => ['required','exists:m_hogosha,HogoshaCd'],
-        //Sei
-        'Sei'=>'required',
-        //Mei
-        'Mei'=>'required',
-        //Hurigana
-        'Hurigana'=>'required',
-        //HyouziMei
-        'HyouziMei'=>'required',
-        //LearningRoomCd
-        'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
-        //riyouShuuryouDate
-        // 'RiyouShuuryouDate'=>['after_or_equal:RiyouKaisiDate'],//nullのとき上手くいかないので
-    ];
 
     protected $fillable = [
         'StudentCd',
@@ -93,5 +60,16 @@ class Student extends Model
         }
 
         return array_column($students->toArray(),'StudentCd');
+    }
+
+    //保護者姓名を取得
+    public function getHogoshaSeiMeiAttribute(){
+        $seimei="";
+        $hogosha = Hogosha::find($this->HogoshaCd);
+
+        if($hogosha){
+            $seimei = $hogosha->Sei." ".$hogosha->Mei;
+        }
+        return $seimei;
     }
 }

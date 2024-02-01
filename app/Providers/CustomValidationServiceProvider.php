@@ -122,5 +122,19 @@ class CustomValidationServiceProvider extends ServiceProvider
             return false;
         });
 
+        //ユーザータイプがサポーター以外ならエラー
+        Validator::extend('user_is_supporter', function($attribute, $value, $parameters, $validator){
+            //$value user_idがセットされる想定
+
+            $usr = User::find($value);
+            if($usr){
+                if($usr->userType == AuthConst::USER_TYPE_SUPPORTER){
+                    return true;
+                }
+            }
+        
+            return false;
+        });
+        
     }
 }

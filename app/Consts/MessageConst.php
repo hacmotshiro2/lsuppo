@@ -20,4 +20,5 @@ class MessageConst
     const IS_DISABLED = '利用可能期間外です。詳しくはサポーターにお問い合わせ下さい。';
     const LINE_ERROR = 'LINEとの接続でエラーが発生しました。';
     const USER_ISNT_HOGOSHA = '指定されたユーザは保護者ではありません。';
+    const USER_ISNT_SUPPORTER = '指定されたユーザはサポーターではありません。';
 }

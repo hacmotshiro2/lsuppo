@@ -5,9 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-use App\Models\Hogosha;
-
-class HogoshaRequest extends FormRequest
+class SupporterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,22 +25,29 @@ class HogoshaRequest extends FormRequest
     public function rules()
     {
         $rules = [
-
             //Sei
             'Sei'=>'required',
             //Mei
             'Mei'=>'required',
             //Hurigana
             'Hurigana'=>'required',
+            //HyouziMei
+            'HyouziMei'=>'required',
             //LearningRoomCd
             'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
+            //authlevel 数値1~9
+            'authlevel' => ['required','integer','between:1,9'],
+            //riyouShuuryouDate
+            // 'RiyouShuuryouDate'=>['after_or_equal:RiyouKaisiDate'],//nullのとき上手くいかないので
         ];
-        //HogoshaCd
+
+        //SupporterCd
         //新規モードの時
         if($this->mode=='create'){
-           $rules['HogoshaCd'] = ['required',Rule::unique('m_hogosha','HogoshaCd')];
-        }
+            $rules['SupporterCd'] = ['required',Rule::unique('m_supporter','SupporterCd')];
+         }
+ 
+         return $rules;
 
-        return $rules;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Consts\DBConst;
 use App\Models\User2Supporter;
@@ -17,44 +18,48 @@ class Supporter extends Model
     protected $keyType = 'string';
     public $incrementing = false;
     protected $guarded = [];
-
-    //validationルール
-    public static $rules_edit = [
-            //SupporterCd
-            
-            //Sei
-            'Sei'=>'required',
-            //Mei
-            'Mei'=>'required',
-            //Hurigana
-            'Hurigana'=>'required',
-            //HyouziMei
-            'HyouziMei'=>'required',
-            //LearningRoomCd
-            'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
-            //authlevel 1字以内
-            'authlevel' => ['required','size:1'],
-            //riyouShuuryouDate
-            // 'RiyouShuuryouDate'=>['after_or_equal:RiyouKaisiDate'],//nullのとき上手くいかないので
+    protected $fillable = [
+        'SupporterCd','Sei','Mei','Hurigana','HyouziMei','RiyouKaisiDate','RiyouShuuryouDate','LearningRoomCd','authlevel','IsLocked','IsNeedPWChange',
+        'UpdateGamen','UpdateSystem'
     ];
-    public static $rules_create = [
-        //SupporterCd
-        'SupporterCd'=>['required','unique:m_supporter,SupporterCd'],
-        //Sei
-        'Sei'=>'required',
-        //Mei
-        'Mei'=>'required',
-        //Hurigana
-        'Hurigana'=>'required',
-        //HyouziMei
-        'HyouziMei'=>'required',
-        //LearningRoomCd
-        'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
-        //authlevel 1字以内
-        'authlevel' => ['required','size:1'],
-        //riyouShuuryouDate
-        // 'RiyouShuuryouDate'=>['after_or_equal:RiyouKaisiDate'],//nullのとき上手くいかないので
-];
+
+//     //validationルール
+//     public static $rules_edit = [
+//             //SupporterCd
+            
+//             //Sei
+//             'Sei'=>'required',
+//             //Mei
+//             'Mei'=>'required',
+//             //Hurigana
+//             'Hurigana'=>'required',
+//             //HyouziMei
+//             'HyouziMei'=>'required',
+//             //LearningRoomCd
+//             'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
+//             //authlevel 1字以内
+//             'authlevel' => ['required','size:1'],
+//             //riyouShuuryouDate
+//             // 'RiyouShuuryouDate'=>['after_or_equal:RiyouKaisiDate'],//nullのとき上手くいかないので
+//     ];
+//     public static $rules_create = [
+//         //SupporterCd
+//         'SupporterCd'=>['required','unique:m_supporter,SupporterCd'],
+//         //Sei
+//         'Sei'=>'required',
+//         //Mei
+//         'Mei'=>'required',
+//         //Hurigana
+//         'Hurigana'=>'required',
+//         //HyouziMei
+//         'HyouziMei'=>'required',
+//         //LearningRoomCd
+//         'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
+//         //authlevel 1字以内
+//         'authlevel' => ['required','size:1'],
+//         //riyouShuuryouDate
+//         // 'RiyouShuuryouDate'=>['after_or_equal:RiyouKaisiDate'],//nullのとき上手くいかないので
+// ];
 public function getCdName(){
         return $this->SupporterCd.':'.$this->HyouziMei;
     }
