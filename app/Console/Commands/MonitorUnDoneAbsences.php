@@ -64,8 +64,10 @@ class MonitorUnDoneAbsences extends Command
             ->whereIn('HurikaeStatus',[0,9])
             ->get();
 
-            //総件数を連想配列にセット
-            $countPerStudent[$student->StudentCd] = $items_un->count();
+            //0件以上であれば総件数を連想配列にセット
+            if($items_un->count()>0){
+                $countPerStudent[$student->StudentCd] = $items_un->count();
+            }
         }
 
         Log::info('[MonitorUnDoneAbsences]2.countPerStudent',[$countPerStudent]);
