@@ -140,6 +140,9 @@ Route::middleware('lsuppo')->group(function () {
     Route::post('/cp/add/', 'App\Http\Controllers\CoursePlanController@addpost');
     Route::get('/cp/detail/', 'App\Http\Controllers\CoursePlanController@detail')->name('cpdetail');
 
+    /* 各種レポート */
+    Route::get('/reports/notificationLogs/','App\Http\Controllers\ReportController@notificationLogs')->name('report-nl');
+
 });
 
 /*LINEログイン関連*/
