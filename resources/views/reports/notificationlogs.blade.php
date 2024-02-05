@@ -1,7 +1,7 @@
 @extends('layouts.lsuppo-base')
 
 @section('title')
-通知ログ一覧
+通知履歴一覧
 @endsection
       
 @section('content')

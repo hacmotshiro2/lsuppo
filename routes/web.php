@@ -141,6 +141,7 @@ Route::middleware('lsuppo')->group(function () {
     Route::get('/cp/detail/', 'App\Http\Controllers\CoursePlanController@detail')->name('cpdetail');
 
     /* 各種レポート */
+    Route::get('/reports/index/','App\Http\Controllers\ReportController@index')->name('report-index');
     Route::get('/reports/notificationLogs/','App\Http\Controllers\ReportController@notificationLogs')->name('report-nl');
 
 });
