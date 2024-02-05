@@ -29,7 +29,7 @@ class User2HogoshaRequest extends FormRequest
         return [
             //user_id
             'user_id' => ['required','exists:users,id'
-                ,Rule::unique('user2hogosha','user_id')->withoutTrashed()
+                ,Rule::unique('user2hogosha','user_id')->withoutTrashed()//DB上は入るようにしているが制約をつける
                 ,'user_is_hogosha'],
             //HogoshaCd
             'HogoshaCd' => ['required','exists:m_hogosha,HogoshaCd'],

@@ -7,7 +7,24 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class User2SupporterRegisteredNotification extends Notification
+use App\Notifications\LSuppoNotification;
+
+use LINE\LINEBot\MessageBuilder;
+use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
+use LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
+use LINE\LINEBot\MessageBuilder\StickerMessageBuilder;
+use LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
+use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
+
+// class User2SupporterRegisteredNotification extends Notification
+class User2SupporterRegisteredNotification extends LSuppoNotification
 {
     use Queueable;
 
@@ -56,6 +73,19 @@ class User2SupporterRegisteredNotification extends Notification
         ->line('');
     }
 
+    public function toLine($notifiable)
+    {
+        $url= url('/');
+
+        return (new TextMessageBuilder("ご利用いただける準備が整いました。
+        \n".$this->name."さん こんにちは　プログラミングスクールLです。
+        \n登録いただいた内容の確認を行い、サポーターとしての準備作業が完了しました。
+        \nご利用いただく準備が全て整いました。
+        \n
+        \nこちらから"
+        .$url."\n"
+        ));
+    }
     /**
      * Get the array representation of the notification.
      *
@@ -67,5 +97,12 @@ class User2SupporterRegisteredNotification extends Notification
         return [
             //
         ];
+    }
+
+    //Override
+    public function shouldSend($notifiable, $channel)
+    {
+        // この通知は必ず送る
+        return true;
     }
 }

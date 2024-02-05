@@ -29,7 +29,7 @@ class User2SupporterRequest extends FormRequest
         return [
             //user_id
             'user_id' => ['required','exists:users,id'
-                ,Rule::unique('user2supporter','user_id')->withoutTrashed()
+                ,Rule::unique('user2supporter','user_id')->withoutTrashed()//DB上は入るようにしているが制約をつける
                 ,'user_is_supporter'],
             //SupporterCd
             'SupporterCd' => ['required','exists:m_supporter,SupporterCd'],
