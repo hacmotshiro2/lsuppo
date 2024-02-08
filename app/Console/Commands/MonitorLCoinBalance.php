@@ -63,9 +63,13 @@ class MonitorLCoinBalance extends Command
 
         Log::info('[MonitorLCoinBalance]1.students',[$students]);
 
-        //2.Studentごとの残高を取得する
+        //2.Studentごとの残高を取得する 0コインはスキップ
         foreach($students as $student){
-            $balancePerStudent[$student->StudentCd] = LCoinMeisai::getLCoinZandakaByStudentCd($student->StudentCd);
+            // $balancePerStudent[$student->StudentCd] = LCoinMeisai::getLCoinZandakaByStudentCd($student->StudentCd);
+            $balance = LCoinMeisai::getLCoinZandakaByStudentCd($student->StudentCd);
+            if($balance <> 0){
+                $balancePerStudent[$student->StudentCd] = $balance;
+            }
         }
 
         Log::info('[MonitorLCoinBalance]2.balancePerStudent',[$balancePerStudent]);

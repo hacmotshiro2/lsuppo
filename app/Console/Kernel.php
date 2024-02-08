@@ -22,9 +22,10 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         //エルコイン残高のチェック（保護者向け、管理者向け）毎月20日朝9時
         $schedule->command(MonitorLCoinBalance::class, [null,null])->monthlyOn(20, '09:00');
+        // $schedule->command(MonitorLCoinBalance::class, [null,null])->everyMinute();
 
         //未振替欠席情報のチェック（保護者向け、管理者向け）毎月5日と20日朝9時
-        $schedule->command(MonitorLUnDoneAbsences::class, [null,null])->twiceMonthlyOn(5, 20, '09:00');
+        $schedule->command(MonitorLUnDoneAbsences::class, [null,null])->twiceMonthly(5, 20, '09:00');
 
     }
 

@@ -53,6 +53,7 @@
                 @elsecan('supporter-binded')
                 <li class="border-b-2 md:border-none md:h-4"><a href="/supporter-page/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">ホーム</a></li>
                 <li class="border-b-2 md:border-none md:h-4"><a href="/fb/index_sp" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">フィードバック</a></li>
+                <li class="border-b-2 md:border-none md:h-4"><a href="/reports/index" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">レポート</a></li>
                 <!-- <li class="border-b-2 md:border-none md:h-4"><a href="/photos/index/" class="block px-8 py-2 my-2 hover:bg-gray-600  rounded">フォトギャラリー　※閉鎖中</a></li> -->
                 <!-- サポーターマスタとの紐づけが完了していないサポーター -->
                 @elsecan('supporter-nobind')

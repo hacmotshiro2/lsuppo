@@ -9,5 +9,7 @@ class DBConst
     const SHOUNIN_STATUS_RETURN = 4;
     const SHOUNIN_STATUS_APPROVED = 5;
 
-
+    /* usersテーブルのnotificationTypeについて */
+    const NT_MAIL = 0;
+    const NT_LINE = 1;
 }
