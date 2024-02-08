@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Consts\DBConst;
+use App\Models\Student;
 
 class MVPresentation extends Model
 {
@@ -49,5 +50,17 @@ class MVPresentation extends Model
         
     }
 
-      
+    //リレーション
+    public function student(){
+        return $this->belongsTo('App\Models\Student');
+    }
+    //生徒名
+    public function getStudentNameAttribute(){
+        $studentName = "";
+        $student = Student::find($this->StudentCd);
+        if($student){
+            $studentName = $student->HyouziMei;
+        }
+        return $studentName;
+    }
 }

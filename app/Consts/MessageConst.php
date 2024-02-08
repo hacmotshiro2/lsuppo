@@ -21,4 +21,5 @@ class MessageConst
     const LINE_ERROR = 'LINEとの接続でエラーが発生しました。';
     const USER_ISNT_HOGOSHA = '指定されたユーザは保護者ではありません。';
     const USER_ISNT_SUPPORTER = '指定されたユーザはサポーターではありません。';
+    const INVALID_TRANSITION = '不正な画面遷移が発生しました。戻ってやり直してください';
 }

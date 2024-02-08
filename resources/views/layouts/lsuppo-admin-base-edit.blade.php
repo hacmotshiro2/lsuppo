@@ -45,9 +45,3 @@
     </div>
 </div>
 @endsection
-
-@section('pageScript')
-<script>
-
-</script>
-@endsection
