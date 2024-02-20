@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 use App\Consts\DBConst;
 
 use App\Models\Supporter;
@@ -12,6 +14,7 @@ use App\Models\Supporter;
 class ApproveHistory extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'r_approvehistory'; 
     protected $fillable = [

@@ -17,12 +17,6 @@ class User2Hogosha extends Model
 
     protected $dates = ['deleted_at'];
 
-    public static $rules = [
-        //user_id
-        'user_id' => ['required','exists:users,id'],
-        //HogoshaCd
-        'HogoshaCd' => ['required','exists:m_hogosha,HogoshaCd'],
-    ];
     protected $fillable = [
         'user_id',
         'HogoshaCd',

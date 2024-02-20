@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Consts\DBConst;
 
 class Hogosha extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'm_hogosha';
     protected $primaryKey = 'HogoshaCd';
@@ -19,32 +21,32 @@ class Hogosha extends Model
         'HogoshaCd','Sei','Mei','Hurigana','RiyouKaisiDate','RiyouShuuryouDate','LearningRoomCd','IsLocked','IsNeedPWChange',
         'UpdateGamen','UpdateSystem'
     ];
-    //編集時のバリデーションルール
-    public static $rules_edit = [
-        //HogoshaCd
+    // //編集時のバリデーションルール
+    // public static $rules_edit = [
+    //     //HogoshaCd
         
-        //Sei
-        'Sei'=>'required',
-        //Mei
-        'Mei'=>'required',
-        //Hurigana
-        'Hurigana'=>'required',
-        //LearningRoomCd
-        'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
-    ];
-    //新規登録時のバリデーションルール
-    public static $rules_create = [
-        //HogoshaCd
-        'HogoshaCd' => ['required','unique:m_hogosha,HogoshaCd'],
-        //Sei
-        'Sei'=>'required',
-        //Mei
-        'Mei'=>'required',
-        //Hurigana
-        'Hurigana'=>'required',
-        //LearningRoomCd
-        'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
-    ];
+    //     //Sei
+    //     'Sei'=>'required',
+    //     //Mei
+    //     'Mei'=>'required',
+    //     //Hurigana
+    //     'Hurigana'=>'required',
+    //     //LearningRoomCd
+    //     'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
+    // ];
+    // //新規登録時のバリデーションルール
+    // public static $rules_create = [
+    //     //HogoshaCd
+    //     'HogoshaCd' => ['required','unique:m_hogosha,HogoshaCd'],
+    //     //Sei
+    //     'Sei'=>'required',
+    //     //Mei
+    //     'Mei'=>'required',
+    //     //Hurigana
+    //     'Hurigana'=>'required',
+    //     //LearningRoomCd
+    //     'LearningRoomCd'=>['exists:m_learningroom,LearningRoomCd'],
+    // ];
 
     public function lr(){
         return $this->belongsTo('App\Models\LR');

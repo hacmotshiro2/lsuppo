@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 use DateTime;
 use App\Consts\DBConst;
 use Illuminate\Support\Facades\Log;
@@ -13,6 +15,7 @@ use App\Models\Student;
 class Absence extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'r_absence'; 
     protected $guarded = ['UpdateTimeStamp'];
@@ -115,7 +118,8 @@ class Absence extends Model
             //ここは通らない想定
             $status = 5;
         }
-        else if(strtotime($this->ExpirationDate) <  strtotime('today')){
+        // else if(strtotime($this->ExpirationDate) <  strtotime('today')){ //バグ対応
+        else if(!empty($this->ExpirationDate) and strtotime($this->ExpirationDate) <  strtotime('today')){
             //期限が切れている場合　9期限切れ
             $status = 9;
         }

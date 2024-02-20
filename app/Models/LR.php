@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class LR extends Model
 {
@@ -12,6 +13,7 @@ class LR extends Model
     protected $keyType = 'string';
 
     use HasFactory;
+    use SoftDeletes;
 
     public function getCdName(){
         return $this->LearningRoomCd.':'.$this->LearningRoomName;

@@ -51,11 +51,11 @@
       <div class="sm:col-span-2 flex justify-between items-center">
         <div class="w-full flex justify-between">
             <button class="rounded-md bg-gray-300 text-gray-700 px-4 py-2" onClick="history.back();">戻る</button>
-            @if($mode=='edit')
+            @if($mode=='update')
             <div class="flex justify-between">
-                <x-lsuppo-submit formaction="/mv/presen/edit" :mode="'edit'">更新</x-lsuppo-submit>
+                <x-lsuppo-submit formaction="/mv/presen/update" :mode="'edit'">更新</x-lsuppo-submit>
             </div>
-            @elseif($mode=='add')
+            @elseif($mode=='create')
                 <x-lsuppo-submit formaction="/mv/presen/create" :mode="'add'">登録</x-lsuppo-submit>
             @else
             @endif

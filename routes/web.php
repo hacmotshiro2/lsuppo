@@ -71,28 +71,34 @@ Route::middleware('lsuppo')->group(function () {
     Route::post('/fb/approve/', 'App\Http\Controllers\FBController@approve');
     Route::post('/fb/decline/', 'App\Http\Controllers\FBController@decline');
 
-    Route::get('/hogosha/add/{HogoshaCd?}', 'App\Http\Controllers\HogoshaController@add')->name('hogosha-add');
-    Route::post('/hogosha/add/', 'App\Http\Controllers\HogoshaController@create');
-    Route::post('/hogosha/edit/', 'App\Http\Controllers\HogoshaController@edit');
+    // Route::get('/hogosha/add/{HogoshaCd?}', 'App\Http\Controllers\HogoshaController@add')->name('hogosha-add');
+    Route::get('/hogosha/list', 'App\Http\Controllers\HogoshaController@list')->name('hogosha-list');
+    Route::get('/hogosha/edit/', 'App\Http\Controllers\HogoshaController@edit');
+    Route::post('/hogosha/create/', 'App\Http\Controllers\HogoshaController@create');
+    Route::post('/hogosha/update/', 'App\Http\Controllers\HogoshaController@update');
     Route::post('/hogosha/delete/', 'App\Http\Controllers\HogoshaController@delete');
 
-    Route::get('/student/add/', 'App\Http\Controllers\StudentController@add')->name('student-add');
-    Route::post('/student/add/', 'App\Http\Controllers\StudentController@create');
-    Route::post('/student/edit/', 'App\Http\Controllers\StudentController@edit');
+    Route::get('/student/list/', 'App\Http\Controllers\StudentController@list')->name('student-list');
+    Route::get('/student/edit/', 'App\Http\Controllers\StudentController@edit')->name('student-edit');
+    Route::post('/student/create/', 'App\Http\Controllers\StudentController@create');
+    Route::post('/student/update/', 'App\Http\Controllers\StudentController@update');
     Route::post('/student/delete/', 'App\Http\Controllers\StudentController@delete');
 
-    Route::get('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hadd')->name('u2h-add');
-    Route::post('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hcreate');
-    Route::get('/user2hogosha/delete/', 'App\Http\Controllers\HogoshaController@u2hdelete');
+    Route::get('/user2hogosha/list/', 'App\Http\Controllers\HogoshaController@u2hlist')->name('u2h-list');
+    Route::get('/user2hogosha/edit/', 'App\Http\Controllers\HogoshaController@u2hedit')->name('u2h-edit');
+    Route::post('/user2hogosha/create/', 'App\Http\Controllers\HogoshaController@u2hcreate');
+    Route::post('/user2hogosha/delete/', 'App\Http\Controllers\HogoshaController@u2hdelete');
 
-    Route::get('/supporter/add/', 'App\Http\Controllers\SupporterController@add')->name('supporter-add');
-    Route::post('/supporter/add/', 'App\Http\Controllers\SupporterController@create');
-    Route::post('/supporter/edit/', 'App\Http\Controllers\SupporterController@edit');
+    Route::get('/supporter/list', 'App\Http\Controllers\SupporterController@list')->name('supporter-list');
+    Route::get('/supporter/edit/', 'App\Http\Controllers\SupporterController@edit');
+    Route::post('/supporter/create/', 'App\Http\Controllers\SupporterController@create');
+    Route::post('/supporter/update/', 'App\Http\Controllers\SupporterController@update');
     Route::post('/supporter/delete/', 'App\Http\Controllers\SupporterController@delete');
 
-    Route::get('/user2suppo/add/', 'App\Http\Controllers\SupporterController@u2sadd')->name('u2s-add');
-    Route::post('/user2suppo/add/', 'App\Http\Controllers\SupporterController@u2screate');
-    Route::get('/user2suppo/delete/', 'App\Http\Controllers\SupporterController@u2sdelete');
+    Route::get('/user2suppo/list/', 'App\Http\Controllers\SupporterController@u2slist')->name('u2s-list');
+    Route::get('/user2suppo/edit/', 'App\Http\Controllers\SupporterController@u2sedit')->name('u2s-edit');
+    Route::post('/user2suppo/create/', 'App\Http\Controllers\SupporterController@u2screate');
+    Route::post('/user2suppo/delete/', 'App\Http\Controllers\SupporterController@u2sdelete');
 
     /* エルコイン */
     Route::get('/lc/add/', 'App\Http\Controllers\LCoinController@add')->name('lcAdd');
@@ -118,11 +124,14 @@ Route::middleware('lsuppo')->group(function () {
     Route::post('/conv/confirm/', 'App\Http\Controllers\ConvController@confirm');
     Route::post('/conv/upload/', 'App\Http\Controllers\ConvController@uploadpost');
     /*発表動画*/
-    Route::get('/mv/presen/all/', 'App\Http\Controllers\MVController@index_admin')->name('mvpresen-all');
-    Route::get('/mv/presen/add/', 'App\Http\Controllers\MVController@add')->name('mvpresen-add');
+    // Route::get('/mv/presen/all/', 'App\Http\Controllers\MVController@index_admin')->name('mvpresen-all');
+    Route::get('/mv/presen/list/', 'App\Http\Controllers\MVController@list')->name('mvpresen-list');
+    // Route::get('/mv/presen/add/', 'App\Http\Controllers\MVController@add')->name('mvpresen-add');
+    Route::get('/mv/presen/edit/', 'App\Http\Controllers\MVController@edit');
+    Route::get('/mv/presen/index_student/', 'App\Http\Controllers\MVController@index_student');//必ずstudentCdを渡す
     Route::post('/mv/presen/confirm/', 'App\Http\Controllers\MVController@confirm');
     Route::post('/mv/presen/create/', 'App\Http\Controllers\MVController@create');
-    Route::post('/mv/presen/edit/', 'App\Http\Controllers\MVController@edit');
+    Route::post('/mv/presen/update/', 'App\Http\Controllers\MVController@update');
     Route::post('/mv/presen/delete/', 'App\Http\Controllers\MVController@delete');
     /* サインイン履歴 */
     Route::get('/signinhistory/index/','App\Http\Controllers\SigninHistoryController@index');
@@ -158,53 +167,7 @@ Route::get('/line/binding/', 'App\Http\Controllers\LINELoginController@binding')
 
 
 
-    #DEBUG用
-    // Route::get('/mail/test/manabiail/','App\Http\Controllers\SettingsController@sendmailtest')->middleware('auth');
-    // Route::get('/line-push/','App\Http\Controllers\SettingsController@linePushtest');
-
-
-
-
-// /*共通ページ*/
-// Route::get('/settings/', 'App\Http\Controllers\SettingsController@settings')->middleware('auth');//
-// Route::post('/settings/edit/', 'App\Http\Controllers\SettingsController@edit')->middleware('auth');//
-
-// /*保護者が参照するページ*/
-// Route::get('/mypage/', 'App\Http\Controllers\HogoshaController@mypage')->middleware('auth')->middleware(SessionControll::class)->name('mypage');
-// Route::get('/fb/detail/{fbNo}', 'App\Http\Controllers\FBController@fbDetail')->middleware('auth')->middleware(SessionControll::class);
-// Route::get('/fb/', 'App\Http\Controllers\FBController@index')->middleware('auth')->middleware(SessionControll::class);
-// Route::get('/lc/', 'App\Http\Controllers\LCoinController@index')->middleware('auth')->middleware(SessionControll::class);
-// // Route::post('/hogosha/edit/', 'App\Http\Controllers\HogoshaController@edit')->middleware('auth')->middleware(SessionControll::class);
-
-// /*サポーターが参照するページ*/
-// Route::get('/supporter-page/','App\Http\Controllers\SupporterController@index')->middleware(SessionControll::class)->name('supporter-page');
-// Route::get('/fb/index_sp', 'App\Http\Controllers\FBController@index_sp')->middleware('auth')->middleware(SessionControll::class);
-// Route::get('/fb/add/', 'App\Http\Controllers\FBController@add')->middleware('auth')->middleware(SessionControll::class);
-// Route::post('/fb/add/', 'App\Http\Controllers\FBController@addpost')->middleware('auth')->middleware(SessionControll::class);
-// Route::get('/fb/edit/{fbNo}', 'App\Http\Controllers\FBController@edit')->middleware('auth')->middleware(SessionControll::class);
-// Route::post('/fb/edit/{fbNo}', 'App\Http\Controllers\FBController@editpost')->middleware('auth')->middleware(SessionControll::class);
-
-// /*権限レベルが高いサポーターが参照するページ*/
-// Route::get('/sysad/', 'App\Http\Controllers\SysAdController@index');
-
-// Route::get('/hogosha/add/', 'App\Http\Controllers\HogoshaController@add');
-// Route::post('/hogosha/add/', 'App\Http\Controllers\HogoshaController@create');
-
-// Route::get('/student/add/', 'App\Http\Controllers\StudentController@add');
-// Route::post('/student/add/', 'App\Http\Controllers\StudentController@create');
-
-// Route::get('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hadd');
-// Route::post('/user2hogosha/add/', 'App\Http\Controllers\HogoshaController@u2hcreate');
-
-// Route::get('/lc/regist/', 'App\Http\Controllers\LCoinController@regist');
-// Route::post('/lc/regist/', 'App\Http\Controllers\LCoinController@registpost');
-
-
-// // Route::get('/fb/list/{id?}', 'App\Http\Controllers\FBController@list');
-
-// // Route::get('/helloworld/{addTxt}', function ($addTxt) {
-// //     $arg = [addTxt ->$addTxt];
-// //     return view('helloworld',$arg);
-// // });
-// #DEBUG用
+#DEBUG用
+// Route::get('/mail/test/manabiail/','App\Http\Controllers\SettingsController@sendmailtest')->middleware('auth');
+// Route::get('/line-push/','App\Http\Controllers\SettingsController@linePushtest');
 // Route::get('/mail/test/manabiail/','App\Http\Controllers\SettingsController@sendmailtest');

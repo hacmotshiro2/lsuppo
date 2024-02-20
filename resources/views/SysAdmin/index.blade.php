@@ -8,7 +8,7 @@
 @section('content')
 <div class="flex flex-wrap md:flex-nowrap">
     <div>
-        @include('components.lsuppo-supermenu')
+        <livewire:lsuppo-supermenu />
     </div>
 <div>
 @endsection

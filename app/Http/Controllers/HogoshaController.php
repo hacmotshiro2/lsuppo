@@ -21,10 +21,11 @@ use App\Consts\AuthConst;
 
 use App\Notifications\User2HogoshaRegisteredNotification;
 
+use App\Http\Requests\HogoshaRequest;
+use App\Http\Requests\User2HogoshaRequest;
+
 class HogoshaController extends Controller
 {
-  
-    
 
     /*保護者用画面*/
     //マイページ　get
@@ -65,46 +66,75 @@ class HogoshaController extends Controller
    
     
     
-    /*システム管理者が使用する画面*/
-    //保護者登録画面へ
-    public function add(Request $request){
-        $mode = 'add';
-        $item = new Hogosha;
+    /* 保護者マスタ登録画面 */
 
-        //クエリ文字列にHogoshaCdがついている場合は、編集モードで開く
-        if(isset($request->HogoshaCd)){
-            $item = Hogosha::where('HogoshaCd',$request->HogoshaCd)->first();
-            $mode = 'edit';
-        }
-        //全件を取得
-        $items = Hogosha::all();
-        $lrs = LR::all();
+    //GET マスタ一覧画面へ
+    public function list(Request $request){
 
-        // //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
-        // $alertComp='';
-        // if($request->session()->has('alertComp')){
-        //     $alertComp = $request->session()->get('alertComp');
-        // }
-        // $alertErr='';
-        // if($request->session()->has('alertErr')){
-        //     $alertErr = $request->session()->get('alertErr');
-        // }
-        
-        $arg=[
-            'mode'=>$mode,
-            'item'=>$item,
-            'items'=>$items,
-            'lrs' =>$lrs,
-            // 'alertComp'=>$alertComp,
-            // 'alertErr'=>$alertErr,
+        $args=[
         ];
 
-        return view('Hogosha.add',$arg);
+        return view('Hogosha.list',$args)->with(parent::getAlertSessions());
+    }
+    //GET マスタ編集画面へ
+    public function edit(Request $request){
+        $mode = 'create';
+
+        //hogoshaCdがあれば、編集モード、なければ新規モード
+        if($request->has('hogoshaCd')){
+            $mode='update';
+        }
+        
+        $args=[
+            'mode'=>$mode,
+            'createAction' =>"/hogosha/create",
+            'updateAction' =>"/hogosha/update",
+            'deleteAction' =>"/hogosha/delete",
+            'backURL'=>"/hogosha/list/",
+        ];
+
+        return view('Hogosha.edit',$args)->with(parent::getAlertSessions());
 
     }
-    //保護者登録画面のPOST
-    public function create(Request $request){
-        $this->validate($request, Hogosha::$rules_create);
+    // //保護者登録画面へ
+    // public function add(Request $request){
+    //     $mode = 'add';
+    //     $item = new Hogosha;
+
+    //     //クエリ文字列にHogoshaCdがついている場合は、編集モードで開く
+    //     if(isset($request->HogoshaCd)){
+    //         $item = Hogosha::where('HogoshaCd',$request->HogoshaCd)->first();
+    //         $mode = 'edit';
+    //     }
+    //     //全件を取得
+    //     $items = Hogosha::all();
+    //     $lrs = LR::all();
+
+    //     //リダイレクト時には、セッションにalertが入ってくる可能性があるので拾う
+    //     $alertComp='';
+    //     if($request->session()->has('alertComp')){
+    //         $alertComp = $request->session()->get('alertComp');
+    //     }
+    //     $alertErr='';
+    //     if($request->session()->has('alertErr')){
+    //         $alertErr = $request->session()->get('alertErr');
+    //     }
+        
+    //     $arg=[
+    //         'mode'=>$mode,
+    //         'item'=>$item,
+    //         'items'=>$items,
+    //         'lrs' =>$lrs,
+    //         'alertComp'=>$alertComp,
+    //         'alertErr'=>$alertErr,
+    //     ];
+
+    //     return view('Hogosha.add',$arg);
+
+    // }
+    //POST Create処理
+    public function create(HogoshaRequest $request){
+        // $this->validate($request, Hogosha::$rules_create);
         $hogosha = new Hogosha;
         $form = $request->all();
         unset($form['_token']);
@@ -126,12 +156,12 @@ class HogoshaController extends Controller
         $args=[
         ];
 
-        return redirect()->route('hogosha-add',$args)->with('alertComp',MessageConst::ADD_COMPLETED);
+        return redirect()->route('hogosha-list',$args)->with('alertComp',MessageConst::ADD_COMPLETED);
     }
-    //保護者登録画面のPOST
-    public function edit(Request $request){
-        $this->validate($request, Hogosha::$rules_edit);
-        $hogosha = Hogosha::where('HogoshaCd',$request->HogoshaCd)->first();
+    // POST Update処理
+    public function update(HogoshaRequest $request){
+
+        $hogosha = Hogosha::find($request->HogoshaCd);
         $form = $request->all();
         unset($form['_token']);
         $hogosha->fill($form);
@@ -148,12 +178,12 @@ class HogoshaController extends Controller
         $args=[
         ];
 
-        return redirect()->route('hogosha-add',$args)->with('alertComp',MessageConst::EDIT_COMPLETED);
+        return redirect()->route('hogosha-list',$args)->with('alertComp',MessageConst::EDIT_COMPLETED);
     }
-    //保護者登録画面のPOST
+    //POST Delete処理
     public function delete(Request $request){
 
-        $hogosha = Hogosha::where('HogoshaCd',$request->HogoshaCd)->first();
+        $hogosha = Hogosha::find($request->HogoshaCd);
 
         $hogosha->delete();
 
@@ -161,41 +191,47 @@ class HogoshaController extends Controller
         $args=[
         ];
 
-        return redirect()->route('hogosha-add',$args)->with('alertComp',MessageConst::DELETE_COMPLETED);
+        return redirect()->route('hogosha-list',$args)->with('alertComp',MessageConst::DELETE_COMPLETED);
     }
-    //user2保護者登録画面へ /user2hogosha/add/
-    public function u2hadd(Request $request, Response $response){
-        
-        $items = User2Hogosha::getu2hData();
 
-        $itemsHogosha = Hogosha::all();
-       
-        
+    /* ここからUser2Hogosha */
+    
+    //user2保護者登録第一画面へ /user2hogosha/list/
+    public function u2hlist(Request $request, Response $response){
+
         $args=[
-            'items'=>$items,
-            'itemsHogosha' =>$itemsHogosha,
-            // 'alertComp'=>$alertComp,
-            // 'alertErr'=>$alertErr,
         ];
 
-        // return view('user2hogosha.add',$args)->with('alertComp',$request->session()->get('alertComp'));
-        return view('user2hogosha.add',$args)
-        ->with([
-            'alertComp'=>session('alertComp'),
-            'alertErr'=>session('alertErr'),
-            'alertInfo'=>session('alertInfo'),
-            'alertWar'=>session('alertWar'),
-        ]);
+        return view('user2hogosha.list',$args)->with(parent::getAlertSessions());
 
     }
+    //user2保護者登録第二画面へ /user2hogosha/edit/ GET
+    public function u2hedit(Request $request, Response $response){
+        $mode = 'create';
+
+        //u2h_idがあれば、編集モード、なければ新規モード
+        if($request->has('u2h_id')){
+            //当マスタは編集モード非対応のため
+            $mode='delete';
+        }
+        
+        $args=[
+            'mode'=>$mode,
+            'createAction' =>"/user2hogosha/create",
+            'updateAction' =>"",
+            'deleteAction' =>"/user2hogosha/delete",
+            'backURL'=>"/user2hogosha/list/",
+        ];
+
+        return view('user2hogosha.edit',$args)->with(parent::getAlertSessions());
+    }
     //user2保護者登録画面のPOST
-    public function u2hcreate(Request $request){
-        $this->validate($request, User2Hogosha::$rules);
+    public function u2hcreate(User2HogoshaRequest $request){
+        // $this->validate($request, User2Hogosha::$rules);
         $u2h = new User2Hogosha;
         $form = $request->all();
         unset($form['_token']);
         $u2h->fill($form);
-
 
         $u2h->save();
 
@@ -209,19 +245,24 @@ class HogoshaController extends Controller
         $args=[
         ];
 
-        return redirect()->route('u2h-add',$args)->with('alertComp',MessageConst::ADD_COMPLETED);
+        return redirect()->route('u2h-list',$args)
+        ->with('alertComp',MessageConst::ADD_COMPLETED);
 
     }
-    //
+    //user2保護者削除のPOST
     public function u2hdelete(Request $request){
         $u2h_id = $request->u2h_id;
 
         $u2h = User2Hogosha::find($u2h_id);
-        $u2h->delete();
+        if($u2h){
+            $u2h->delete();
+        }
 
         $args=[
         ];
-        return redirect()->route('u2h-add',$args)->with('alertComp',MessageConst::DELETE_COMPLETED);
+
+        return redirect()->route('u2h-list',$args)
+        ->with('alertComp',MessageConst::DELETE_COMPLETED);
     }
 
 }

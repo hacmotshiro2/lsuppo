@@ -7,7 +7,24 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UserRegisteredNotification extends Notification
+use App\Notifications\LSuppoNotification;
+
+use LINE\LINEBot\MessageBuilder;
+use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
+use LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
+use LINE\LINEBot\MessageBuilder\StickerMessageBuilder;
+use LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
+use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
+
+// class UserRegisteredNotification extends Notification
+class UserRegisteredNotification extends LSuppoNotification
 {
     use Queueable;
 
@@ -52,6 +69,18 @@ class UserRegisteredNotification extends Notification
                     ->line('いつもありがとうございます。');
     }
 
+    public function toLine($notifiable)
+    {
+        $url= url('/');
+
+        return (new TextMessageBuilder("登録頂きありがとうございました。
+        \nこんにちは　プログラミングスクールLです。
+        \nエルサポでユーザーの登録が完了しました。
+        \nこの後、管理者による確認作業が必要です。お待ちください。
+        \n準備が整いましたら、改めてご案内致します。
+        "
+        ));
+    }
     /**
      * Get the array representation of the notification.
      *
@@ -63,5 +92,12 @@ class UserRegisteredNotification extends Notification
         return [
             //
         ];
+    }
+
+    //Override
+    public function shouldSend($notifiable, $channel)
+    {
+        // この通知は必ず送る
+        return true;
     }
 }
